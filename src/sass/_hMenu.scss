@@ -1,0 +1,60 @@
+.hMenu {
+    //background-color: white;
+    width: 7vh;
+    height: 7vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    top: 3%; 
+    left: 2%;
+    &:hover {
+        cursor: pointer;
+    }
+    &__line {
+        background-color: yellow;
+        width: 100%;
+        height: 1vh;
+        border-radius: 1vh;
+    }
+}
+
+.menuOptions {
+    background-color: black;
+    width: 30vh;
+    height: auto;
+    display: none;
+    flex-direction: column;
+    align-items: start;
+    position: absolute;
+    top: 15%; 
+    left: 2%;
+    z-index: 1;
+    padding: 2vh 1vh 1vh 1vh;
+    border-radius: 2vh;
+    border: 0.5vh solid yellow;
+    &__item {
+        color: white;
+        text-decoration: none;
+        z-index: 2;
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+    &__closeW {
+        //background-color: aqua;
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: end;
+        &__btn {
+            color: white;
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+}
