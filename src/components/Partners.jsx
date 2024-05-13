@@ -40,12 +40,16 @@ const Partners = () => {
             try {
               const response = await fetch(`http://localhost:8081/api/sessions/current?cookie=${cookieValue}`)
               const data = await response.json();
-              const user = data.data
-              setRole(user.role)
+              if(data.error === 'jwt expired') {
+                logout()
+              } else {
+                const user = data.data
+                setRole(user.role)
+              }
             } catch (error) {
               console.error('Error:', error);
             }
-        };
+          };
         fetchData();
         if(cookieValue) {
             login()
@@ -179,29 +183,30 @@ const Partners = () => {
                                 <form>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Nombre:</h2>
-                                        <input className='partnersContainer__form__credentials__label-input__input' placeholder='Nombre' onChange={(e) => {setFirstName(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Nombre' value={inputFirstNamePa} onChange={(e) => {handleInputFirstNamePa(e.target.value)}}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Apellido:</h2>
-                                        <input className='partnersContainer__form__credentials__label-input__input' placeholder='Apellido' onChange={(e) => {setLastName(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Apellido' value={inputLastNamePa} onChange={(e) => {handleInputLastNamePa(e.target.value)}}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Dni:</h2>
-                                        <input className='partnersContainer__form__credentials__label-input__input' type='number' placeholder='Dni' onChange={(e) => {setDni(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Dni' value={inputDniPa} onChange={(e) => {handleInputDniPa(e.target.value)}}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Teléfono:</h2>
-                                        <input className='partnersContainer__form__credentials__label-input__input' type='number' placeholder='Teléfono' onChange={(e) => {setPhone(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Teléfono' value={inputPhonePa} onChange={(e) => {handleInputPhonePa(e.target.value)}}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Email:</h2>
-                                        <input className='partnersContainer__form__credentials__label-input__input' type='email' placeholder='Email' onChange={(e) => {setEmail(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='email' placeholder='Email' value={inputEmailPa} onChange={(e) => {handleInputEmailPa(e.target.value)}}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__btn'>
-                                        <button className='partnersContainer__form__credentials__btn__prop' onClick={loginToast}>Registrarse</button>
+                                        <button id='pagarCuotaSocioBtn' className='partnersContainer__form__credentials__btn__prop' onClick={handlePartnerPay}>Registrarse</button>
                                     </div> 
                                 </form>
                             </div>
+                            {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} />} 
                         </div>
                     </div>
                     <LogOut/> 

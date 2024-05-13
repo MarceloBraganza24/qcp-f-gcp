@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IsLoggedInContext } from './context/IsLoggedContext'
 import { ParentComponent } from './context/InputDataShContext'
 import { ParentPaComponent } from './context/InputDataPaContext'
+import { ParentPrComponent } from './context/InputDataPrContext'
+import { ParentProdComponent } from './context/InputDataProdContext'
 import { ParentShLComponent } from './context/InputDataShLContext'
 import ShiftsList from './components/ShiftsList';
 import PartnersList from './components/PartnersList';
@@ -26,6 +28,11 @@ function App() {
       <IsLoggedInContext>
 
         <ParentPaComponent>
+
+        <ParentPrComponent>
+
+        <ParentProdComponent>
+
 
         <ParentComponent>
 
@@ -53,11 +60,13 @@ function App() {
 
         </ParentComponent>
 
+        </ParentProdComponent>
+        
+        </ParentPrComponent>
+
         </ParentPaComponent>
 
       </IsLoggedInContext>
-
-            
 
     </BrowserRouter>
 

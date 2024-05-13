@@ -5,7 +5,6 @@ import LogOut from './LogOut';
 import { toast } from "react-toastify";
 import {IsLoggedContext} from '../context/IsLoggedContext';
 import {InputDataPaContext} from '../context/InputDataPaContext';
-import 'react-datepicker/dist/react-datepicker.css';
 import HMenu from './HMenu';
 import ItemPartner from './ItemPartner';
 import { Link } from 'react-router-dom';
@@ -45,12 +44,16 @@ const PartnersList = () => {
             try {
               const response = await fetch(`http://localhost:8081/api/sessions/current?cookie=${cookieValue}`)
               const data = await response.json();
-              const user = data.data
-              setRole(user.role)
+              if(data.error === 'jwt expired') {
+                logout()
+              } else {
+                const user = data.data
+                setRole(user.role)
+              }
             } catch (error) {
               console.error('Error:', error);
             }
-        };
+          };
         fetchUser();
         if(cookieValue) {
             login()
@@ -67,7 +70,7 @@ const PartnersList = () => {
     }
     partners.sort((a, b) => convertirAFecha(b.partner_datetime) - convertirAFecha(a.partner_datetime));
 
-    function filtrarPorNombre(valorIngresado) {
+    function filtrarPorApellido(valorIngresado) {
         // Convertimos el valor ingresado a minúsculas para hacer la comparación sin importar mayúsculas o minúsculas
         const valorMinusculas = valorIngresado.toLowerCase();
         
@@ -81,7 +84,7 @@ const PartnersList = () => {
     
         return objetosFiltrados;
     }
-    const objetosFiltrados = filtrarPorNombre(inputFilteredPartners);
+    const objetosFiltrados = filtrarPorApellido(inputFilteredPartners);
     //console.log(objetosFiltrados);
     /* inputFilteredPartners.addEventListener('input', function() {
         const valorInput = this.value; // Obtener el valor del input

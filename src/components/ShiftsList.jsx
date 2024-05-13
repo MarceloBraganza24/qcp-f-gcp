@@ -101,12 +101,16 @@ const ShiftsList = () => {
             try {
               const response = await fetch(`http://localhost:8081/api/sessions/current?cookie=${cookieValue}`)
               const data = await response.json();
-              const user = data.data
-              setRole(user.role)
+              if(data.error === 'jwt expired') {
+                logout()
+              } else {
+                const user = data.data
+                setRole(user.role)
+              }
             } catch (error) {
               console.error('Error:', error);
             }
-        };
+          };
         fetchUser();
         if(cookieValue) {
             login()
