@@ -33,11 +33,10 @@ function App() {
 
         <ParentProdComponent>
 
-
         <ParentComponent>
 
         <ParentShLComponent>
-        
+
           <Routes>
 
             <Route exact path="/login" element={<Login/>}/>
@@ -53,7 +52,7 @@ function App() {
             <Route exact path="/productsList" element={<ProductsList/>}/>
 
           </Routes>
-
+          
           <ToastContainer />
 
         </ParentShLComponent>

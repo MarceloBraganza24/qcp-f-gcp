@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useContext } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast } from "react-toastify";
 import { format } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
+//import {InputDataIShLContext} from '../context/InputDataIShLContext';
 
 const ItemShift = ({id, first_name,last_name,date,schedule}) => {
+    //const { inputFirstNameIShL, handleInputFirstNameIShL, inputLastNameIShL, handleInputLastNameIShL, inputDateIShL, handleDateChangeIShL, inputScheduleHIShL, handleInputScheduleHIShL, inputScheduleMIShL, handleInputScheduleMIShL } = useContext(InputDataIShLContext);
     const [inputFirstNameISh, setInputFirstNameISh] = useState('');
     const [inputLastNameISh, setInputLastNameISh] = useState('');
     const [inputDateISh, handleInputDateISh] = useState('');
     const [inputScheduleHISh, handleInputScheduleHISh] = useState('');
-    const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
+    const [inputScheduleMISh, handleInputScheduleMISh] = useState(''); 
 
     const fechaUTC = toZonedTime(date, 'UTC');
     const dateFormated = format(fechaUTC, "dd/MM/yyyy");
@@ -48,17 +50,6 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     const handleDateChange = date => {
         handleInputDateISh(date);
     };
-
-    const handleInputFirstNameISh = (e) => {
-        const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
-        setInputFirstNameISh(texto);
-    };
-
-    const handleInputLastNameISh = (e) => {
-        const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
-        setInputLastNameISh(texto);
-    };
-
     
     const handleBtnDelShift = async() => {
         const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
@@ -223,10 +214,10 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     <>
         <div className='itemShift'>
             <div className='itemShift__input'>
-                <input className='itemShift__input__prop' placeholder={first_name} value={inputFirstNameISh} onChange={handleInputFirstNameISh}/>
+                <input className='itemShift__input__prop' placeholder={first_name} value={inputFirstNameISh} onChange={(e) => setInputFirstNameISh(e.target.value)}/>
             </div>
             <div className='itemShift__input'>
-                <input className='itemShift__input__prop' placeholder={last_name} value={inputLastNameISh} onChange={handleInputLastNameISh}/>
+                <input className='itemShift__input__prop' placeholder={last_name} value={inputLastNameISh} onChange={(e) => setInputLastNameISh(e.target.value)}/>
             </div>
             <div className='itemShift__input'>
                 <DatePicker className='datePikerShiftsList'

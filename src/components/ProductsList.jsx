@@ -63,17 +63,11 @@ const ProductsList = () => {
     }, []);
 
     function filtrarPorTitulo(valorIngresado) {
-        // Convertimos el valor ingresado a minúsculas para hacer la comparación sin importar mayúsculas o minúsculas
         const valorMinusculas = valorIngresado.toLowerCase();
-        
-        // Filtramos el arreglo de objetos
         const objetosFiltrados = products.filter(objeto => {
-            // Convertimos el nombre del objeto a minúsculas para la comparación
             const nombreMinusculas = objeto.title.toLowerCase();
-            // Retornamos true si el nombre del objeto contiene el valor ingresado
             return nombreMinusculas.includes(valorMinusculas);
         });
-    
         return objetosFiltrados;
     }
     const objetosFiltrados = filtrarPorTitulo(inputFilteredProducts);    
