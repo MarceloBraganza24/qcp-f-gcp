@@ -1,0 +1,43 @@
+.modalContainer {
+    background-color: black;
+    width: 40%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 5vh 0vh;
+    gap: 1vh;
+    z-index: 1;
+    &__ask {
+        text-align: center;
+        color: white;
+        font-size: 25px;
+    }
+    &__name {
+        text-align: center;
+        color: white;
+        font-size: 25px;
+    }
+    &__btns {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 1vh;
+        :hover {
+            background-color: yellow;
+        }
+        &__btn {
+            background-color: white;
+            width: 45%;
+            height: auto;
+            border-radius: 1vh;
+            font-size: 25px;
+            //padding: 1vh 0vh;
+        }
+    }
+}

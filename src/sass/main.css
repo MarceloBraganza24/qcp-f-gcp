@@ -1513,6 +1513,51 @@ h2 {
   text-decoration: underline;
 }
 
+.modalContainer {
+  background-color: black;
+  width: 40%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0.5vh solid white;
+  border-radius: 2vh;
+  padding: 5vh 0vh;
+  gap: 1vh;
+  z-index: 1;
+}
+.modalContainer__ask {
+  text-align: center;
+  color: white;
+  font-size: 25px;
+}
+.modalContainer__name {
+  text-align: center;
+  color: white;
+  font-size: 25px;
+}
+.modalContainer__btns {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vh;
+}
+.modalContainer__btns :hover {
+  background-color: yellow;
+}
+.modalContainer__btns__btn {
+  background-color: white;
+  width: 45%;
+  height: auto;
+  border-radius: 1vh;
+  font-size: 25px;
+}
+
 @media (min-width: 1540px) {
   .aboutContainer__descriptionContainer {
     font-size: 30px;
