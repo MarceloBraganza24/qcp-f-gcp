@@ -1,11 +1,46 @@
 import React, { useState } from 'react'
 import { toast } from "react-toastify";
+import ProvidersListModal from './ProvidersListModal';
 
 const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
-    const [inputBusinessNamePr, setInputBusinessNamePr] = useState('');
-    const [inputCuitCuilPr, setInputCuitCuilPr] = useState('');
-    const [inputPhonePr, setInputPhonePr] = useState('');
-    const [inputEmailPr, setInputEmailPr] = useState('');
+    const [inputBusinessNameIPr, setInputBusinessNameIPr] = useState('');
+    const [inputCuitCuilIPr, setInputCuitCuilIPr] = useState('');
+    const [inputPhoneIPr, setInputPhoneIPr] = useState('');
+    const [inputEmailIPr, setInputEmailIPr] = useState('');
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handleOnBlurInputBNIPr = () => {
+        inputBusinessNameIPr!==''?setModalOpen(true):inputCuitCuilIPr!==''?setModalOpen(true):inputPhoneIPr!==''?setModalOpen(true):inputEmailIPr!==''&&setModalOpen(true)
+    }
+
+    const handleOnBlurInputCCIPr = () => {
+        inputBusinessNameIPr!==''?setModalOpen(true):inputCuitCuilIPr!==''?setModalOpen(true):inputPhoneIPr!==''?setModalOpen(true):inputEmailIPr!==''&&setModalOpen(true)
+    }
+
+    const handleOnBlurInputPhoIPr = () => {
+        inputBusinessNameIPr!==''?setModalOpen(true):inputCuitCuilIPr!==''?setModalOpen(true):inputPhoneIPr!==''?setModalOpen(true):inputEmailIPr!==''&&setModalOpen(true)
+    }
+
+    const handleOnBlurInputEmailIPr = () => {
+        inputBusinessNameIPr!==''?setModalOpen(true):inputCuitCuilIPr!==''?setModalOpen(true):inputPhoneIPr!==''?setModalOpen(true):inputEmailIPr!==''&&setModalOpen(true)
+    }
+
+    const handleFocusInputBNIPr = () => {
+        setModalOpen(false);
+    };
+
+    const handleFocusInputCCIPr = () => {
+        setModalOpen(false);
+    };
+
+    const handleFocusInputPhoIPr = () => {
+        setModalOpen(false);
+    };
+
+    const handleFocusInputEmailIPr = () => {
+        setModalOpen(false);
+    };
 
     const handleBtnDelProvider = async() => {
         const response = await fetch(`http://localhost:8081/api/providers/${id}`, {
@@ -32,7 +67,7 @@ const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
     };
 
     const handleBtnUpdProvider = async() => {
-        if(inputBusinessNamePr === '' && inputCuitCuilPr === '' && inputPhonePr === '' && inputEmailPr === '') {
+        if(inputBusinessNameIPr === '' && inputCuitCuilIPr === '' && inputPhoneIPr === '' && inputEmailIPr === '') {
             toast('No tienes cambios para actualizar!', {
                 position: "top-right",
                 autoClose: 1500,
@@ -45,10 +80,10 @@ const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
             });
         } else {
             const providerToUpdate = {
-                business_name: inputBusinessNamePr?inputBusinessNamePr:businessName,
-                cuit_cuil: inputCuitCuilPr?inputCuitCuilPr:cuitCuil,
-                phone: inputPhonePr?inputPhonePr:phone,
-                email: inputEmailPr?inputEmailPr:email
+                business_name: inputBusinessNameIPr?inputBusinessNameIPr:businessName,
+                cuit_cuil: inputCuitCuilIPr?inputCuitCuilIPr:cuitCuil,
+                phone: inputPhoneIPr?inputPhoneIPr:phone,
+                email: inputEmailIPr?inputEmailIPr:email
             }
             const response = await fetch(`http://localhost:8081/api/providers/${id}`, {
                 method: 'PUT',         
@@ -77,24 +112,39 @@ const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
  
   return (
     <>
+    
         <div className='itemProvider'>
             <div className='itemProvider__input'>
-                <input className='itemProvider__input__prop' placeholder={businessName} value={inputBusinessNamePr} onChange={(e) => {setInputBusinessNamePr(e.target.value)}}/>
+                <input className='itemProvider__input__prop' value={!inputBusinessNameIPr?businessName:inputBusinessNameIPr} onFocus={handleFocusInputBNIPr} onBlur={handleOnBlurInputBNIPr} onChange={(e) => {setInputBusinessNameIPr(e.target.value)}}/>
             </div>
             <div className='itemProvider__input'>
-                <input className='itemProvider__input__prop' type='number' placeholder={cuitCuil} value={inputCuitCuilPr} onChange={(e) => {setInputCuitCuilPr(e.target.value)}}/>
+                <input className='itemProvider__input__prop' type='number' value={!inputCuitCuilIPr?cuitCuil:inputCuitCuilIPr} onFocus={handleFocusInputCCIPr} onBlur={handleOnBlurInputCCIPr}  onChange={(e) => {setInputCuitCuilIPr(e.target.value)}}/>
             </div>
             <div className='itemProvider__input'>
-                <input className='itemProvider__input__prop' type='number' placeholder={phone} value={inputPhonePr} onChange={(e) => {setInputPhonePr(e.target.value)}}/>
+                <input className='itemProvider__input__prop' type='number' value={!inputPhoneIPr?phone:inputPhoneIPr} onFocus={handleFocusInputPhoIPr} onBlur={handleOnBlurInputPhoIPr}  onChange={(e) => {setInputPhoneIPr(e.target.value)}}/>
             </div>
             <div className='itemProvider__input'>
-                <input className='itemProvider__input__prop' placeholder={email} value={inputEmailPr} onChange={(e) => {setInputEmailPr(e.target.value)}}/>
+                <input className='itemProvider__input__prop' value={!inputEmailIPr?email:inputEmailIPr} onFocus={handleFocusInputEmailIPr} onBlur={handleOnBlurInputEmailIPr}  onChange={(e) => {setInputEmailIPr(e.target.value)}}/>
             </div>
             <div className='itemProvider__btns'>
                 <button className='itemProvider__btns__btn' onClick={handleBtnDelProvider}>Borrar</button>
                 <button className='itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
             </div>
         </div>
+        {
+            modalOpen && 
+            <ProvidersListModal
+            id={id}
+            businessName={businessName}
+            cuitCuil={cuitCuil}
+            phone={phone}
+            email={email}
+            inputBusinessNameIPr={inputBusinessNameIPr}
+            inputCuitCuilIPr={inputCuitCuilIPr}
+            inputPhoneIPr={inputPhoneIPr}
+            inputEmailIPr={inputEmailIPr}
+            />
+        }
     </>
   )
 }

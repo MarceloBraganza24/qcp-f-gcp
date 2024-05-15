@@ -1515,7 +1515,7 @@ h2 {
 
 .modalContainer {
   background-color: black;
-  width: 40%;
+  width: 50%;
   height: auto;
   display: flex;
   flex-direction: column;

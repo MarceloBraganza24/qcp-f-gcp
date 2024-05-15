@@ -16,34 +16,33 @@ const ShiftsList = () => {
     const { inputFirstNameShL, handleInputFirstNameShL, inputLastNameShL, handleInputLastNameShL, inputDateShL, handleInputDateShL, inputScheduleShL, handleInputScheduleShL } = useContext(InputDataShLContext);
     const {isLoggedIn, login, logout} = useContext(IsLoggedContext);
     const [role, setRole] = useState('');
+    const [shifts, setShifts] = useState([]);
+    
     const [selectedYearValue, setSelectedYearsValue] = useState(`${new Date().getFullYear()}`);
-
+    
     let currentMonth = currentDate.getMonth();
     currentMonth += 1;
     const [selectedMonthValue, setSelectedMonthsValue] = useState(`${currentMonth}`);
-
+    
     const currentDay = currentDate.getDate();
     const [selectedDayValue, setSelectedDayValue] = useState(`${currentDay}`);
-    const [shifts, setShifts] = useState([]);
-
+    
     const [inputScheduleHISh, handleInputScheduleHISh] = useState('');
     const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
-
     
-
     function compararFechas(objeto1, objeto2) {
         var fechaHora1 = new Date(objeto1.date + " " + objeto1.schedule);
         var fechaHora2 = new Date(objeto2.date + " " + objeto2.schedule);
         return fechaHora1 - fechaHora2;
     }
     const shiftsOrganized = shifts.sort(compararFechas);
-
+    
     function filtrarPorFecha(shiftsOrganized, fecha) {
         return shiftsOrganized.filter(objeto => objeto.date === fecha);
     }
-
+    
     const dateDesired = selectedYearValue + '-' + (selectedMonthValue==='1'?'01':selectedMonthValue==='2'?'02':selectedMonthValue==='3'?'03':selectedMonthValue==='4'?'04':selectedMonthValue==='5'?'05':selectedMonthValue==='6'?'06':selectedMonthValue==='7'?'07':selectedMonthValue==='8'?'08':selectedMonthValue==='9'?'09':selectedMonthValue==='10'?'10':selectedMonthValue==='11'?'11':selectedMonthValue==='12'?'12':selectedMonthValue==='') + '-' + (selectedDayValue==='1'?'01':selectedDayValue==='2'?'02':selectedDayValue==='3'?'03':selectedDayValue==='4'?'04':selectedDayValue==='5'?'05':selectedDayValue==='6'?'06':selectedDayValue==='7'?'07':selectedDayValue==='8'?'08':selectedDayValue==='9'?'09':selectedDayValue)
-    const fechaDeseada = dateDesired; 
+    const fechaDeseada = dateDesired;
     const objetosFiltrados = filtrarPorFecha(shiftsOrganized, fechaDeseada);
 
     const handleInputScheduleH = (event) => {

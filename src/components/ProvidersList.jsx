@@ -62,26 +62,20 @@ const ProvidersList = () => {
           }
     }, []);
 
-    /* function convertirAFecha(cadenaFecha) {
+    function convertirAFecha(cadenaFecha) {
         const [fecha, hora] = cadenaFecha.split(', ');
         const [dia, mes, año] = fecha.split('/');
         const [horas, minutos, segundos] = hora.split(':');
         return new Date(`${mes}/${dia}/${año} ${horas}:${minutos}:${segundos}`);
     }
-    providers.sort((a, b) => convertirAFecha(b.provider_datetime) - convertirAFecha(a.provider_datetime)); */
+    providers.sort((a, b) => convertirAFecha(b.provider_datetime) - convertirAFecha(a.provider_datetime));
 
     function filtrarPorRazonSocial(valorIngresado) {
-        // Convertimos el valor ingresado a minúsculas para hacer la comparación sin importar mayúsculas o minúsculas
         const valorMinusculas = valorIngresado.toLowerCase();
-        
-        // Filtramos el arreglo de objetos
         const objetosFiltrados = providers.filter(objeto => {
-            // Convertimos el nombre del objeto a minúsculas para la comparación
             const nombreMinusculas = objeto.business_name.toLowerCase();
-            // Retornamos true si el nombre del objeto contiene el valor ingresado
             return nombreMinusculas.includes(valorMinusculas);
         });
-    
         return objetosFiltrados;
     }
     const objetosFiltrados = filtrarPorRazonSocial(inputFilteredProviders);    
@@ -112,6 +106,19 @@ const ProvidersList = () => {
                 },
                 body: JSON.stringify(providerToCreate)
             })
+            const data = await response.json();
+            if(data.error === 'No recipients defined') {
+                toast('El formato del campo email ingresado no es valido!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
             if(response.ok) {
                 toast('Has registrado un proveedor correctamente!', {
                     position: "top-right",

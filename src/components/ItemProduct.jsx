@@ -1,12 +1,55 @@
 import React, { useState } from 'react'
 import { toast } from "react-toastify";
+import ProductsListModal from './ProductsListModal';
 
 const ItemProduct = ({id,title,description,price,stock,category}) => {
-    const [inputTitleProd, setInputTitleProd] = useState('');
-    const [inputDescriptionProd, setinputDescriptionProd] = useState('');
-    const [inputPriceProd, setInputPriceProd] = useState('');
-    const [inputStockProd, setInputStockProd] = useState('');
-    const [inputCategoryProd, setInputCategoryProd] = useState('');
+    const [inputTitleIProd, setInputTitleIProd] = useState('');
+    const [inputDescriptionIProd, setinputDescriptionIProd] = useState('');
+    const [inputPriceIProd, setInputPriceIProd] = useState('');
+    const [inputStockIProd, setInputStockIProd] = useState('');
+    const [inputCategoryIProd, setInputCategoryIProd] = useState('');
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handleOnBlurInputTitleIProd = () => {
+        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+    }
+
+    const handleOnBlurInputDescrIProd = () => {
+        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+    }
+
+    const handleOnBlurInputPriceIProd = () => {
+        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+    }
+
+    const handleOnBlurInputStockIProd = () => {
+        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+    }
+
+    const handleOnBlurInputCategIProd = () => {
+        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+    }
+
+    const handleFocusInputTitleIProd = () => {
+        setModalOpen(false);
+    };
+
+    const handleFocusInputDescrIProd = () => {
+        setModalOpen(false);
+    };
+
+    const handleFocusInputPriceIProd = () => {
+        setModalOpen(false);
+    };
+
+    const handleFocusInputStockIProd = () => {
+        setModalOpen(false);
+    };
+
+    const handleFocusInputCategIProd = () => {
+        setModalOpen(false);
+    };
 
     const handleBtnDelProduct = async() => {
         const response = await fetch(`http://localhost:8081/api/products/${id}`, {
@@ -33,7 +76,7 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
     };
 
     const handleBtnUpdProduct = async() => {
-        if(inputTitleProd === '' && inputDescriptionProd === '' && inputPriceProd === '' && inputStockProd === '' && inputCategoryProd === '') {
+        if(inputTitleIProd === '' && inputDescriptionIProd === '' && inputPriceIProd === '' && inputStockIProd === '' && inputCategoryIProd === '') {
             toast('No tienes cambios para actualizar!', {
                 position: "top-right",
                 autoClose: 1500,
@@ -46,11 +89,11 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
             });
         } else {
             const productToUpdate = {
-                title: inputTitleProd?inputTitleProd:title,
-                description: inputDescriptionProd?inputDescriptionProd:description,
-                price: inputPriceProd?inputPriceProd:price,
-                stock: inputStockProd?inputStockProd:stock,
-                category: inputCategoryProd?inputCategoryProd:category
+                title: inputTitleIProd?inputTitleIProd:title,
+                description: inputDescriptionIProd?inputDescriptionIProd:description,
+                price: inputPriceIProd?inputPriceIProd:price,
+                stock: inputStockIProd?inputStockIProd:stock,
+                category: inputCategoryIProd?inputCategoryIProd:category
             }
             const response = await fetch(`http://localhost:8081/api/products/${id}`, {
                 method: 'PUT',         
@@ -81,25 +124,41 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
     <>
         <div className='itemProduct'>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' placeholder={title} value={inputTitleProd} onChange={(e) => {setInputTitleProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' value={!inputTitleIProd?title:inputTitleIProd} onFocus={handleFocusInputTitleIProd} onBlur={handleOnBlurInputTitleIProd} onChange={(e) => {setInputTitleIProd(e.target.value)}}/>
             </div>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' placeholder={description} value={inputDescriptionProd} onChange={(e) => {setinputDescriptionProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' value={!inputDescriptionIProd?description:inputDescriptionIProd} onFocus={handleFocusInputDescrIProd} onBlur={handleOnBlurInputDescrIProd} onChange={(e) => {setinputDescriptionIProd(e.target.value)}}/>
             </div>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' type='number' placeholder={price} value={inputPriceProd} onChange={(e) => {setInputPriceProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' type='number' value={!inputPriceIProd?price:inputPriceIProd} onFocus={handleFocusInputPriceIProd} onBlur={handleOnBlurInputPriceIProd} onChange={(e) => {setInputPriceIProd(e.target.value)}}/>
             </div>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' type='number' placeholder={stock} value={inputStockProd} onChange={(e) => {setInputStockProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' type='number' value={!inputStockIProd?stock:inputStockIProd} onFocus={handleFocusInputStockIProd} onBlur={handleOnBlurInputStockIProd} onChange={(e) => {setInputStockIProd(e.target.value)}}/>
             </div>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' placeholder={category} value={inputCategoryProd} onChange={(e) => {setInputCategoryProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' value={!inputCategoryIProd?category:inputCategoryIProd} onFocus={handleFocusInputCategIProd} onBlur={handleOnBlurInputCategIProd} onChange={(e) => {setInputCategoryIProd(e.target.value)}}/>
             </div>
             <div className='itemProduct__btns'>
                 <button className='itemProduct__btns__btn' onClick={handleBtnDelProduct}>Borrar</button>
                 <button className='itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
             </div>
         </div>
+        {
+            modalOpen && 
+            <ProductsListModal
+            id={id}
+            title={title}
+            description={description}
+            price={price}
+            stock={stock}
+            category={category}
+            inputTitleIProd={inputTitleIProd}
+            inputDescriptionIProd={inputDescriptionIProd}
+            inputPriceIProd={inputPriceIProd}
+            inputStockIProd={inputStockIProd}
+            inputCategoryIProd={inputCategoryIProd}
+            />
+        }
     </>
   )
 }

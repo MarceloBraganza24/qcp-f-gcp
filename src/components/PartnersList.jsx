@@ -71,29 +71,14 @@ const PartnersList = () => {
     partners.sort((a, b) => convertirAFecha(b.partner_datetime) - convertirAFecha(a.partner_datetime));
 
     function filtrarPorApellido(valorIngresado) {
-        // Convertimos el valor ingresado a minúsculas para hacer la comparación sin importar mayúsculas o minúsculas
         const valorMinusculas = valorIngresado.toLowerCase();
-        
-        // Filtramos el arreglo de objetos
         const objetosFiltrados = partners.filter(objeto => {
-            // Convertimos el nombre del objeto a minúsculas para la comparación
             const nombreMinusculas = objeto.last_name.toLowerCase();
-            // Retornamos true si el nombre del objeto contiene el valor ingresado
             return nombreMinusculas.includes(valorMinusculas);
         });
-    
         return objetosFiltrados;
     }
-    const objetosFiltrados = filtrarPorApellido(inputFilteredPartners);
-    //console.log(objetosFiltrados);
-    /* inputFilteredPartners.addEventListener('input', function() {
-        const valorInput = this.value; // Obtener el valor del input
-        const objetosFiltrados = filtrarPorNombre(valorInput);
-        console.log(objetosFiltrados);
-        // Aquí puedes hacer lo que necesites con el arreglo filtrado, como mostrarlo en pantalla
-    }); */
-
-    
+    const objetosFiltrados = filtrarPorApellido(inputFilteredPartners); 
 
     const handleBtnCreatePartner = async() => {
         if(!inputFirstNamePa || !inputLastNamePa || !inputDniPa || !inputPhonePa || !inputEmailPa) {
@@ -182,18 +167,33 @@ const PartnersList = () => {
                             </div>
                         </div>
                         {
-                            objetosFiltrados.map((partner) => {
-                                return(
-                                    <ItemPartner
-                                    id={partner._id}
-                                    first_name={partner.first_name}
-                                    last_name={partner.last_name}
-                                    dni={partner.dni}
-                                    phone={partner.phone}
-                                    email={partner.email}
-                                    />
-                                )
-                            })
+                            inputFilteredPartners===''?
+                                partners.map((partner) => {
+                                    return(
+                                        <ItemPartner
+                                        id={partner._id}
+                                        first_name={partner.first_name}
+                                        last_name={partner.last_name}
+                                        dni={partner.dni}
+                                        phone={partner.phone}
+                                        email={partner.email}   
+                                        />
+                                    )
+                                })
+                            :
+                                objetosFiltrados.map((partner) => {
+                                    return(
+                                        <ItemPartner
+                                        id={partner._id}
+                                        first_name={partner.first_name}
+                                        last_name={partner.last_name}
+                                        dni={partner.dni}
+                                        phone={partner.phone}
+                                        email={partner.email}   
+                                        />
+                                    )
+                                })
+                                
                         }
                     </div>
                 </div>

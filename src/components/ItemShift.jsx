@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast } from "react-toastify";
@@ -7,20 +7,37 @@ import { toZonedTime } from 'date-fns-tz';
 import ShiftsListModal from './ShiftsListModal';
 
 const ItemShift = ({id, first_name,last_name,date,schedule}) => {
+    const scheduleArray = schedule.split(':')
+    let scheduleH = scheduleArray[0];
+    let scheduleM = scheduleArray[1];
+    const fechaUTC = toZonedTime(date, 'UTC');
+    const dateFormated = format(fechaUTC, "yyyy/MM/dd");
+
     const [inputFirstNameISh, setInputFirstNameISh] = useState('');
     const [inputLastNameISh, setInputLastNameISh] = useState('');
     const [inputDateISh, handleInputDateISh] = useState('');
     const [inputScheduleHISh, handleInputScheduleHISh] = useState('');
-    const [inputScheduleMISh, handleInputScheduleMISh] = useState(''); 
+    const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
+    const [scheduleHData, setScheduleHData] = useState('');
+    const [scheduleMData, setScheduleMData] = useState('');
+    //console.log(inputScheduleHISh) 
+
+    useEffect(() => {
+        setScheduleHData(scheduleH);
+        setScheduleMData(scheduleM);
+    },[])
 
     const [modalOpen, setModalOpen] = useState(false);
 
-    const fechaUTC = toZonedTime(date, 'UTC');
-    const dateFormated = format(fechaUTC, "dd/MM/yyyy");
+    const handleInputFirstNameISh = (e) => {
+        const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
+        setInputFirstNameISh(texto);
+    };
 
-    const scheduleArray = schedule.split(':')
-    const scheduleH = scheduleArray[0];
-    const scheduleM = scheduleArray[1];
+    const handleInputLastNameISh = (e) => {
+        const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
+        setInputLastNameISh(texto);
+    };
 
     const handleInputScheduleH = (event) => {
         const inputValue = event.target.value;
@@ -39,12 +56,14 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     const handleKeyDownH = (event) => {
         if (event.keyCode === 8) {
             handleInputScheduleHISh('');
+            setScheduleHData('')
         }
     };
 
     const handleKeyDownM = (event) => {
         if (event.keyCode === 8) {
             handleInputScheduleMISh('');
+            setScheduleMData('')
         }
     };
     
@@ -65,36 +84,31 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     }
 
     const handleInputSchHonBlur = () => {
-        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setModalOpen(true):inputScheduleMISh!==''&&setModalOpen(true)    
+        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setModalOpen(true):inputScheduleHISh===''?setScheduleHData(scheduleH):inputScheduleMISh!==''&&setModalOpen(true)    
     }
 
     const handleInputSchMonBlur = () => {
-        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setModalOpen(true):inputScheduleMISh!==''&&setModalOpen(true)    
+        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setModalOpen(true):inputScheduleMISh===''?setScheduleMData(scheduleM):inputScheduleMISh!==''&&setModalOpen(true)    
     }
 
     const handleFocusInputFN = () => {
         setModalOpen(false);
-        setIsFocusedInputSchM(true);
     };
 
     const handleFocusInputLN = () => {
         setModalOpen(false);
-        setIsFocusedInputSchM(true);
     };
 
     const handleFocusInputDate = () => {
         setModalOpen(false);
-        setIsFocusedInputSchM(true);
     };
 
     const handleFocusInputSchH = () => {
         setModalOpen(false);
-        setIsFocusedInputSchM(true);
     };
 
     const handleFocusInputSchM = () => {
         setModalOpen(false);
-        setIsFocusedInputSchM(true);
     };
 
     const handleBtnDelShift = async() => {
@@ -262,25 +276,24 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     <>
         <div className='itemShift'>
             <div className='itemShift__input'>
-                <input className='itemShift__input__prop' placeholder={first_name} value={inputFirstNameISh} onFocus={handleFocusInputFN} onBlur={handleInputFNonBlur} onChange={(e) => setInputFirstNameISh(e.target.value)}/>
+                <input className='itemShift__input__prop' value={!inputFirstNameISh?first_name:inputFirstNameISh} onFocus={handleFocusInputFN} onBlur={handleInputFNonBlur} onChange={handleInputFirstNameISh}/>
             </div>
             <div className='itemShift__input'>
-                <input className='itemShift__input__prop' placeholder={last_name} value={inputLastNameISh} onFocus={handleFocusInputLN} onBlur={handleInputLNonBlur} onChange={(e) => setInputLastNameISh(e.target.value)}/>
+                <input className='itemShift__input__prop' value={!inputLastNameISh?last_name:inputLastNameISh} onFocus={handleFocusInputLN} onBlur={handleInputLNonBlur} onChange={handleInputLastNameISh}/>
             </div>
             <div className='itemShift__input'>
                 <DatePicker className='datePikerShiftsList'
-                    selected={inputDateISh}
+                    selected={!inputDateISh?dateFormated:inputDateISh}
                     onChange={handleDateChange}
                     onBlur={handleInputDateonBlur}
                     onFocus={handleFocusInputDate}
                     dateFormat="dd/MM/yyyy"
-                    placeholderText={dateFormated}
                 />
             </div>
             <div className='itemCreateShift__inputSchedule'>
-                <input className='itemCreateShift__inputSchedule__prop' placeholder={scheduleH} maxLength={2} value={inputScheduleHISh} onFocus={handleFocusInputSchH} onBlur={handleInputSchHonBlur} onChange={handleInputScheduleH} onKeyDown={handleKeyDownH}/>
+                <input className='itemCreateShift__inputSchedule__prop' value={!inputScheduleHISh?scheduleHData:inputScheduleHISh} onFocus={handleFocusInputSchH} onBlur={handleInputSchHonBlur} onChange={handleInputScheduleH} onKeyDown={handleKeyDownH}/>
                 <div>:</div>
-                <input className='itemCreateShift__inputSchedule__prop' placeholder={scheduleM} maxLength={2} value={inputScheduleMISh} onFocus={handleFocusInputSchM} onBlur={handleInputSchMonBlur} onChange={handleInputScheduleM} onKeyDown={handleKeyDownM}/>
+                <input className='itemCreateShift__inputSchedule__prop' value={!inputScheduleMISh?scheduleMData:inputScheduleMISh} onFocus={handleFocusInputSchM} onBlur={handleInputSchMonBlur} onChange={handleInputScheduleM} onKeyDown={handleKeyDownM}/>
             </div>
             <div className='itemShift__btns'>
                 <button className='itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
