@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { toast } from "react-toastify";
 import ProvidersListModal from './ProvidersListModal';
+import {InputChangesContext} from '../context/InputChangesContext'; 
 
 const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
     const [inputBusinessNameIPr, setInputBusinessNameIPr] = useState('');
@@ -9,6 +10,27 @@ const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
     const [inputEmailIPr, setInputEmailIPr] = useState('');
 
     const [modalOpen, setModalOpen] = useState(false);
+    const {inputChanges, handleInputChanges} = useContext(InputChangesContext);
+
+    const handleInputBusinessNameIPr = (e) => {
+        setInputBusinessNameIPr(e.target.value);
+        handleInputChanges();
+    };
+
+    const handleInputCuitCuilIPr = (e) => {
+        setInputCuitCuilIPr(e.target.value);
+        handleInputChanges();
+    };
+
+    const handleInputPhoneIPr = (e) => {
+        setInputPhoneIPr(e.target.value);
+        handleInputChanges();
+    };
+
+    const handleInputEmailIPr = (e) => {
+        setInputEmailIPr(e.target.value);
+        handleInputChanges();
+    };
 
     const handleOnBlurInputBNIPr = () => {
         inputBusinessNameIPr!==''?setModalOpen(true):inputCuitCuilIPr!==''?setModalOpen(true):inputPhoneIPr!==''?setModalOpen(true):inputEmailIPr!==''&&setModalOpen(true)
@@ -115,21 +137,29 @@ const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
     
         <div className='itemProvider'>
             <div className='itemProvider__input'>
-                <input className='itemProvider__input__prop' value={!inputBusinessNameIPr?businessName:inputBusinessNameIPr} onFocus={handleFocusInputBNIPr} onBlur={handleOnBlurInputBNIPr} onChange={(e) => {setInputBusinessNameIPr(e.target.value)}}/>
+                <input className='itemProvider__input__prop' value={!inputBusinessNameIPr?businessName:inputBusinessNameIPr} onFocus={handleFocusInputBNIPr} onBlur={handleOnBlurInputBNIPr} onChange={handleInputBusinessNameIPr}/>
             </div>
             <div className='itemProvider__input'>
-                <input className='itemProvider__input__prop' type='number' value={!inputCuitCuilIPr?cuitCuil:inputCuitCuilIPr} onFocus={handleFocusInputCCIPr} onBlur={handleOnBlurInputCCIPr}  onChange={(e) => {setInputCuitCuilIPr(e.target.value)}}/>
+                <input className='itemProvider__input__prop' type='number' value={!inputCuitCuilIPr?cuitCuil:inputCuitCuilIPr} onFocus={handleFocusInputCCIPr} onBlur={handleOnBlurInputCCIPr}  onChange={handleInputCuitCuilIPr}/>
             </div>
             <div className='itemProvider__input'>
-                <input className='itemProvider__input__prop' type='number' value={!inputPhoneIPr?phone:inputPhoneIPr} onFocus={handleFocusInputPhoIPr} onBlur={handleOnBlurInputPhoIPr}  onChange={(e) => {setInputPhoneIPr(e.target.value)}}/>
+                <input className='itemProvider__input__prop' type='number' value={!inputPhoneIPr?phone:inputPhoneIPr} onFocus={handleFocusInputPhoIPr} onBlur={handleOnBlurInputPhoIPr}  onChange={handleInputPhoneIPr}/>
             </div>
             <div className='itemProvider__input'>
-                <input className='itemProvider__input__prop' value={!inputEmailIPr?email:inputEmailIPr} onFocus={handleFocusInputEmailIPr} onBlur={handleOnBlurInputEmailIPr}  onChange={(e) => {setInputEmailIPr(e.target.value)}}/>
+                <input className='itemProvider__input__prop' value={!inputEmailIPr?email:inputEmailIPr} onFocus={handleFocusInputEmailIPr} onBlur={handleOnBlurInputEmailIPr}  onChange={handleInputEmailIPr}/>
             </div>
-            <div className='itemProvider__btns'>
-                <button className='itemProvider__btns__btn' onClick={handleBtnDelProvider}>Borrar</button>
-                <button className='itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
-            </div>
+            {
+                !inputChanges?
+                <div className='itemProvider__btns'>
+                    <button className='itemProvider__btns__btn' onClick={handleBtnDelProvider}>Borrar</button>
+                    <button className='itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
+                </div>
+                :
+                <div className='itemProvider__btns'>
+                    <button disabled className='itemProvider__btns__btn' onClick={handleBtnDelProvider}>Borrar</button>
+                    <button disabled className='itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
+                </div>
+            }
         </div>
         {
             modalOpen && 

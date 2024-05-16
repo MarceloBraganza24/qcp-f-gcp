@@ -10,6 +10,7 @@ import ItemShift from './ItemShift';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Link } from 'react-router-dom';
+import {InputChangesContext} from '../context/InputChangesContext'; 
 
 const ShiftsList = () => {
     const currentDate = new Date();
@@ -17,6 +18,7 @@ const ShiftsList = () => {
     const {isLoggedIn, login, logout} = useContext(IsLoggedContext);
     const [role, setRole] = useState('');
     const [shifts, setShifts] = useState([]);
+    const {inputChanges} = useContext(InputChangesContext);
     
     const [selectedYearValue, setSelectedYearsValue] = useState(`${new Date().getFullYear()}`);
     
@@ -191,68 +193,136 @@ const ShiftsList = () => {
                     <div className='shiftsListContainer__selects'>
                         <div className='shiftsListContainer__selects__labelSelect'>
                             <div className='shiftsListContainer__selects__labelSelect__label'>Año:</div>
-                            <select value={selectedYearValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectYears}>
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
-                                <option value="2026">2026</option>
-                                <option value="2027">2027</option>
-                                <option value="2028">2028</option>
-                                <option value="2029">2029</option>
-                                <option value="2030">2030</option>
-                            </select>
+                            {       
+                                !inputChanges?
+                                <select value={selectedYearValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectYears}>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
+                                </select>
+                                :
+                                <select disabled value={selectedYearValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectYears}>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
+                                </select>
+                            }
                         </div>
                         <div className='shiftsListContainer__selects__labelSelect'>
                             <div className='shiftsListContainer__selects__labelSelect__label'>Mes:</div>
-                            <select value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectMonths}>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
+                            {       
+                                !inputChanges?
+                                <select value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectMonths}>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                :
+                                <select disabled value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectMonths}>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            }
                         </div>
                         <div className='shiftsListContainer__selects__labelSelect'>
                             <div className='shiftsListContainer__selects__labelSelect__label'>Día:</div>
-                            <select className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectDay} value={selectedDayValue}>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                                <option value="24">24</option>
-                                <option value="25">25</option>
-                                <option value="26">26</option>
-                                <option value="27">27</option>
-                                <option value="28">28</option>
-                                <option id='day29' value="29">29</option>
-                                <option id='day30' value="30">30</option>
-                                <option id='day31' value="31">31</option>
-                            </select>
+                            {       
+                                !inputChanges?
+                                <select className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectDay} value={selectedDayValue}>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option id='day29' value="29">29</option>
+                                    <option id='day30' value="30">30</option>
+                                    <option id='day31' value="31">31</option>
+                                </select>
+                                :
+                                <select disabled className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectDay} value={selectedDayValue}>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option id='day29' value="29">29</option>
+                                    <option id='day30' value="30">30</option>
+                                    <option id='day31' value="31">31</option>
+                                </select>
+                            }
                         </div>
                     </div>
                     <div className='shiftsListContainer__shiftsList'>
@@ -282,9 +352,16 @@ const ShiftsList = () => {
                                 <div>:</div>
                                 <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleMISh} onChange={handleInputScheduleM} onKeyDown={handleKeyDownM}/>
                             </div>
-                            <div className='itemCreateShift__btns'>
-                                <button className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
-                            </div>
+                            {
+                                !inputChanges?
+                                <div className='itemCreateShift__btns'>
+                                    <button className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
+                                </div>
+                                :
+                                <div className='itemCreateShift__btns'>
+                                    <button disabled className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
+                                </div>
+                            }
                         </div>
                     {
                         objetosFiltrados.map((shift) => {

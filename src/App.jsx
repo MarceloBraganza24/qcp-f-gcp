@@ -18,6 +18,7 @@ import ShiftsList from './components/ShiftsList';
 import PartnersList from './components/PartnersList';
 import ProductsList from './components/ProductsList';
 import ProvidersList from './components/ProvidersList';
+import { InputChangesContextComponent } from './context/InputChangesContext';
 
 function App() {
 
@@ -37,6 +38,8 @@ function App() {
 
         <ParentShLComponent>
 
+        <InputChangesContextComponent>
+
           <Routes>
 
             <Route exact path="/login" element={<Login/>}/>
@@ -54,6 +57,8 @@ function App() {
           </Routes>
           
           <ToastContainer />
+
+        </InputChangesContextComponent>
 
         </ParentShLComponent>
 

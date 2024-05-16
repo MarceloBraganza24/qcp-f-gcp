@@ -8,6 +8,7 @@ import {InputDataPrContext} from '../context/InputDataPrContext';
 import HMenu from './HMenu';
 import ItemProvider from './ItemProvider';
 import { Link } from 'react-router-dom';
+import {InputChangesContext} from '../context/InputChangesContext'; 
 
 const ProvidersList = () => {
     const { inputBusinessNamePr, handleInputBusinessNamePr, inputCuitCuilPr, handleInputCuitCuilPr, inputPhonePr, handleInputPhonePr, inputEmailPr, handleInputEmailPr } = useContext(InputDataPrContext);
@@ -15,6 +16,7 @@ const ProvidersList = () => {
     const [role, setRole] = useState('');
     const [inputFilteredProviders, setInputFilteredProviders] = useState('');
     const [providers, setProviders] = useState([]);
+    const {inputChanges} = useContext(InputChangesContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -169,9 +171,16 @@ const ProvidersList = () => {
                             <div className='itemCreateProvider__input'>
                                 <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputEmailPr} onChange={(e) => {handleInputEmailPr(e.target.value)}}/>
                             </div>
-                            <div className='itemCreateProvider__btns'>
-                                <button className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
-                            </div>
+                            {
+                                !inputChanges?
+                                <div className='itemCreateProvider__btns'>
+                                    <button className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
+                                </div>
+                                :
+                                <div className='itemCreateProvider__btns'>
+                                    <button disabled className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
+                                </div>
+                            }
                         </div>
                         {
                             objetosFiltrados.map((provider) => {

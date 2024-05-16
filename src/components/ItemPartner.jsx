@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { toast } from "react-toastify";
 import PartnersListModal from './PartnersListModal';
+import {InputChangesContext} from '../context/InputChangesContext';
 
 const ItemPartner = ({id, first_name,last_name,dni,phone,email}) => {
     const [inputFirstNameIPa, setInputFirstNameIPa] = useState('');
@@ -10,15 +11,33 @@ const ItemPartner = ({id, first_name,last_name,dni,phone,email}) => {
     const [inputEmailIPa, setInputEmailIPa] = useState('');
 
     const [modalOpen, setModalOpen] = useState(false);
+    const {inputChanges, handleInputChanges} = useContext(InputChangesContext);
 
     const handleInputFirstNameIPa = (e) => {
         const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
         setInputFirstNameIPa(texto);
+        handleInputChanges();
     };
 
     const handleInputLastNameIPa = (e) => {
         const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
         setInputLastNameIPa(texto);
+        handleInputChanges();
+    };
+
+    const handleInputDniIPa = (e) => {
+        setInputDniIPa(e.target.value);
+        handleInputChanges();
+    };
+
+    const handleInputPhoneIPa = (e) => {
+        setInputPhoneIPa(e.target.value);
+        handleInputChanges();
+    };
+
+    const handleInputEmailIPa = (e) => {
+        setInputEmailIPa(e.target.value);
+        handleInputChanges();
     };
 
     const handleBtnDelPartner = async() => {
@@ -140,18 +159,27 @@ const ItemPartner = ({id, first_name,last_name,dni,phone,email}) => {
                 <input className='itemPartner__input__prop' value={!inputLastNameIPa?last_name:inputLastNameIPa} onFocus={handleFocusInputLNIPa} onBlur={handleOnBlurInputLNIPa} onChange={handleInputLastNameIPa}/>
             </div>
             <div className='itemPartner__input'>
-                <input className='itemPartner__input__prop' type='number' value={!inputDniIPa?dni:inputDniIPa} onFocus={handleFocusInputDniIPa} onBlur={handleOnBlurInputDniIPa} onChange={(e) => {setInputDniIPa(e.target.value)}}/>
+                <input className='itemPartner__input__prop' type='number' value={!inputDniIPa?dni:inputDniIPa} onFocus={handleFocusInputDniIPa} onBlur={handleOnBlurInputDniIPa} onChange={handleInputDniIPa}/>
             </div>
             <div className='itemPartner__input'>
-                <input className='itemPartner__input__prop' type='number' value={!inputPhoneIPa?phone:inputPhoneIPa} onFocus={handleFocusInputPhoIPa} onBlur={handleOnBlurInputPhoIPa} onChange={(e) => {setInputPhoneIPa(e.target.value)}}/>
+                <input className='itemPartner__input__prop' type='number' value={!inputPhoneIPa?phone:inputPhoneIPa} onFocus={handleFocusInputPhoIPa} onBlur={handleOnBlurInputPhoIPa} onChange={handleInputPhoneIPa}/>
             </div>
             <div className='itemPartner__input'>
-                <input className='itemPartner__input__prop' value={!inputEmailIPa?email:inputEmailIPa} onFocus={handleFocusInputEmailIPa} onBlur={handleOnBlurInputEmailIPa} onChange={(e) => {setInputEmailIPa(e.target.value)}}/>
+                <input className='itemPartner__input__prop' value={!inputEmailIPa?email:inputEmailIPa} onFocus={handleFocusInputEmailIPa} onBlur={handleOnBlurInputEmailIPa} onChange={handleInputEmailIPa}/>
             </div>
-            <div className='itemShift__btns'>
-                <button className='itemShift__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>
-                <button className='itemShift__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
-            </div>
+            {
+                !inputChanges?
+                <div className='itemShift__btns'>
+                    <button className='itemShift__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>
+                    <button className='itemShift__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
+                </div>
+                :
+                <div className='itemShift__btns'>
+                    <button disabled className='itemShift__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>
+                    <button disabled className='itemShift__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
+                </div>
+            }
+            
         </div>
         {
             modalOpen && 

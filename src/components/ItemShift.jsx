@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast } from "react-toastify";
 import { format } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
 import ShiftsListModal from './ShiftsListModal';
+import {InputChangesContext} from '../context/InputChangesContext';
 
 const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     const scheduleArray = schedule.split(':')
@@ -20,7 +21,6 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
     const [scheduleHData, setScheduleHData] = useState('');
     const [scheduleMData, setScheduleMData] = useState('');
-    //console.log(inputScheduleHISh) 
 
     useEffect(() => {
         setScheduleHData(scheduleH);
@@ -28,21 +28,25 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     },[])
 
     const [modalOpen, setModalOpen] = useState(false);
+    const {inputChanges, handleInputChanges} = useContext(InputChangesContext);
 
     const handleInputFirstNameISh = (e) => {
         const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
         setInputFirstNameISh(texto);
+        handleInputChanges(true);
     };
 
     const handleInputLastNameISh = (e) => {
         const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
         setInputLastNameISh(texto);
+        handleInputChanges(true);
     };
 
     const handleInputScheduleH = (event) => {
         const inputValue = event.target.value;
         if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 23) {
             handleInputScheduleHISh(inputValue);
+            handleInputChanges(true);
         }
     };
 
@@ -50,6 +54,7 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
         const inputValue = event.target.value;
         if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 59) {
             handleInputScheduleMISh(inputValue);
+            handleInputChanges(true);
         }
     };
 
@@ -69,6 +74,7 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     
     const handleDateChange = date => {
         handleInputDateISh(date);
+        handleInputChanges(true);
     };
 
     const handleInputFNonBlur = () => {
@@ -84,11 +90,11 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     }
 
     const handleInputSchHonBlur = () => {
-        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setModalOpen(true):inputScheduleHISh===''?setScheduleHData(scheduleH):inputScheduleMISh!==''&&setModalOpen(true)    
+        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setScheduleHData(true):inputScheduleHISh===''?setScheduleHData(scheduleH):inputScheduleMISh!==''&&setModalOpen(true)    
     }
 
     const handleInputSchMonBlur = () => {
-        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setModalOpen(true):inputScheduleMISh===''?setScheduleMData(scheduleM):inputScheduleMISh!==''&&setModalOpen(true)    
+        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setScheduleMData(true):inputScheduleMISh===''?setScheduleMData(scheduleM):inputScheduleMISh!==''&&setModalOpen(true)    
     }
 
     const handleFocusInputFN = () => {
@@ -295,25 +301,34 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
                 <div>:</div>
                 <input className='itemCreateShift__inputSchedule__prop' value={!inputScheduleMISh?scheduleMData:inputScheduleMISh} onFocus={handleFocusInputSchM} onBlur={handleInputSchMonBlur} onChange={handleInputScheduleM} onKeyDown={handleKeyDownM}/>
             </div>
-            <div className='itemShift__btns'>
-                <button className='itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
-                <button className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
-            </div>
+            {
+                !inputChanges?
+                <div className='itemShift__btns'>
+                    <button className='itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
+                    <button className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
+                </div>
+                :
+                <div className='itemShift__btns'>
+                    <button disabled className='itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
+                    <button disabled className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
+                </div>
+            }
+            
         </div>
         {
-            modalOpen && 
-            <ShiftsListModal
-            id={id}
-            first_name={first_name}
-            last_name={last_name}
-            date={date}
-            schedule={schedule}
-            inputFirstNameISh={inputFirstNameISh}
-            inputLastNameISh={inputLastNameISh}
-            inputDateISh={inputDateISh}
-            inputScheduleHISh={inputScheduleHISh}
-            inputScheduleMISh={inputScheduleMISh}
-            />
+            modalOpen&&
+                <ShiftsListModal
+                id={id}
+                first_name={first_name}
+                last_name={last_name}
+                date={date}
+                schedule={schedule}
+                inputFirstNameISh={inputFirstNameISh}
+                inputLastNameISh={inputLastNameISh}
+                inputDateISh={inputDateISh}
+                inputScheduleHISh={inputScheduleHISh}
+                inputScheduleMISh={inputScheduleMISh}
+                />
         }
     </>
   )

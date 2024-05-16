@@ -1,9 +1,11 @@
 import React, { useContext} from 'react'
 import { toast } from "react-toastify";
 import {IsLoggedContext} from '../context/IsLoggedContext';
+import {InputChangesContext} from '../context/InputChangesContext';
 
 const LogOut = () => {
     const {logout} = useContext(IsLoggedContext);
+    const {inputChanges} = useContext(InputChangesContext);
 
     const logOutBtn = async (event) => {
         event.preventDefault();
@@ -59,7 +61,13 @@ const LogOut = () => {
     }
   return (
     <>
+      {
+        !inputChanges?
         <a onClick={logOutBtn} href="" className='logOut'>Cerrar sesión</a>
+        :
+        <div className='logOut'>Cerrar sesión</div>
+      }
+        
     </>
   )
 }

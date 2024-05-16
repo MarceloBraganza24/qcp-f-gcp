@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { toast } from "react-toastify";
 
 const ShiftsListModal = ({id,first_name,last_name,date,schedule,inputFirstNameISh,inputLastNameISh,inputDateISh,inputScheduleHISh,inputScheduleMISh}) => {
 
     const scheduleArray = schedule.split(':')
     const scheduleH = scheduleArray[0];
-    const scheduleM = scheduleArray[1]; 
+    const scheduleM = scheduleArray[1];
 
     const handleBtnCloseModal = () => {
         window.location.href = '/shiftsList'
@@ -178,6 +178,8 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule,inputFirstNameIS
             }
         }
     };
+
+    
 
     return (
     <>

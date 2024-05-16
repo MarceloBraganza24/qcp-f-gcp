@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
+import {InputChangesContext} from '../context/InputChangesContext';
 
 const HMenu = () => {
+  const {inputChanges} = useContext(InputChangesContext);
 
   const openW = () => {
     document.getElementById("menuOptions").style.display = "flex"
@@ -9,18 +11,24 @@ const HMenu = () => {
 
   return (
     <>
-      <div onClick={openW} className='hMenu'>
-        <div className='hMenu__line'></div>
-        <div className='hMenu__line'></div>
-        <div className='hMenu__line'></div>
-      </div>
-      <MenuOptions/>
+      {
+        !inputChanges&&
+        <>
+          <div onClick={openW} className='hMenu'>
+            <div className='hMenu__line'></div>
+            <div className='hMenu__line'></div>
+            <div className='hMenu__line'></div>
+          </div>
+          <MenuOptions/>
+        </>
+      }
+      
     </>
   )
 }
 
 const MenuOptions = () => {
-
+  
   const closeW = () => {
     document.getElementById("menuOptions").style.display = "none"
   }
@@ -29,7 +37,7 @@ const MenuOptions = () => {
     <>
       <div id='menuOptions' className='menuOptions'>
         <Link to={"/shiftsList"} className='menuOptions__item'>
-          - Lista de turnos
+            - Lista de turnos
         </Link>
         <Link to={"/partnersList"} className='menuOptions__item'>
           - Lista de socios

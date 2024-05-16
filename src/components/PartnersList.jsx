@@ -8,6 +8,7 @@ import {InputDataPaContext} from '../context/InputDataPaContext';
 import HMenu from './HMenu';
 import ItemPartner from './ItemPartner';
 import { Link } from 'react-router-dom';
+import {InputChangesContext} from '../context/InputChangesContext'; 
 
 const PartnersList = () => {
     const { inputFirstNamePa, handleInputFirstNamePa, inputLastNamePa, handleInputLastNamePa, inputDniPa, handleInputDniPa, inputPhonePa, handleInputPhonePa, inputEmailPa, handleInputEmailPa } = useContext(InputDataPaContext);
@@ -15,6 +16,7 @@ const PartnersList = () => {
     const [role, setRole] = useState('');
     const [inputFilteredPartners, setInputFilteredPartners] = useState('');
     const [partners, setPartners] = useState([]);
+    const {inputChanges} = useContext(InputChangesContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -162,9 +164,16 @@ const PartnersList = () => {
                             <div className='itemCreatePartner__input'>
                                 <input type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPa} onChange={(e) => {handleInputEmailPa(e.target.value)}}/>
                             </div>
-                            <div className='itemCreatePartner__btns'>
-                                <button className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
-                            </div>
+                            {
+                                !inputChanges?
+                                <div className='itemCreatePartner__btns'>
+                                    <button className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
+                                </div>
+                                :
+                                <div className='itemCreatePartner__btns'>
+                                    <button disabled className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
+                                </div>
+                            }
                         </div>
                         {
                             inputFilteredPartners===''?

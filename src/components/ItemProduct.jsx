@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { toast } from "react-toastify";
 import ProductsListModal from './ProductsListModal';
+import {InputChangesContext} from '../context/InputChangesContext'; 
 
 const ItemProduct = ({id,title,description,price,stock,category}) => {
     const [inputTitleIProd, setInputTitleIProd] = useState('');
@@ -10,6 +11,32 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
     const [inputCategoryIProd, setInputCategoryIProd] = useState('');
 
     const [modalOpen, setModalOpen] = useState(false);
+    const {inputChanges, handleInputChanges} = useContext(InputChangesContext);
+
+    const handleInputTitleIProd = (e) => {
+        setInputTitleIProd(e.target.value);
+        handleInputChanges();
+    };
+
+    const handleInputDescriptionIProd = (e) => {
+        setinputDescriptionIProd(e.target.value);
+        handleInputChanges();
+    };
+
+    const handleInputPriceIProd = (e) => {
+        setInputPriceIProd(e.target.value);
+        handleInputChanges();
+    };
+
+    const handleInputStockIProd = (e) => {
+        setInputStockIProd(e.target.value);
+        handleInputChanges();
+    };
+
+    const handleInputCategoryIProd = (e) => {
+        setInputCategoryIProd(e.target.value);
+        handleInputChanges();
+    };
 
     const handleOnBlurInputTitleIProd = () => {
         inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
@@ -124,24 +151,32 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
     <>
         <div className='itemProduct'>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' value={!inputTitleIProd?title:inputTitleIProd} onFocus={handleFocusInputTitleIProd} onBlur={handleOnBlurInputTitleIProd} onChange={(e) => {setInputTitleIProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' value={!inputTitleIProd?title:inputTitleIProd} onFocus={handleFocusInputTitleIProd} onBlur={handleOnBlurInputTitleIProd} onChange={handleInputTitleIProd}/>
             </div>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' value={!inputDescriptionIProd?description:inputDescriptionIProd} onFocus={handleFocusInputDescrIProd} onBlur={handleOnBlurInputDescrIProd} onChange={(e) => {setinputDescriptionIProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' value={!inputDescriptionIProd?description:inputDescriptionIProd} onFocus={handleFocusInputDescrIProd} onBlur={handleOnBlurInputDescrIProd} onChange={handleInputDescriptionIProd}/>
             </div>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' type='number' value={!inputPriceIProd?price:inputPriceIProd} onFocus={handleFocusInputPriceIProd} onBlur={handleOnBlurInputPriceIProd} onChange={(e) => {setInputPriceIProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' type='number' value={!inputPriceIProd?price:inputPriceIProd} onFocus={handleFocusInputPriceIProd} onBlur={handleOnBlurInputPriceIProd} onChange={handleInputPriceIProd}/>
             </div>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' type='number' value={!inputStockIProd?stock:inputStockIProd} onFocus={handleFocusInputStockIProd} onBlur={handleOnBlurInputStockIProd} onChange={(e) => {setInputStockIProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' type='number' value={!inputStockIProd?stock:inputStockIProd} onFocus={handleFocusInputStockIProd} onBlur={handleOnBlurInputStockIProd} onChange={handleInputStockIProd}/>
             </div>
             <div className='itemProduct__input'>
-                <input className='itemProduct__input__prop' value={!inputCategoryIProd?category:inputCategoryIProd} onFocus={handleFocusInputCategIProd} onBlur={handleOnBlurInputCategIProd} onChange={(e) => {setInputCategoryIProd(e.target.value)}}/>
+                <input className='itemProduct__input__prop' value={!inputCategoryIProd?category:inputCategoryIProd} onFocus={handleFocusInputCategIProd} onBlur={handleOnBlurInputCategIProd} onChange={handleInputCategoryIProd}/>
             </div>
-            <div className='itemProduct__btns'>
-                <button className='itemProduct__btns__btn' onClick={handleBtnDelProduct}>Borrar</button>
-                <button className='itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
-            </div>
+            {
+                !inputChanges?
+                <div className='itemProduct__btns'>
+                    <button className='itemProduct__btns__btn' onClick={handleBtnDelProduct}>Borrar</button>
+                    <button className='itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
+                </div>
+                :
+                <div className='itemProduct__btns'>
+                    <button disabled className='itemProduct__btns__btn' onClick={handleBtnDelProduct}>Borrar</button>
+                    <button disabled className='itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
+                </div>
+            }
         </div>
         {
             modalOpen && 

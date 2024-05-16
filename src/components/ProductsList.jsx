@@ -8,6 +8,7 @@ import {InputDataProdContext} from '../context/InputDataProdContext';
 import HMenu from './HMenu';
 import ItemProduct from './ItemProduct';
 import { Link } from 'react-router-dom';
+import {InputChangesContext} from '../context/InputChangesContext'; 
 
 const ProductsList = () => {
     const { inputTitleProd, handleInputTitleProd, inputDescriptionProd, handleInputDescriptionProd, inputPriceProd, handleInputPriceProd, inputStockProd, handleInputStockProd, inputCategoryProd, handleInputCategoryProd } = useContext(InputDataProdContext);
@@ -15,6 +16,7 @@ const ProductsList = () => {
     const [role, setRole] = useState('');
     const [inputFilteredProducts, setInputFilteredProducts] = useState('');
     const [products, setProducts] = useState([]);
+    const {inputChanges} = useContext(InputChangesContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -153,9 +155,16 @@ const ProductsList = () => {
                             <div className='itemCreateProduct__input'>
                                 <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputCategoryProd} onChange={(e) => {handleInputCategoryProd(e.target.value)}}/>
                             </div>
-                            <div className='itemCreateProduct__btns'>
-                                <button className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
-                            </div>
+                            {
+                                !inputChanges?
+                                <div className='itemCreateProduct__btns'>
+                                    <button className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
+                                </div>
+                                :
+                                <div className='itemCreateProduct__btns'>
+                                    <button disabled className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
+                                </div>
+                            }
                         </div>
                         {
                             objetosFiltrados.map((product) => {
