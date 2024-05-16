@@ -127,6 +127,12 @@ const PartnersList = () => {
         }
     };
 
+    const buttonDisabledStyle = {
+        color: 'black',
+        cursor: 'pointer',
+        backgroundColor: 'white'
+    };
+
   return (
     <>
         <NavBar/>
@@ -138,7 +144,12 @@ const PartnersList = () => {
                 <div className='partnersListContainer'>
                     <div className='partnersListContainer__title'>- Socios -</div>
                     <div className='partnersListContainer__inputFilteredPartners'>
-                        <input id='inputFilteredPartners' type='text' className='partnersListContainer__inputFilteredPartners__prop' placeholder='Ingrese un apellido' value={inputFilteredPartners} onChange={(e) => {setInputFilteredPartners(e.target.value)}}/>
+                        {
+                            !inputChanges?
+                            <input id='inputFilteredPartners' type='text' className='partnersListContainer__inputFilteredPartners__prop' placeholder='Ingrese un apellido' value={inputFilteredPartners} onChange={(e) => {setInputFilteredPartners(e.target.value)}}/>
+                            :
+                            <input disabled style={buttonDisabledStyle} id='inputFilteredPartners' type='text' className='partnersListContainer__inputFilteredPartners__prop' placeholder='Ingrese un apellido' value={inputFilteredPartners} onChange={(e) => {setInputFilteredPartners(e.target.value)}}/>
+                        }
                     </div>
                     <div className='partnersListContainer__partnersList'>
                         <div className='partnersListContainer__partnersList__header'>
@@ -171,7 +182,7 @@ const PartnersList = () => {
                                 </div>
                                 :
                                 <div className='itemCreatePartner__btns'>
-                                    <button disabled className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
+                                    <button disabled style={buttonDisabledStyle} className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
                                 </div>
                             }
                         </div>

@@ -78,27 +78,30 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     };
 
     const handleInputFNonBlur = () => {
-        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setModalOpen(true):inputScheduleMISh!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleInputLNonBlur = () => {
-        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setModalOpen(true):inputScheduleMISh!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleInputDateonBlur = () => {
-        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setModalOpen(true):inputScheduleMISh!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleInputSchHonBlur = () => {
-        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setScheduleHData(true):inputScheduleHISh===''?setScheduleHData(scheduleH):inputScheduleMISh!==''&&setModalOpen(true)    
+        inputChanges&&setModalOpen(true);
+        inputScheduleHISh===''&&handleInputScheduleHISh(scheduleH);
     }
 
     const handleInputSchMonBlur = () => {
-        inputFirstNameISh!==''?setModalOpen(true):inputLastNameISh!==''?setModalOpen(true):inputDateISh!==''?setModalOpen(true):inputScheduleHISh!==''?setScheduleMData(true):inputScheduleMISh===''?setScheduleMData(scheduleM):inputScheduleMISh!==''&&setModalOpen(true)    
+        inputChanges&&setModalOpen(true);
+        inputScheduleMISh===''&&handleInputScheduleMISh(scheduleM);
     }
 
     const handleFocusInputFN = () => {
         setModalOpen(false);
+        console.log(!inputFirstNameISh?first_name:inputFirstNameISh)
     };
 
     const handleFocusInputLN = () => {
@@ -276,6 +279,10 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
         }
     };
 
+    const buttonDisabledStyle = {
+        color: 'black',
+        cursor: 'pointer'
+    };
     
  
   return (
@@ -307,10 +314,10 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
                     <button className='itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
                     <button className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
                 </div>
-                :
+                : 
                 <div className='itemShift__btns'>
-                    <button disabled className='itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
-                    <button disabled className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
                 </div>
             }
             

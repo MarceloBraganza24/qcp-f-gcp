@@ -32,20 +32,20 @@ const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
         handleInputChanges();
     };
 
-    const handleOnBlurInputBNIPr = () => {
-        inputBusinessNameIPr!==''?setModalOpen(true):inputCuitCuilIPr!==''?setModalOpen(true):inputPhoneIPr!==''?setModalOpen(true):inputEmailIPr!==''&&setModalOpen(true)
+    const handleOnBlurInputBNIPr = (e) => {
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputCCIPr = () => {
-        inputBusinessNameIPr!==''?setModalOpen(true):inputCuitCuilIPr!==''?setModalOpen(true):inputPhoneIPr!==''?setModalOpen(true):inputEmailIPr!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputPhoIPr = () => {
-        inputBusinessNameIPr!==''?setModalOpen(true):inputCuitCuilIPr!==''?setModalOpen(true):inputPhoneIPr!==''?setModalOpen(true):inputEmailIPr!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputEmailIPr = () => {
-        inputBusinessNameIPr!==''?setModalOpen(true):inputCuitCuilIPr!==''?setModalOpen(true):inputPhoneIPr!==''?setModalOpen(true):inputEmailIPr!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleFocusInputBNIPr = () => {
@@ -131,6 +131,11 @@ const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
             }
         }
     };
+
+    const buttonDisabledStyle = {
+        color: 'black',
+        cursor: 'pointer'
+    };
  
   return (
     <>
@@ -156,8 +161,8 @@ const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
                 </div>
                 :
                 <div className='itemProvider__btns'>
-                    <button disabled className='itemProvider__btns__btn' onClick={handleBtnDelProvider}>Borrar</button>
-                    <button disabled className='itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemProvider__btns__btn' onClick={handleBtnDelProvider}>Borrar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
                 </div>
             }
         </div>

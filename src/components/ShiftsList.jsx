@@ -181,6 +181,11 @@ const ShiftsList = () => {
         }
     };
 
+    const buttonDisabledStyle = {
+        color: 'black',
+        cursor: 'pointer'
+    };
+
   return (
     <>
         <NavBar/>
@@ -205,7 +210,7 @@ const ShiftsList = () => {
                                     <option value="2030">2030</option>
                                 </select>
                                 :
-                                <select disabled value={selectedYearValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectYears}>
+                                <select disabled style={buttonDisabledStyle} value={selectedYearValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectYears}>
                                     <option value="2024">2024</option>
                                     <option value="2025">2025</option>
                                     <option value="2026">2026</option>
@@ -235,7 +240,7 @@ const ShiftsList = () => {
                                     <option value="12">12</option>
                                 </select>
                                 :
-                                <select disabled value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectMonths}>
+                                <select disabled style={buttonDisabledStyle} value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectMonths}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -289,7 +294,7 @@ const ShiftsList = () => {
                                     <option id='day31' value="31">31</option>
                                 </select>
                                 :
-                                <select disabled className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectDay} value={selectedDayValue}>
+                                <select disabled style={buttonDisabledStyle} className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectDay} value={selectedDayValue}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -359,7 +364,7 @@ const ShiftsList = () => {
                                 </div>
                                 :
                                 <div className='itemCreateShift__btns'>
-                                    <button disabled className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
+                                    <button disabled style={buttonDisabledStyle} className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
                                 </div>
                             }
                         </div>

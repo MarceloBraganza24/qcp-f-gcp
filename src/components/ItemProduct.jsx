@@ -39,23 +39,23 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
     };
 
     const handleOnBlurInputTitleIProd = () => {
-        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputDescrIProd = () => {
-        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputPriceIProd = () => {
-        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputStockIProd = () => {
-        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputCategIProd = () => {
-        inputTitleIProd!==''?setModalOpen(true):inputDescriptionIProd!==''?setModalOpen(true):inputPriceIProd!==''?setModalOpen(true):inputStockIProd!==''?setModalOpen(true):inputCategoryIProd!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleFocusInputTitleIProd = () => {
@@ -114,6 +114,9 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
                 progress: undefined,
                 theme: "dark",
             });
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         } else {
             const productToUpdate = {
                 title: inputTitleIProd?inputTitleIProd:title,
@@ -146,6 +149,11 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
             }
         }
     };
+
+    const buttonDisabledStyle = {
+        color: 'black',
+        cursor: 'pointer'
+    };
  
   return (
     <>
@@ -173,8 +181,8 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
                 </div>
                 :
                 <div className='itemProduct__btns'>
-                    <button disabled className='itemProduct__btns__btn' onClick={handleBtnDelProduct}>Borrar</button>
-                    <button disabled className='itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemProduct__btns__btn' onClick={handleBtnDelProduct}>Borrar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
                 </div>
             }
         </div>

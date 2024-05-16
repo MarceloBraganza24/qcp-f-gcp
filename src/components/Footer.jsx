@@ -35,7 +35,7 @@ const Footer = () => {
                     !inputChanges?
                     <a href="https://www.instagram.com/quecorte__/" className='footerContainer__social-networks__logo-link__link'>quecorte__</a>
                     :
-                    <a className='footerContainer__social-networks__logo-link__link'>Que Corte</a>
+                    <a className='footerContainer__social-networks__logo-link__link'>quecorte__</a>
                 }
             </div>
         </div>

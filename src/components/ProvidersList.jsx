@@ -139,6 +139,12 @@ const ProvidersList = () => {
         }
     };
 
+    const buttonDisabledStyle = {
+        color: 'black',
+        cursor: 'pointer',
+        backgroundColor: 'white'
+    };
+
   return (
     <>
         <NavBar/>
@@ -149,7 +155,12 @@ const ProvidersList = () => {
                 <div className='providersListContainer'>
                     <div className='providersListContainer__title'>- Proveedores -</div>
                     <div className='providersListContainer__inputFilteredProviders'>
-                        <input type='text' className='providersListContainer__inputFilteredProviders__prop' placeholder='Ingrese la razón social' value={inputFilteredProviders} onChange={(e) => {setInputFilteredProviders(e.target.value)}}/>
+                        {
+                            !inputChanges?
+                            <input type='text' className='providersListContainer__inputFilteredProviders__prop' placeholder='Ingrese la razón social' value={inputFilteredProviders} onChange={(e) => {setInputFilteredProviders(e.target.value)}}/>
+                            :
+                            <input disabled style={buttonDisabledStyle} type='text' className='providersListContainer__inputFilteredProviders__prop' placeholder='Ingrese la razón social' value={inputFilteredProviders} onChange={(e) => {setInputFilteredProviders(e.target.value)}}/>
+                        }
                     </div>
                     <div className='providersListContainer__providersList'>
                         <div className='providersListContainer__providersList__header'>
@@ -178,7 +189,7 @@ const ProvidersList = () => {
                                 </div>
                                 :
                                 <div className='itemCreateProvider__btns'>
-                                    <button disabled className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
+                                    <button disabled style={buttonDisabledStyle} className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
                                 </div>
                             }
                         </div>

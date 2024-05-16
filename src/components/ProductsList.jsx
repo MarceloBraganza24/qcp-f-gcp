@@ -119,6 +119,12 @@ const ProductsList = () => {
         }
     };
 
+    const buttonDisabledStyle = {
+        color: 'black',
+        cursor: 'pointer',
+        backgroundColor: 'white'
+    };
+
   return (
     <>
         <NavBar/>
@@ -129,7 +135,12 @@ const ProductsList = () => {
                 <div className='productsListContainer'>
                     <div className='productsListContainer__title'>- Productos -</div>
                     <div className='productsListContainer__inputFilteredProducts'>
-                        <input type='text' className='productsListContainer__inputFilteredProducts__prop' placeholder='Ingrese un producto' value={inputFilteredProducts} onChange={(e) => {setInputFilteredProducts(e.target.value)}}/>
+                        {
+                            !inputChanges?
+                            <input type='text' className='productsListContainer__inputFilteredProducts__prop' placeholder='Ingrese un producto' value={inputFilteredProducts} onChange={(e) => {setInputFilteredProducts(e.target.value)}}/>
+                            :
+                            <input disabled style={buttonDisabledStyle} type='text' className='productsListContainer__inputFilteredProducts__prop' placeholder='Ingrese un producto' value={inputFilteredProducts} onChange={(e) => {setInputFilteredProducts(e.target.value)}}/>
+                        }
                     </div>
                     <div className='productsListContainer__productsList'>
                         <div className='productsListContainer__productsList__header'>
@@ -162,7 +173,7 @@ const ProductsList = () => {
                                 </div>
                                 :
                                 <div className='itemCreateProduct__btns'>
-                                    <button disabled className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
+                                    <button disabled style={buttonDisabledStyle} className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
                                 </div>
                             }
                         </div>

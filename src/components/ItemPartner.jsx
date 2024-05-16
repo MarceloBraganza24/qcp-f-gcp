@@ -110,23 +110,23 @@ const ItemPartner = ({id, first_name,last_name,dni,phone,email}) => {
     };
 
     const handleOnBlurInputFNIPa = () => {
-        inputFirstNameIPa!==''?setModalOpen(true):inputLastNameIPa!==''?setModalOpen(true):inputDniIPa!==''?setModalOpen(true):inputPhoneIPa!==''?setModalOpen(true):inputEmailIPa!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputLNIPa = () => {
-        inputFirstNameIPa!==''?setModalOpen(true):inputLastNameIPa!==''?setModalOpen(true):inputDniIPa!==''?setModalOpen(true):inputPhoneIPa!==''?setModalOpen(true):inputEmailIPa!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputDniIPa = () => {
-        inputFirstNameIPa!==''?setModalOpen(true):inputLastNameIPa!==''?setModalOpen(true):inputDniIPa!==''?setModalOpen(true):inputPhoneIPa!==''?setModalOpen(true):inputEmailIPa!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputPhoIPa = () => {
-        inputFirstNameIPa!==''?setModalOpen(true):inputLastNameIPa!==''?setModalOpen(true):inputDniIPa!==''?setModalOpen(true):inputPhoneIPa!==''?setModalOpen(true):inputEmailIPa!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleOnBlurInputEmailIPa = () => {
-        inputFirstNameIPa!==''?setModalOpen(true):inputLastNameIPa!==''?setModalOpen(true):inputDniIPa!==''?setModalOpen(true):inputPhoneIPa!==''?setModalOpen(true):inputEmailIPa!==''&&setModalOpen(true)
+        inputChanges&&setModalOpen(true);
     }
 
     const handleFocusInputFNIPa = () => {
@@ -147,6 +147,11 @@ const ItemPartner = ({id, first_name,last_name,dni,phone,email}) => {
 
     const handleFocusInputEmailIPa = () => {
         setModalOpen(false);
+    };
+
+    const buttonDisabledStyle = {
+        color: 'black',
+        cursor: 'pointer'
     };
  
   return (
@@ -175,8 +180,8 @@ const ItemPartner = ({id, first_name,last_name,dni,phone,email}) => {
                 </div>
                 :
                 <div className='itemShift__btns'>
-                    <button disabled className='itemShift__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>
-                    <button disabled className='itemShift__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
                 </div>
             }
             

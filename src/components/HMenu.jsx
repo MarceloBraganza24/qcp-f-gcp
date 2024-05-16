@@ -21,6 +21,15 @@ const HMenu = () => {
           </div>
           <MenuOptions/>
         </>
+        /* :
+        <>
+          <div className='hMenu'>
+            <div className='hMenu__line'></div>
+            <div className='hMenu__line'></div>
+            <div className='hMenu__line'></div>
+          </div>
+          <MenuOptions/>
+        </> */
       }
       
     </>
