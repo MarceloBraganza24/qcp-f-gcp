@@ -14,11 +14,17 @@ export const ParentPrComponent = ({children}) => {
   };
 
   const handleInputCuitCuilPr = (e) => {
-    setInputCuitCuilPr(e);
+    const inputValue = e.target.value;
+    if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,11}$/.test(inputValue)) {
+      setInputCuitCuilPr(inputValue);
+    }
   };
 
   const handleInputPhonePr = (e) => {
-    setInputPhonePr(e);
+    const inputValue = e.target.value;
+    if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,13}$/.test(inputValue)) {
+      setInputPhonePr(inputValue);
+    }
   };
 
   const handleInputEmailPr = (e) => {

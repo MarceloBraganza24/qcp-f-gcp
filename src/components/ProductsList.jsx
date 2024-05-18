@@ -158,10 +158,10 @@ const ProductsList = () => {
                                 <input className='itemCreateProduct__input__prop' placeholder='-' value={inputDescriptionProd} onChange={(e) => {handleInputDescriptionProd(e.target.value)}}/>
                             </div>
                             <div className='itemCreateProduct__input'>
-                                <input type='number' className='itemCreateProduct__input__prop' placeholder='-' value={inputPriceProd} onChange={(e) => {handleInputPriceProd(e.target.value)}}/>
+                                <input className='itemCreateProduct__input__prop' placeholder='-' value={inputPriceProd} onChange={handleInputPriceProd}/>
                             </div>
                             <div className='itemCreateProduct__input'>
-                                <input type='number' className='itemCreateProduct__input__prop' placeholder='-' value={inputStockProd} onChange={(e) => {handleInputStockProd(e.target.value)}}/>
+                                <input className='itemCreateProduct__input__prop' placeholder='-' value={inputStockProd} onChange={handleInputStockProd}/>
                             </div>
                             <div className='itemCreateProduct__input'>
                                 <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputCategoryProd} onChange={(e) => {handleInputCategoryProd(e.target.value)}}/>

@@ -174,10 +174,10 @@ const ProvidersList = () => {
                                 <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputBusinessNamePr} onChange={(e) => {handleInputBusinessNamePr(e.target.value)}}/>
                             </div>
                             <div className='itemCreateProvider__input'>
-                                <input type='number' className='itemCreateProvider__input__prop' placeholder='-' value={inputCuitCuilPr} onChange={(e) => {handleInputCuitCuilPr(e.target.value)}}/>
+                                <input className='itemCreateProvider__input__prop' placeholder='-' value={inputCuitCuilPr} onChange={handleInputCuitCuilPr}/>
                             </div>
                             <div className='itemCreateProvider__input'>
-                                <input type='number' className='itemCreateProvider__input__prop' placeholder='-' value={inputPhonePr} onChange={(e) => {handleInputPhonePr(e.target.value)}}/>
+                                <input className='itemCreateProvider__input__prop' placeholder='-' value={inputPhonePr} onChange={handleInputPhonePr}/>
                             </div>
                             <div className='itemCreateProvider__input'>
                                 <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputEmailPr} onChange={(e) => {handleInputEmailPr(e.target.value)}}/>

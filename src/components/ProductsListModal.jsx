@@ -23,15 +23,19 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
     };
 
     const handleInputPriceIProd = (e) => {
-        const texto = e.target.value;
-        setInputPriceIProd(texto);
-        setInputChanges(true);
+        const inputValue = e.target.value;
+        if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,10}$/.test(inputValue)) {
+            setInputPriceIProd(inputValue);
+            setInputChanges(true);
+        }
     };
 
     const handleInputStockIProd = (e) => {
-        const texto = e.target.value;
-        setInputStockIProd(texto);
-        setInputChanges(true);
+        const inputValue = e.target.value;
+        if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,10}$/.test(inputValue)) {
+            setInputStockIProd(inputValue);
+            setInputChanges(true);
+        }
     };
 
     const handleInputCategoryIProd = (e) => {
@@ -138,10 +142,10 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
                     <input className='productsModalContainer__itemProduct__input__prop' value={!inputDescriptionIProd?description:inputDescriptionIProd} onChange={handleInputDescriptionIProd}/>
                 </div>
                 <div className='productsModalContainer__itemProduct__input'>
-                    <input className='productsModalContainer__itemProduct__input__prop' type='number' value={!inputPriceIProd?price:inputPriceIProd} onChange={handleInputPriceIProd}/>
+                    <input className='productsModalContainer__itemProduct__input__prop' value={!inputPriceIProd?price:inputPriceIProd} onChange={handleInputPriceIProd}/>
                 </div>
                 <div className='productsModalContainer__itemProduct__input'>
-                    <input className='productsModalContainer__itemProduct__input__prop' type='number' value={!inputStockIProd?stock:inputStockIProd} onChange={handleInputStockIProd}/>
+                    <input className='productsModalContainer__itemProduct__input__prop' value={!inputStockIProd?stock:inputStockIProd} onChange={handleInputStockIProd}/>
                 </div>
                 <div className='productsModalContainer__itemProduct__input'>
                     <input className='productsModalContainer__itemProduct__input__prop' value={!inputCategoryIProd?category:inputCategoryIProd} onChange={handleInputCategoryIProd}/>

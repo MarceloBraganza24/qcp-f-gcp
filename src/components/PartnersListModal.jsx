@@ -23,15 +23,19 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
     };
 
     const handleInputDniIPa = (e) => {
-        const texto = e.target.value;
-        setInputDniIPa(texto);
-        setInputChanges(true);
+        const inputValue = e.target.value;
+        if (/^\d{0,8}$/.test(inputValue)) {
+            setInputDniIPa(inputValue)
+            setInputChanges(true);
+        }
     };
 
     const handleInputPhoneIPa = (e) => {
-        const texto = e.target.value;
-        setInputPhoneIPa(texto);
-        setInputChanges(true);
+        const inputValue = e.target.value;
+        if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,13}$/.test(inputValue)) {
+            setInputPhoneIPa(inputValue);
+            setInputChanges(true);
+        }
     };
 
     const handleInputEmailIPa = (e) => {
@@ -123,10 +127,10 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                     <input className='partnersModalContainer__itemPartner__input__prop' value={!inputLastNameIPa?last_name:inputLastNameIPa} onChange={handleInputLastNameIPa}/>
                 </div>
                 <div className='partnersModalContainer__itemPartner__input'>
-                    <input className='partnersModalContainer__itemPartner__input__prop' type='number' value={!inputDniIPa?dni:inputDniIPa} onChange={handleInputDniIPa}/>
+                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputDniIPa?dni:inputDniIPa} onChange={handleInputDniIPa}/>
                 </div>
                 <div className='partnersModalContainer__itemPartner__input'>
-                    <input className='partnersModalContainer__itemPartner__input__prop' type='number' value={!inputPhoneIPa?phone:inputPhoneIPa} onChange={handleInputPhoneIPa}/>
+                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputPhoneIPa?phone:inputPhoneIPa} onChange={handleInputPhoneIPa}/>
                 </div>
                 <div className='partnersModalContainer__itemPartner__input'>
                     <input className='partnersModalContainer__itemPartner__input__prop' value={!inputEmailIPa?email:inputEmailIPa} onChange={handleInputEmailIPa}/>

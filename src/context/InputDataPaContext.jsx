@@ -19,11 +19,17 @@ export const ParentPaComponent = ({children}) => {
   };
 
   const handleInputDniPa = (e) => {
-    setInputDniPa(e);
+    const inputValue = e.target.value;
+    if (/^\d{0,8}$/.test(inputValue)) {
+      setInputDniPa(inputValue)
+    }
   };
 
   const handleInputPhonePa = (e) => {
-    setInputPhonePa(e);
+    const inputValue = e.target.value;
+    if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,13}$/.test(inputValue)) {
+      setInputPhonePa(inputValue);
+    }
   };
 
   const handleInputEmailPa = (e) => {

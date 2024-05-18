@@ -19,11 +19,19 @@ export const ParentProdComponent = ({children}) => {
   };
 
   const handleInputPriceProd = (e) => {
-    setInputPriceProd(e);
+    const inputValue = e.target.value;
+    if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,10}$/.test(inputValue)) {
+      setInputPriceProd(inputValue);
+      setInputChanges(true);
+    } 
   };
 
   const handleInputStockProd = (e) => {
-    setInputStockProd(e);
+    const inputValue = e.target.value;
+    if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,10}$/.test(inputValue)) {
+      setInputStockProd(inputValue);
+      setInputChanges(true);
+    } 
   };
 
   const handleInputCategoryProd = (e) => {

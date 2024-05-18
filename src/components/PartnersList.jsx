@@ -167,10 +167,10 @@ const PartnersList = () => {
                                 <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputLastNamePa} onChange={(e) => {handleInputLastNamePa(e.target.value)}}/>
                             </div>
                             <div className='itemCreatePartner__input'>
-                                <input type='number' className='itemCreatePartner__input__prop' placeholder='-' value={inputDniPa} onChange={(e) => {handleInputDniPa(e.target.value)}}/>
+                                <input className='itemCreatePartner__input__prop' placeholder='-' value={inputDniPa} onChange={handleInputDniPa}/>
                             </div>
                             <div className='itemCreatePartner__input'>
-                                <input type='number' className='itemCreatePartner__input__prop' placeholder='-' value={inputPhonePa} onChange={(e) => {handleInputPhonePa(e.target.value)}}/>
+                                <input className='itemCreatePartner__input__prop' placeholder='-' value={inputPhonePa} onChange={handleInputPhonePa}/>
                             </div>
                             <div className='itemCreatePartner__input'>
                                 <input type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPa} onChange={(e) => {handleInputEmailPa(e.target.value)}}/>

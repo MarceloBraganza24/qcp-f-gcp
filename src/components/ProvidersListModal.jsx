@@ -16,15 +16,19 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
     };
 
     const handleInputCuitCuilIIPr = (e) => {
-        const texto = e.target.value;
-        setInputCuitCuilIPr(texto);
-        setInputChanges(true);
+        const inputValue = e.target.value;
+        if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,11}$/.test(inputValue)) {
+            setInputCuitCuilIPr(inputValue);
+            setInputChanges(true);
+        }
     };
 
     const handleInputPhoneIPr = (e) => {
-        const texto = e.target.value;
-        setInputPhoneIPr(texto);
-        setInputChanges(true);
+        const inputValue = e.target.value;
+        if (/^[0-9-+() ]*$/.test(inputValue) && /^\d{0,13}$/.test(inputValue)) {
+            setInputPhoneIPr(inputValue);
+            setInputChanges(true);
+        }
     };
 
     const handleInputEmailIPr = (e) => {
@@ -110,10 +114,10 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
                     <input className='providersModalContainer__itemProvider__input__prop' value={!inputBusinessNameIPr?businessName:inputBusinessNameIPr} onChange={handleInputBusinessNameIPr}/>
                 </div>
                 <div className='providersModalContainer__itemProvider__input'>
-                    <input className='providersModalContainer__itemProvider__input__prop' type='number' value={!inputCuitCuilIPr?cuitCuil:inputCuitCuilIPr} onChange={handleInputCuitCuilIIPr}/>
+                    <input className='providersModalContainer__itemProvider__input__prop' value={!inputCuitCuilIPr?cuitCuil:inputCuitCuilIPr} onChange={handleInputCuitCuilIIPr}/>
                 </div>
                 <div className='providersModalContainer__itemProvider__input'>
-                    <input className='providersModalContainer__itemProvider__input__prop' type='number' value={!inputPhoneIPr?phone:inputPhoneIPr} onChange={handleInputPhoneIPr}/>
+                    <input className='providersModalContainer__itemProvider__input__prop' value={!inputPhoneIPr?phone:inputPhoneIPr} onChange={handleInputPhoneIPr}/>
                 </div>
                 <div className='providersModalContainer__itemProvider__input'>
                     <input className='providersModalContainer__itemProvider__input__prop' value={!inputEmailIPr?email:inputEmailIPr} onChange={handleInputEmailIPr}/>
