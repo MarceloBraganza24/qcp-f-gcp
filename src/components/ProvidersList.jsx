@@ -8,7 +8,7 @@ import {InputDataPrContext} from '../context/InputDataPrContext';
 import HMenu from './HMenu';
 import ItemProvider from './ItemProvider';
 import { Link } from 'react-router-dom';
-import {InputChangesContext} from '../context/InputChangesContext'; 
+import {OpenModalContext} from '../context/OpenModalContext'; 
 
 const ProvidersList = () => {
     const { inputBusinessNamePr, handleInputBusinessNamePr, inputCuitCuilPr, handleInputCuitCuilPr, inputPhonePr, handleInputPhonePr, inputEmailPr, handleInputEmailPr } = useContext(InputDataPrContext);
@@ -16,7 +16,7 @@ const ProvidersList = () => {
     const [role, setRole] = useState('');
     const [inputFilteredProviders, setInputFilteredProviders] = useState('');
     const [providers, setProviders] = useState([]);
-    const {inputChanges} = useContext(InputChangesContext);
+    const {isOpen} = useContext(OpenModalContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -156,7 +156,7 @@ const ProvidersList = () => {
                     <div className='providersListContainer__title'>- Proveedores -</div>
                     <div className='providersListContainer__inputFilteredProviders'>
                         {
-                            !inputChanges?
+                            !isOpen?
                             <input type='text' className='providersListContainer__inputFilteredProviders__prop' placeholder='Ingrese la razón social' value={inputFilteredProviders} onChange={(e) => {setInputFilteredProviders(e.target.value)}}/>
                             :
                             <input disabled style={buttonDisabledStyle} type='text' className='providersListContainer__inputFilteredProviders__prop' placeholder='Ingrese la razón social' value={inputFilteredProviders} onChange={(e) => {setInputFilteredProviders(e.target.value)}}/>
@@ -183,7 +183,7 @@ const ProvidersList = () => {
                                 <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputEmailPr} onChange={(e) => {handleInputEmailPr(e.target.value)}}/>
                             </div>
                             {
-                                !inputChanges?
+                                !isOpen?
                                 <div className='itemCreateProvider__btns'>
                                     <button className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
                                 </div>

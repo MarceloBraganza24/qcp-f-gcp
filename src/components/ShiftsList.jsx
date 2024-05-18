@@ -10,7 +10,7 @@ import ItemShift from './ItemShift';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Link } from 'react-router-dom';
-import {InputChangesContext} from '../context/InputChangesContext'; 
+import {OpenModalContext} from '../context/OpenModalContext'; 
 
 const ShiftsList = () => {
     const currentDate = new Date();
@@ -18,7 +18,7 @@ const ShiftsList = () => {
     const {isLoggedIn, login, logout} = useContext(IsLoggedContext);
     const [role, setRole] = useState('');
     const [shifts, setShifts] = useState([]);
-    const {inputChanges} = useContext(InputChangesContext);
+    const {isOpen} = useContext(OpenModalContext);
     
     const [selectedYearValue, setSelectedYearsValue] = useState(`${new Date().getFullYear()}`);
     
@@ -199,7 +199,7 @@ const ShiftsList = () => {
                         <div className='shiftsListContainer__selects__labelSelect'>
                             <div className='shiftsListContainer__selects__labelSelect__label'>Año:</div>
                             {       
-                                !inputChanges?
+                                !isOpen?
                                 <select value={selectedYearValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectYears}>
                                     <option value="2024">2024</option>
                                     <option value="2025">2025</option>
@@ -224,7 +224,7 @@ const ShiftsList = () => {
                         <div className='shiftsListContainer__selects__labelSelect'>
                             <div className='shiftsListContainer__selects__labelSelect__label'>Mes:</div>
                             {       
-                                !inputChanges?
+                                !isOpen?
                                 <select value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectMonths}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -259,7 +259,7 @@ const ShiftsList = () => {
                         <div className='shiftsListContainer__selects__labelSelect'>
                             <div className='shiftsListContainer__selects__labelSelect__label'>Día:</div>
                             {       
-                                !inputChanges?
+                                !isOpen?
                                 <select className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectDay} value={selectedDayValue}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -358,7 +358,7 @@ const ShiftsList = () => {
                                 <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleMISh} onChange={handleInputScheduleM} onKeyDown={handleKeyDownM}/>
                             </div>
                             {
-                                !inputChanges?
+                                !isOpen?
                                 <div className='itemCreateShift__btns'>
                                     <button className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
                                 </div>

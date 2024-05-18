@@ -8,7 +8,7 @@ import {InputDataProdContext} from '../context/InputDataProdContext';
 import HMenu from './HMenu';
 import ItemProduct from './ItemProduct';
 import { Link } from 'react-router-dom';
-import {InputChangesContext} from '../context/InputChangesContext'; 
+import {OpenModalContext} from '../context/OpenModalContext'; 
 
 const ProductsList = () => {
     const { inputTitleProd, handleInputTitleProd, inputDescriptionProd, handleInputDescriptionProd, inputPriceProd, handleInputPriceProd, inputStockProd, handleInputStockProd, inputCategoryProd, handleInputCategoryProd } = useContext(InputDataProdContext);
@@ -16,7 +16,7 @@ const ProductsList = () => {
     const [role, setRole] = useState('');
     const [inputFilteredProducts, setInputFilteredProducts] = useState('');
     const [products, setProducts] = useState([]);
-    const {inputChanges} = useContext(InputChangesContext);
+    const {isOpen} = useContext(OpenModalContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -136,7 +136,7 @@ const ProductsList = () => {
                     <div className='productsListContainer__title'>- Productos -</div>
                     <div className='productsListContainer__inputFilteredProducts'>
                         {
-                            !inputChanges?
+                            !isOpen?
                             <input type='text' className='productsListContainer__inputFilteredProducts__prop' placeholder='Ingrese un producto' value={inputFilteredProducts} onChange={(e) => {setInputFilteredProducts(e.target.value)}}/>
                             :
                             <input disabled style={buttonDisabledStyle} type='text' className='productsListContainer__inputFilteredProducts__prop' placeholder='Ingrese un producto' value={inputFilteredProducts} onChange={(e) => {setInputFilteredProducts(e.target.value)}}/>
@@ -167,7 +167,7 @@ const ProductsList = () => {
                                 <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputCategoryProd} onChange={(e) => {handleInputCategoryProd(e.target.value)}}/>
                             </div>
                             {
-                                !inputChanges?
+                                !isOpen?
                                 <div className='itemCreateProduct__btns'>
                                     <button className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
                                 </div>

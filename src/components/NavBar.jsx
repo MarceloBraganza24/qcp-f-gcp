@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import {InputChangesContext} from '../context/InputChangesContext'; 
+import {OpenModalContext} from '../context/OpenModalContext'; 
 
 const NavBar = () => {
-    const {inputChanges} = useContext(InputChangesContext);
+    const {isOpen} = useContext(OpenModalContext);
 
   return (
     <div className='navBarContainer'>
@@ -13,7 +13,7 @@ const NavBar = () => {
             </div>
             <div className='navBarContainer__logo-title__title'>
                 {       
-                    !inputChanges?
+                    !isOpen?
                     <Link to={"/"} className='navBarContainer__logo-title__title__prop'>
                         Que Corte
                     </Link>
@@ -29,7 +29,7 @@ const NavBar = () => {
             </div>
             <div className='navBarContainer__phrase-btns__btns'>
                 {
-                    !inputChanges?
+                    !isOpen?
                     <Link to={"/"} className='navBarContainer__phrase-btns__btns__prop'>
                         Inicio
                     </Link>
@@ -37,7 +37,7 @@ const NavBar = () => {
                     <div className='navBarContainer__phrase-btns__btns__prop'>Inicio</div>
                 }
                 {
-                    !inputChanges?
+                    !isOpen?
                     <Link to={"/shifts"} className='navBarContainer__phrase-btns__btns__prop'>
                         Turnos
                     </Link>
@@ -45,7 +45,7 @@ const NavBar = () => {
                     <div className='navBarContainer__phrase-btns__btns__prop'>Turnos</div>
                 }
                 {
-                    !inputChanges?
+                    !isOpen?
                     <Link to={"/cuts"} className='navBarContainer__phrase-btns__btns__prop'>
                         Cortes
                     </Link>
@@ -53,7 +53,7 @@ const NavBar = () => {
                     <div className='navBarContainer__phrase-btns__btns__prop'>Cortes</div>
                 }
                 {
-                    !inputChanges?
+                    !isOpen?
                     <Link to={"/about"} className='navBarContainer__phrase-btns__btns__prop'>
                         Sobre nosotros
                     </Link>
@@ -61,7 +61,7 @@ const NavBar = () => {
                     <div className='navBarContainer__phrase-btns__btns__prop'>Sobre nosotros</div>
                 }
                 {
-                    !inputChanges?
+                    !isOpen?
                     <Link to={"/partners"} className='navBarContainer__phrase-btns__btns__prop'>
                         Socios
                     </Link>

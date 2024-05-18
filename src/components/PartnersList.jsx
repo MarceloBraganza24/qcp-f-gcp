@@ -8,7 +8,7 @@ import {InputDataPaContext} from '../context/InputDataPaContext';
 import HMenu from './HMenu';
 import ItemPartner from './ItemPartner';
 import { Link } from 'react-router-dom';
-import {InputChangesContext} from '../context/InputChangesContext'; 
+import {OpenModalContext} from '../context/OpenModalContext'; 
 
 const PartnersList = () => {
     const { inputFirstNamePa, handleInputFirstNamePa, inputLastNamePa, handleInputLastNamePa, inputDniPa, handleInputDniPa, inputPhonePa, handleInputPhonePa, inputEmailPa, handleInputEmailPa } = useContext(InputDataPaContext);
@@ -16,7 +16,7 @@ const PartnersList = () => {
     const [role, setRole] = useState('');
     const [inputFilteredPartners, setInputFilteredPartners] = useState('');
     const [partners, setPartners] = useState([]);
-    const {inputChanges} = useContext(InputChangesContext);
+    const {isOpen} = useContext(OpenModalContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -145,7 +145,7 @@ const PartnersList = () => {
                     <div className='partnersListContainer__title'>- Socios -</div>
                     <div className='partnersListContainer__inputFilteredPartners'>
                         {
-                            !inputChanges?
+                            !isOpen?
                             <input id='inputFilteredPartners' type='text' className='partnersListContainer__inputFilteredPartners__prop' placeholder='Ingrese un apellido' value={inputFilteredPartners} onChange={(e) => {setInputFilteredPartners(e.target.value)}}/>
                             :
                             <input disabled style={buttonDisabledStyle} id='inputFilteredPartners' type='text' className='partnersListContainer__inputFilteredPartners__prop' placeholder='Ingrese un apellido' value={inputFilteredPartners} onChange={(e) => {setInputFilteredPartners(e.target.value)}}/>
@@ -176,7 +176,7 @@ const PartnersList = () => {
                                 <input type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPa} onChange={(e) => {handleInputEmailPa(e.target.value)}}/>
                             </div>
                             {
-                                !inputChanges?
+                                !isOpen?
                                 <div className='itemCreatePartner__btns'>
                                     <button className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
                                 </div>

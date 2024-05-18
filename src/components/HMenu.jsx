@@ -1,9 +1,9 @@
 import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
-import {InputChangesContext} from '../context/InputChangesContext';
+import {OpenModalContext} from '../context/OpenModalContext';
 
 const HMenu = () => {
-  const {inputChanges} = useContext(InputChangesContext);
+  const {isOpen} = useContext(OpenModalContext);
 
   const openW = () => {
     document.getElementById("menuOptions").style.display = "flex"
@@ -12,7 +12,7 @@ const HMenu = () => {
   return (
     <>
       {
-        !inputChanges&&
+        !isOpen&&
         <>
           <div onClick={openW} className='hMenu'>
             <div className='hMenu__line'></div>

@@ -1,11 +1,68 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { toast } from "react-toastify";
 
-const PartnersListModal = ({id,first_name,last_name,dni,phone,email,inputFirstNameIPa,inputLastNameIPa,inputDniIPa,inputPhoneIPa,inputEmailIPa}) => {
+const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
+    const [inputChanges, setInputChanges] = useState(false);
 
-    const handleBtnCloseModal = () => {
-        window.location.href = '/partnersList'
-    }
+    const [inputFirstNameIPa, setInputFirstNameIPa] = useState('');
+    const [inputLastNameIPa, setInputLastNameIPa] = useState('');
+    const [inputDniIPa, setInputDniIPa] = useState('');
+    const [inputPhoneIPa, setInputPhoneIPa] = useState('');
+    const [inputEmailIPa, setInputEmailIPa] = useState('');
+
+    const handleInputFirstNameIPa = (e) => {
+        const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
+        setInputFirstNameIPa(texto);
+        setInputChanges(true);
+    };
+
+    const handleInputLastNameIPa = (e) => {
+        const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
+        setInputLastNameIPa(texto);
+        setInputChanges(true);
+    };
+
+    const handleInputDniIPa = (e) => {
+        const texto = e.target.value;
+        setInputDniIPa(texto);
+        setInputChanges(true);
+    };
+
+    const handleInputPhoneIPa = (e) => {
+        const texto = e.target.value;
+        setInputPhoneIPa(texto);
+        setInputChanges(true);
+    };
+
+    const handleInputEmailIPa = (e) => {
+        const texto = e.target.value;
+        setInputEmailIPa(texto);
+        setInputChanges(true);
+    };
+
+    const handleBtnDelPartner = async() => {
+        const response = await fetch(`http://localhost:8081/api/partners/${id}`, {
+            method: 'DELETE',         
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        if(response.ok) {
+            toast('Has eliminado el socio correctamente!', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        }
+    };
 
     const handleBtnUpdPartner = async() => {
         const partnerToUpdate = {
@@ -41,14 +98,43 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email,inputFirstNa
 
     return (
     <>
-        <div className='modalContainer'>
-            <div className='modalContainer__ask'>¿ Deseas guardar los datos modificados del socio</div>
-            <div className='modalContainer__name'>{first_name}{' '}{last_name} ?</div>
-            <div className='modalContainer__btns'>
-                <button className='modalContainer__btns__btn' onClick={handleBtnUpdPartner}>Guardar</button>
+        
+        <div className='partnersModalContainer'>
+            <div className='partnersModalContainer__btnCloseModal'>
+                {
+                    !inputChanges?
+                    <a className='partnersModalContainer__btnCloseModal__prop' href="/partnersList">cerrar</a>
+                    :
+                    <div className='partnersModalContainer__btnCloseModal__prop'>cerrar</div>
+                }
             </div>
-            <div className='modalContainer__btns'>
-                <button className='modalContainer__btns__btn' onClick={handleBtnCloseModal}>Salir</button>
+            <div className='partnersModalContainer__header'>
+                <div>Nombre</div>
+                <div>Apellido</div>
+                <div>Dni</div>
+                <div>Teléfono</div>
+                <div>Email</div>
+            </div>
+            <div className='partnersModalContainer__itemPartner'>
+                <div className='partnersModalContainer__itemPartner__input'>
+                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputFirstNameIPa?first_name:inputFirstNameIPa} onChange={handleInputFirstNameIPa}/>
+                </div>
+                <div className='partnersModalContainer__itemPartner__input'>
+                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputLastNameIPa?last_name:inputLastNameIPa} onChange={handleInputLastNameIPa}/>
+                </div>
+                <div className='partnersModalContainer__itemPartner__input'>
+                    <input className='partnersModalContainer__itemPartner__input__prop' type='number' value={!inputDniIPa?dni:inputDniIPa} onChange={handleInputDniIPa}/>
+                </div>
+                <div className='partnersModalContainer__itemPartner__input'>
+                    <input className='partnersModalContainer__itemPartner__input__prop' type='number' value={!inputPhoneIPa?phone:inputPhoneIPa} onChange={handleInputPhoneIPa}/>
+                </div>
+                <div className='partnersModalContainer__itemPartner__input'>
+                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputEmailIPa?email:inputEmailIPa} onChange={handleInputEmailIPa}/>
+                </div>
+                <div className='partnersModalContainer__itemPartner__btns'>
+                    <button className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>
+                    <button className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
+                </div>
             </div>
         </div>
     </>

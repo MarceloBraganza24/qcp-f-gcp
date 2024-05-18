@@ -1,11 +1,11 @@
 import React, { useContext} from 'react'
 import { toast } from "react-toastify";
 import {IsLoggedContext} from '../context/IsLoggedContext';
-import {InputChangesContext} from '../context/InputChangesContext';
+import {OpenModalContext} from '../context/OpenModalContext';
 
 const LogOut = () => {
     const {logout} = useContext(IsLoggedContext);
-    const {inputChanges} = useContext(InputChangesContext);
+    const {isOpen} = useContext(OpenModalContext);
 
     const logOutBtn = async (event) => {
         event.preventDefault();
@@ -62,7 +62,7 @@ const LogOut = () => {
   return (
     <>
       {
-        !inputChanges?
+        !isOpen?
         <a onClick={logOutBtn} href="" className='logOut'>Cerrar sesión</a>
         :
         <div className='logOut'>Cerrar sesión</div>

@@ -18,7 +18,7 @@ import ShiftsList from './components/ShiftsList';
 import PartnersList from './components/PartnersList';
 import ProductsList from './components/ProductsList';
 import ProvidersList from './components/ProvidersList';
-import { InputChangesContextComponent } from './context/InputChangesContext';
+import { OpenModalContextComponent } from './context/OpenModalContext';
 
 function App() {
 
@@ -38,7 +38,7 @@ function App() {
 
         <ParentShLComponent>
 
-        <InputChangesContextComponent>
+        <OpenModalContextComponent>
 
           <Routes>
 
@@ -58,7 +58,7 @@ function App() {
           
           <ToastContainer />
 
-        </InputChangesContextComponent>
+        </OpenModalContextComponent>
 
         </ParentShLComponent>
 

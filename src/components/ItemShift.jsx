@@ -1,326 +1,53 @@
-import React, { useEffect, useContext, useState } from 'react'
-import DatePicker from 'react-datepicker';
+import React, { useState, useContext  } from 'react'
 import 'react-datepicker/dist/react-datepicker.css';
-import { toast } from "react-toastify";
-import { format } from 'date-fns';
-import { toZonedTime } from 'date-fns-tz';
 import ShiftsListModal from './ShiftsListModal';
-import {InputChangesContext} from '../context/InputChangesContext';
+import {OpenModalContext} from '../context/OpenModalContext'; 
 
 const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     const scheduleArray = schedule.split(':')
     let scheduleH = scheduleArray[0];
     let scheduleM = scheduleArray[1];
-    const fechaUTC = toZonedTime(date, 'UTC');
-    const dateFormated = format(fechaUTC, "yyyy/MM/dd");
-
-    const [inputFirstNameISh, setInputFirstNameISh] = useState('');
-    const [inputLastNameISh, setInputLastNameISh] = useState('');
-    const [inputDateISh, handleInputDateISh] = useState('');
-    const [inputScheduleHISh, handleInputScheduleHISh] = useState('');
-    const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
-    const [scheduleHData, setScheduleHData] = useState('');
-    const [scheduleMData, setScheduleMData] = useState('');
-
-    useEffect(() => {
-        setScheduleHData(scheduleH);
-        setScheduleMData(scheduleM);
-    },[])
 
     const [modalOpen, setModalOpen] = useState(false);
-    const {inputChanges, handleInputChanges} = useContext(InputChangesContext);
-
-    const handleInputFirstNameISh = (e) => {
-        const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
-        setInputFirstNameISh(texto);
-        handleInputChanges(true);
-    };
-
-    const handleInputLastNameISh = (e) => {
-        const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
-        setInputLastNameISh(texto);
-        handleInputChanges(true);
-    };
-
-    const handleInputScheduleH = (event) => {
-        const inputValue = event.target.value;
-        if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 23) {
-            handleInputScheduleHISh(inputValue);
-            handleInputChanges(true);
-        }
-    };
-
-    const handleInputScheduleM = (event) => {
-        const inputValue = event.target.value;
-        if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 59) {
-            handleInputScheduleMISh(inputValue);
-            handleInputChanges(true);
-        }
-    };
-
-    const handleKeyDownH = (event) => {
-        if (event.keyCode === 8) {
-            handleInputScheduleHISh('');
-            setScheduleHData('')
-        }
-    };
-
-    const handleKeyDownM = (event) => {
-        if (event.keyCode === 8) {
-            handleInputScheduleMISh('');
-            setScheduleMData('')
-        }
-    };
-    
-    const handleDateChange = date => {
-        handleInputDateISh(date);
-        handleInputChanges(true);
-    };
-
-    const handleInputFNonBlur = () => {
-        inputChanges&&setModalOpen(true);
-    }
-
-    const handleInputLNonBlur = () => {
-        inputChanges&&setModalOpen(true);
-    }
-
-    const handleInputDateonBlur = () => {
-        inputChanges&&setModalOpen(true);
-    }
-
-    const handleInputSchHonBlur = () => {
-        inputChanges&&setModalOpen(true);
-        inputScheduleHISh===''&&handleInputScheduleHISh(scheduleH);
-    }
-
-    const handleInputSchMonBlur = () => {
-        inputChanges&&setModalOpen(true);
-        inputScheduleMISh===''&&handleInputScheduleMISh(scheduleM);
-    }
-
-    const handleFocusInputFN = () => {
-        setModalOpen(false);
-        console.log(!inputFirstNameISh?first_name:inputFirstNameISh)
-    };
-
-    const handleFocusInputLN = () => {
-        setModalOpen(false);
-    };
-
-    const handleFocusInputDate = () => {
-        setModalOpen(false);
-    };
-
-    const handleFocusInputSchH = () => {
-        setModalOpen(false);
-    };
-
-    const handleFocusInputSchM = () => {
-        setModalOpen(false);
-    };
-
-    const handleBtnDelShift = async() => {
-        const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
-            method: 'DELETE',         
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        if(response.ok) {
-            toast('Has eliminado el turno correctamente!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
-        }
-    };
+    const {isOpen, handleModal} = useContext(OpenModalContext);
 
     const handleBtnUpdShift = async() => {
-        if(inputFirstNameISh === '' && inputLastNameISh === '' && inputDateISh === '' && inputScheduleHISh === '' && inputScheduleMISh === '') {
-            toast('No tienes cambios para actualizar!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        } else if(inputScheduleHISh !== '' && inputScheduleMISh === '') {
-            const scheduleConcat = inputScheduleHISh + ':' + scheduleM;
-            const shiftToUpdate = {
-                first_name: inputFirstNameISh?inputFirstNameISh:first_name,
-                last_name: inputLastNameISh?inputLastNameISh:last_name,
-                date: inputDateISh?inputDateISh:date,
-                schedule: scheduleConcat
-            }
-            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
-                method: 'PUT',         
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(shiftToUpdate)
-            })
-            if(response.ok) {
-                toast('Has actualizado el turno correctamente!', {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
-            }
-        } else if (inputScheduleHISh !== '' && inputScheduleMISh !== '') {
-            const scheduleConcat = inputScheduleHISh + ':' + inputScheduleMISh;
-            const shiftToUpdate = {
-                first_name: inputFirstNameISh?inputFirstNameISh:first_name,
-                last_name: inputLastNameISh?inputLastNameISh:last_name,
-                date: inputDateISh?inputDateISh:date,
-                schedule: scheduleConcat
-            }
-            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
-                method: 'PUT',         
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(shiftToUpdate)
-            })
-            if(response.ok) {
-                toast('Has actualizado el turno correctamente!', {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
-            }
-        } else if (inputScheduleHISh === '' && inputScheduleMISh !== '') {
-            const scheduleConcat = scheduleH + ':' + inputScheduleMISh;
-            const shiftToUpdate = {
-                first_name: inputFirstNameISh?inputFirstNameISh:first_name,
-                last_name: inputLastNameISh?inputLastNameISh:last_name,
-                date: inputDateISh?inputDateISh:date,
-                schedule: scheduleConcat
-            }
-            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
-                method: 'PUT',         
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(shiftToUpdate)
-            })
-            if(response.ok) {
-                toast('Has actualizado el turno correctamente!', {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
-            }
-        } else {
-            const scheduleConcat = inputScheduleHISh?inputScheduleHISh:scheduleH + ':' + inputScheduleMISh?inputScheduleMISh:scheduleM;
-            const shiftToUpdate = {
-                first_name: inputFirstNameISh?inputFirstNameISh:first_name,
-                last_name: inputLastNameISh?inputLastNameISh:last_name,
-                date: inputDateISh?inputDateISh:date,
-                schedule: scheduleConcat?scheduleConcat:schedule
-            }
-            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
-                method: 'PUT',         
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(shiftToUpdate)
-            })
-            if(response.ok) {
-                toast('Has actualizado el turno correctamente!', {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
-            }
-        }
+        setModalOpen(true);
+        handleModal(true);
     };
 
     const buttonDisabledStyle = {
         color: 'black',
         cursor: 'pointer'
     };
-    
- 
+
   return (
     <>
         <div className='itemShift'>
             <div className='itemShift__input'>
-                <input className='itemShift__input__prop' value={!inputFirstNameISh?first_name:inputFirstNameISh} onFocus={handleFocusInputFN} onBlur={handleInputFNonBlur} onChange={handleInputFirstNameISh}/>
+                <div className='itemShift__input__prop'>{first_name}</div>
             </div>
             <div className='itemShift__input'>
-                <input className='itemShift__input__prop' value={!inputLastNameISh?last_name:inputLastNameISh} onFocus={handleFocusInputLN} onBlur={handleInputLNonBlur} onChange={handleInputLastNameISh}/>
+                <div className='itemShift__input__prop'>{last_name}</div>
             </div>
             <div className='itemShift__input'>
-                <DatePicker className='datePikerShiftsList'
-                    selected={!inputDateISh?dateFormated:inputDateISh}
-                    onChange={handleDateChange}
-                    onBlur={handleInputDateonBlur}
-                    onFocus={handleFocusInputDate}
-                    dateFormat="dd/MM/yyyy"
-                />
+                <div className='itemShift__input__prop'>{date}</div>
             </div>
             <div className='itemCreateShift__inputSchedule'>
-                <input className='itemCreateShift__inputSchedule__prop' value={!inputScheduleHISh?scheduleHData:inputScheduleHISh} onFocus={handleFocusInputSchH} onBlur={handleInputSchHonBlur} onChange={handleInputScheduleH} onKeyDown={handleKeyDownH}/>
+                <div className='itemShift__input__prop'>{scheduleH}</div>
                 <div>:</div>
-                <input className='itemCreateShift__inputSchedule__prop' value={!inputScheduleMISh?scheduleMData:inputScheduleMISh} onFocus={handleFocusInputSchM} onBlur={handleInputSchMonBlur} onChange={handleInputScheduleM} onKeyDown={handleKeyDownM}/>
+                <div className='itemShift__input__prop'>{scheduleM}</div>
             </div>
             {
-                !inputChanges?
+                !modalOpen&&!isOpen?
                 <div className='itemShift__btns'>
-                    <button className='itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
-                    <button className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
+                    <button className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Editar</button>
                 </div>
-                : 
+                :
                 <div className='itemShift__btns'>
-                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
-                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Editar</button>
                 </div>
             }
-            
         </div>
         {
             modalOpen&&
@@ -330,11 +57,6 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
                 last_name={last_name}
                 date={date}
                 schedule={schedule}
-                inputFirstNameISh={inputFirstNameISh}
-                inputLastNameISh={inputLastNameISh}
-                inputDateISh={inputDateISh}
-                inputScheduleHISh={inputScheduleHISh}
-                inputScheduleMISh={inputScheduleMISh}
                 />
         }
     </>
