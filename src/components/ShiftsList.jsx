@@ -14,7 +14,7 @@ import {OpenModalContext} from '../context/OpenModalContext';
 
 const ShiftsList = () => {
     const currentDate = new Date();
-    const { inputFirstNameShL, handleInputFirstNameShL, inputLastNameShL, handleInputLastNameShL, inputDateShL, handleInputDateShL, inputScheduleShL, handleInputScheduleShL } = useContext(InputDataShLContext);
+    const { inputFirstNameShL, handleInputFirstNameShL, inputLastNameShL, handleInputLastNameShL, inputDateShL, handleInputDateShL, inputScheduleHShL, inputScheduleMShL, handleInputScheduleHShL, handleInputScheduleMShL } = useContext(InputDataShLContext);
     const {isLoggedIn, login, logout} = useContext(IsLoggedContext);
     const [role, setRole] = useState('');
     const [shifts, setShifts] = useState([]);
@@ -29,8 +29,8 @@ const ShiftsList = () => {
     const currentDay = currentDate.getDate();
     const [selectedDayValue, setSelectedDayValue] = useState(`${currentDay}`);
     
-    const [inputScheduleHISh, handleInputScheduleHISh] = useState('');
-    const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
+    //const [inputScheduleHISh, handleInputScheduleHISh] = useState('');
+    //const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
     
     function compararFechas(objeto1, objeto2) {
         var fechaHora1 = new Date(objeto1.date + " " + objeto1.schedule);
@@ -47,7 +47,7 @@ const ShiftsList = () => {
     const fechaDeseada = dateDesired;
     const objetosFiltrados = filtrarPorFecha(shiftsOrganized, fechaDeseada);
 
-    const handleInputScheduleH = (event) => {
+    /* const handleInputScheduleH = (event) => {
         const inputValue = event.target.value;
         if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 23) {
             handleInputScheduleHISh(inputValue);
@@ -59,19 +59,19 @@ const ShiftsList = () => {
         if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 59) {
             handleInputScheduleMISh(inputValue);
         }
-    };
+    }; */
 
-    const handleKeyDownH = (event) => {
+    /* const handleKeyDownH = (event) => {
         if (event.keyCode === 8) {
-            handleInputScheduleHISh('');
+            handleInputScheduleHShL('');
         }
     };
 
     const handleKeyDownM = (event) => {
         if (event.keyCode === 8) {
-            handleInputScheduleMISh('');
+            handleInputScheduleMShL('');
         }
-    };
+    }; */
     
 
     useEffect(() => {
@@ -137,7 +137,7 @@ const ShiftsList = () => {
     };
 
     const handleBtnCreateShift = async() => {
-        if(!inputFirstNameShL || !inputLastNameShL || !inputDateShL || !inputScheduleHISh || !inputScheduleMISh) {
+        if(!inputFirstNameShL || !inputLastNameShL || !inputDateShL || !inputScheduleHShL || !inputScheduleMShL) {
             toast('Debes completar todos los campos!', {
                 position: "top-right",
                 autoClose: 3000,
@@ -149,7 +149,7 @@ const ShiftsList = () => {
                 theme: "dark",
             });
         } else {
-            const schedule = inputScheduleHISh + ':' + inputScheduleMISh
+            const schedule = inputScheduleHShL + ':' + inputScheduleMShL
             const shiftToCreate = {
                 first_name: inputFirstNameShL,
                 last_name: inputLastNameShL,
@@ -193,6 +193,34 @@ const ShiftsList = () => {
             }
         }
     };
+
+    const handleOnBlurInputScheduleH = () => {
+        if(inputScheduleHShL.length===1 && inputScheduleHShL<10) {
+            handleInputScheduleHShL("0"+inputScheduleHShL)
+        } else if(inputScheduleHShL==='00') {
+            handleInputScheduleHShL(inputScheduleHShL)
+        } 
+    }
+
+    const handleOnBlurInputScheduleM = () => {
+        if(inputScheduleMShL.length===1 && inputScheduleMShL<10) {
+            handleInputScheduleMShL("0"+inputScheduleMShL)
+        } else if(inputScheduleMShL==='00') {
+            handleInputScheduleMShL(inputScheduleMShL)
+        } 
+    }
+
+    /* const handleKeyDownH = (event) => {
+        if (event.keyCode === 8) {
+            handleInputScheduleHShL('');
+        }
+    };
+
+    const handleKeyDownM = (event) => {
+        if (event.keyCode === 8) {
+            handleInputScheduleMShL('');
+        }
+    }; */
 
     const buttonDisabledStyle = {
         color: 'black',
@@ -366,9 +394,9 @@ const ShiftsList = () => {
                                 />
                             </div>
                             <div className='itemCreateShift__inputSchedule'>
-                                <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleHISh} onChange={handleInputScheduleH} onKeyDown={handleKeyDownH}/>
+                                <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleHShL} onBlur={handleOnBlurInputScheduleH} onChange={handleInputScheduleHShL}/>
                                 <div>:</div>
-                                <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleMISh} onChange={handleInputScheduleM} onKeyDown={handleKeyDownM}/>
+                                <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleMShL} onBlur={handleOnBlurInputScheduleM} onChange={handleInputScheduleMShL}/>
                             </div>
                             {
                                 !isOpen?

@@ -271,10 +271,20 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
 
     const handleOnBlurInputScheduleH = () => {
         inputScheduleHISh===''&&setScheduleHData(scheduleH)
+        if(inputScheduleHISh.length===1 && inputScheduleHISh<10) {
+            handleInputScheduleHISh("0"+inputScheduleHISh)
+        } else if(inputScheduleHISh==='00') {
+            handleInputScheduleHISh(inputScheduleHISh)
+        } 
     }
 
     const handleOnBlurInputScheduleM = () => {
         inputScheduleMISh===''&&setScheduleMData(scheduleM)
+        if(inputScheduleMISh.length===1 && inputScheduleMISh<10) {
+            handleInputScheduleMISh("0"+inputScheduleMISh)
+        } else if(inputScheduleMISh==='00') {
+            handleInputScheduleMISh(inputScheduleMISh)
+        } 
     }
 
     const ConfirmationDeleteModal = () => {
@@ -364,9 +374,9 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                     />
                 </div>
                 <div className='shiftModalContainer__itemShift__inputSchedule'>
-                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' value={!inputScheduleHISh?scheduleHData:inputScheduleHISh} onChange={handleInputScheduleH} onBlur={handleOnBlurInputScheduleH} onKeyDown={handleKeyDownH}/>
+                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' maxLength={2} value={!inputScheduleHISh?scheduleHData:inputScheduleHISh} onChange={handleInputScheduleH} onBlur={handleOnBlurInputScheduleH} onKeyDown={handleKeyDownH}/>
                     <div>:</div>
-                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' value={!inputScheduleMISh?scheduleMData:inputScheduleMISh} onChange={handleInputScheduleM} onBlur={handleOnBlurInputScheduleM} onKeyDown={handleKeyDownM}/>
+                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' maxLength={2} value={!inputScheduleMISh?scheduleMData:inputScheduleMISh} onChange={handleInputScheduleM} onBlur={handleOnBlurInputScheduleM} onKeyDown={handleKeyDownM}/>
                 </div>
                 <div className='shiftModalContainer__itemShift__btns'>
                     <button className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
