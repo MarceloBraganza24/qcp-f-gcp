@@ -92,6 +92,37 @@
     }
 }
 
+.confirmationDeleteBtnModalContainer {
+    background-color: black;
+    width: 50%;
+    height: auto;
+    @include disFC();
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 3vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+    &__ask {
+        font-size: 25px;
+        color: white;
+    }
+    &__btns {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 5vh;
+        &__prop {
+            width: 20%;
+            border-radius: 2vh;
+        }
+    }
+}
+
 .partnersModalContainer {
     background-color: black;
     width: 80%;

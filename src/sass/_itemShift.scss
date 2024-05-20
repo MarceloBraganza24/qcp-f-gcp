@@ -79,6 +79,15 @@
             color: white;
         }
     }
+    &__inputSchedule {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 0.5vh;
+        &__prop {
+            font-size: 20px;
+        }
+    }
     &__label {
         width: 100%;
         height: auto;

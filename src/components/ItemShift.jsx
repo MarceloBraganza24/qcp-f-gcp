@@ -33,10 +33,10 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
             <div className='itemShift__input'>
                 <div className='itemShift__input__prop'>{date}</div>
             </div>
-            <div className='itemCreateShift__inputSchedule'>
-                <div className='itemShift__input__prop'>{scheduleH}</div>
+            <div className='itemShift__inputSchedule'>
+                <div className='itemShift__inputSchedule__prop'>{scheduleH}</div>
                 <div>:</div>
-                <div className='itemShift__input__prop'>{scheduleM}</div>
+                <div className='itemShift__inputSchedule__prop'>{scheduleM}</div>
             </div>
             {
                 !modalOpen&&!isOpen?

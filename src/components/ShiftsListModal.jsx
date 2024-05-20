@@ -22,6 +22,8 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
     const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
     const [scheduleHData, setScheduleHData] = useState('');
     const [scheduleMData, setScheduleMData] = useState('');
+
+    const [confirmationDeleteModal, setConfirmationDeleteModal] = useState(false);
     
 
     useEffect(() => {
@@ -77,27 +79,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
     };
 
     const handleBtnDelShift = async() => {
-        const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
-            method: 'DELETE',         
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        if(response.ok) {
-            toast('Has eliminado el turno correctamente!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
-        }
+        setConfirmationDeleteModal(true)
     };
 
     const handleBtnUpdShift = async() => {
@@ -116,6 +98,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 },
                 body: JSON.stringify(shiftToUpdate)
             })
+            const data = await response.json();
             if(response.ok) {
                 toast('Has actualizado el turno correctamente!', {
                     position: "top-right",
@@ -130,10 +113,11 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 setTimeout(() => {
                     window.location.href = '/shiftsList';
                 }, 1500);
-            } else {
-                toast('Ha ocurrido un error, intente nuevamente!', {
+            }
+            if(data.error === 'There is already a shift with that date and time') {
+                toast('Ya existe un turno con esa fecha y horario!', {
                     position: "top-right",
-                    autoClose: 1000,
+                    autoClose: 1500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -157,6 +141,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 },
                 body: JSON.stringify(shiftToUpdate)
             })
+            const data = await response.json();
             if(response.ok) {
                 toast('Has actualizado el turno correctamente!', {
                     position: "top-right",
@@ -171,10 +156,11 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 setTimeout(() => {
                     window.location.href = '/shiftsList';
                 }, 1500);
-            } else {
-                toast('Ha ocurrido un error, intente nuevamente!', {
+            }
+            if(data.error === 'There is already a shift with that date and time') {
+                toast('Ya existe un turno con esa fecha y horario!', {
                     position: "top-right",
-                    autoClose: 1000,
+                    autoClose: 1500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -198,6 +184,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 },
                 body: JSON.stringify(shiftToUpdate)
             })
+            const data = await response.json();
             if(response.ok) {
                 toast('Has actualizado el turno correctamente!', {
                     position: "top-right",
@@ -212,10 +199,11 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 setTimeout(() => {
                     window.location.href = '/shiftsList';
                 }, 1500);
-            } else {
-                toast('Ha ocurrido un error, intente nuevamente!', {
+            }
+            if(data.error === 'There is already a shift with that date and time') {
+                toast('Ya existe un turno con esa fecha y horario!', {
                     position: "top-right",
-                    autoClose: 1000,
+                    autoClose: 1500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -239,6 +227,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 },
                 body: JSON.stringify(shiftToUpdate)
             })
+            const data = await response.json();
             if(response.ok) {
                 toast('Has actualizado el turno correctamente!', {
                     position: "top-right",
@@ -253,10 +242,22 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 setTimeout(() => {
                     window.location.href = '/shiftsList';
                 }, 1500);
-            } else {
-                toast('Ha ocurrido un error, intente nuevamente!', {
+            }
+            if(data.error === 'There is already a shift with that data') {
+                toast('No tienes cambios para actualizar!', {
                     position: "top-right",
-                    autoClose: 1000,
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a shift with that date and time') {
+                toast('Ya existe un turno con esa fecha y horario!', {
+                    position: "top-right",
+                    autoClose: 1500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -267,6 +268,69 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
             }
         }
     };
+
+    const handleOnBlurInputScheduleH = () => {
+        inputScheduleHISh===''&&setScheduleHData(scheduleH)
+    }
+
+    const handleOnBlurInputScheduleM = () => {
+        inputScheduleMISh===''&&setScheduleMData(scheduleM)
+    }
+
+    const ConfirmationDeleteModal = () => {
+
+        const handleBtnDelShift = async() => {
+            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
+                method: 'DELETE',         
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            if(response.ok) {
+                toast('Has eliminado el turno correctamente!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else {
+                toast('Has ocurrido un error al querer eliminar el turno!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+        };
+
+        const handleBtnConfirmationDeleteBtnNo = () => {
+            setConfirmationDeleteModal(false)
+        }
+
+        return (
+            <>
+                <div className='confirmationDeleteBtnModalContainer'>
+                    <div className='confirmationDeleteBtnModalContainer__ask'>¿Estás seguro que deseas borrar el turno?</div>
+                    <div className='confirmationDeleteBtnModalContainer__btns'>
+                        <button onClick={handleBtnDelShift} className='confirmationDeleteBtnModalContainer__btns__prop'>Si</button>
+                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnModalContainer__btns__prop'>No</button>
+                    </div>
+                </div>
+            </>
+        )
+    }
+
 
     return (
     <>
@@ -300,15 +364,18 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                     />
                 </div>
                 <div className='shiftModalContainer__itemShift__inputSchedule'>
-                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' value={!inputScheduleHISh?scheduleHData:inputScheduleHISh}onChange={handleInputScheduleH} onKeyDown={handleKeyDownH}/>
+                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' value={!inputScheduleHISh?scheduleHData:inputScheduleHISh} onChange={handleInputScheduleH} onBlur={handleOnBlurInputScheduleH} onKeyDown={handleKeyDownH}/>
                     <div>:</div>
-                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' value={!inputScheduleMISh?scheduleMData:inputScheduleMISh}onChange={handleInputScheduleM} onKeyDown={handleKeyDownM}/>
+                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' value={!inputScheduleMISh?scheduleMData:inputScheduleMISh} onChange={handleInputScheduleM} onBlur={handleOnBlurInputScheduleM} onKeyDown={handleKeyDownM}/>
                 </div>
                 <div className='shiftModalContainer__itemShift__btns'>
                     <button className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
                     <button className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
                 </div>
             </div>
+            {
+                confirmationDeleteModal&&<ConfirmationDeleteModal/>
+            }
         </div>
     </>
     )

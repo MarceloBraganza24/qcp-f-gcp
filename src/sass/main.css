@@ -592,6 +592,17 @@ h2 {
   border: none;
   color: white;
 }
+.itemShift__inputSchedule {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5vh;
+}
+.itemShift__inputSchedule__prop {
+  font-size: 20px;
+}
 .itemShift__label {
   width: 100%;
   height: auto;
@@ -1628,6 +1639,41 @@ h2 {
   width: 60%;
   height: auto;
   border-radius: 1vh;
+}
+
+.confirmationDeleteBtnModalContainer {
+  background-color: black;
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0.5vh solid white;
+  border-radius: 2vh;
+  padding: 1vh 2vh 3vh 2vh;
+  z-index: 2;
+  gap: 1vh;
+}
+.confirmationDeleteBtnModalContainer__ask {
+  font-size: 25px;
+  color: white;
+}
+.confirmationDeleteBtnModalContainer__btns {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vh;
+}
+.confirmationDeleteBtnModalContainer__btns__prop {
+  width: 20%;
+  border-radius: 2vh;
 }
 
 .partnersModalContainer {

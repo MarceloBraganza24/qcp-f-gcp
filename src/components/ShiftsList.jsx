@@ -163,6 +163,7 @@ const ShiftsList = () => {
                 },
                 body: JSON.stringify(shiftToCreate)
             })
+            const data = await response.json();
             if(response.ok) {
                 toast('Has creado el turno correctamente!', {
                     position: "top-right",
@@ -177,6 +178,18 @@ const ShiftsList = () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
+            }
+            if(data.error === 'There is already a shift with that date and time') {
+                toast('Ya existe un turno con esa fecha y horario!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             }
         }
     };

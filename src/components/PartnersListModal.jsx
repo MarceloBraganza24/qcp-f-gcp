@@ -10,6 +10,8 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
     const [inputPhoneIPa, setInputPhoneIPa] = useState('');
     const [inputEmailIPa, setInputEmailIPa] = useState('');
 
+    const [confirmationDeleteModal, setConfirmationDeleteModal] = useState(false);
+
     const handleInputFirstNameIPa = (e) => {
         const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
         setInputFirstNameIPa(texto);
@@ -45,6 +47,10 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
     };
 
     const handleBtnDelPartner = async() => {
+        setConfirmationDeleteModal(true)
+    };
+
+    /* const handleBtnDelPartner = async() => {
         const response = await fetch(`http://localhost:8081/api/partners/${id}`, {
             method: 'DELETE',         
             headers: {
@@ -66,7 +72,7 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                 window.location.reload();
             }, 2000);
         }
-    };
+    }; */
 
     const handleBtnUpdPartner = async() => {
         const partnerToUpdate = {
@@ -83,6 +89,7 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
             },
             body: JSON.stringify(partnerToUpdate)
         })
+        const data = await response.json();
         if(response.ok) {
             toast('Has actualizado el socio correctamente!', {
                 position: "top-right",
@@ -98,7 +105,106 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                 window.location.reload();
             }, 1500);
         }
+        if(data.error === 'There is already a partner with that DNI and email') {
+            toast('Ya existe un socio con ese dni y email!', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } else if(data.error === 'There is already a partner with that DNI') {
+            toast('Ya existe un socio con ese DNI!', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } else if(data.error === 'There is already a partner with that email') {
+            toast('Ya existe un socio con ese email!', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } else if(data.error === 'There is already a partner with that data') {
+            toast('No tienes cambios para actualizar!', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
     };
+
+    const ConfirmationDeleteModal = () => {
+
+        const handleBtnDelPartner = async() => {
+            const response = await fetch(`http://localhost:8081/api/partners/${id}`, {
+                method: 'DELETE',         
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            if(response.ok) {
+                toast('Has eliminado el socio correctamente!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else {
+                toast('Has ocurrido un error al querer eliminar el turno!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+        };
+
+        const handleBtnConfirmationDeleteBtnNo = () => {
+            setConfirmationDeleteModal(false)
+        }
+
+        return (
+            <>
+                <div className='confirmationDeleteBtnModalContainer'>
+                    <div className='confirmationDeleteBtnModalContainer__ask'>¿Estás seguro que deseas borrar el turno?</div>
+                    <div className='confirmationDeleteBtnModalContainer__btns'>
+                        <button onClick={handleBtnDelPartner} className='confirmationDeleteBtnModalContainer__btns__prop'>Si</button>
+                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnModalContainer__btns__prop'>No</button>
+                    </div>
+                </div>
+            </>
+        )
+    }
 
     return (
     <>
@@ -140,6 +246,9 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                     <button className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
                 </div>
             </div>
+            {
+                confirmationDeleteModal&&<ConfirmationDeleteModal/>
+            }
         </div>
     </>
     )

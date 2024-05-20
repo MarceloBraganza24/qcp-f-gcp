@@ -124,6 +124,41 @@ const PartnersList = () => {
                     window.location.reload();
                 }, 2000);
             }
+            const data = await response.json();
+            if(data.error === 'There is already a partner with that DNI and email') {
+                toast('Ya existe un socio con ese dni y email!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a partner with that DNI') {
+                toast('Ya existe un socio con ese DNI!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a partner with that email') {
+                toast('Ya existe un socio con ese email!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
         }
     };
 
