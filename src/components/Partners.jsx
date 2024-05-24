@@ -58,6 +58,11 @@ const Partners = () => {
         }
     }, []);
 
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
     const pagarCuotaSocio = async () => {
         try {
             const order = {
@@ -81,30 +86,70 @@ const Partners = () => {
                     progress: undefined,
                     theme: "dark",
                 });
+            } else if (!validateEmail(inputEmailPa)) {
+                toast('El email no es válido!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             } else {
-                pagarCuotaSocioBtn.style.display = 'none';
-                const preference = await fetch('http://localhost:8081/api/payments/create-preference-partner', {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(order)
-                })
-                const response = await preference.json();
-                if(response.id) {
-                    const id = response.id;
-                    return id;
-                } else {
-                    toast('Ha ocurrido un error al intentar pagar el turno, intente nuevamente', {
+                const response = await fetch('http://localhost:8081/api/partners')
+                const res = await response.json();
+                const partners = res.data;
+                const partnerByDniExists = partners.find(item => item.dni === Number(inputDniPa))
+                const partnerByEmailExists = partners.find(item => item.email === inputEmailPa)
+                if(partnerByDniExists) {
+                    toast('Ya existe un socio con ese DNI!', {
                         position: "top-right",
-                        autoClose: 2000,
+                        autoClose: 3000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
                         theme: "dark",
-                    });                    
+                    });
+                } else if(partnerByEmailExists) {
+                    toast('Ya existe un socio con ese email!', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
+                } else {  
+                    pagarCuotaSocioBtn.style.display = 'none';
+                    const preference = await fetch('http://localhost:8081/api/payments/create-preference-partner', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(order)
+                    })
+                    const responsePref = await preference.json();
+                    if(responsePref.id) {
+                        const id = responsePref.id;
+                        return id;
+                    } else {
+                        toast('Ha ocurrido un error al intentar pagar el turno, intente nuevamente', {
+                            position: "top-right",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                        });                    
+                    }
                 }
             }
         } catch (error) {
@@ -146,23 +191,23 @@ const Partners = () => {
                                 <form>
                                     <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
                                         <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Nombre:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Nombre' value={inputFirstNamePa} onChange={(e) => {handleInputFirstNamePa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Nombre' value={inputFirstNamePa} onChange={handleInputFirstNamePa}/>
                                     </div>
                                     <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
                                         <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Apellido:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Apellido' value={inputLastNamePa} onChange={(e) => {handleInputLastNamePa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Apellido' value={inputLastNamePa} onChange={handleInputLastNamePa}/>
                                     </div>
                                     <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
                                         <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Dni:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Dni' value={inputDniPa} onChange={(e) => {handleInputDniPa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Dni' value={inputDniPa} onChange={handleInputDniPa}/>
                                     </div>
                                     <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
                                         <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Teléfono:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Teléfono' value={inputPhonePa} onChange={(e) => {handleInputPhonePa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Teléfono' value={inputPhonePa} onChange={handleInputPhonePa}/>
                                     </div>
                                     <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
                                         <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Email:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='email' placeholder='Email' value={inputEmailPa} onChange={(e) => {handleInputEmailPa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='email' placeholder='Email' value={inputEmailPa} onChange={handleInputEmailPa}/>
                                     </div>
                                     <div className='partnersContainerIsLoggedIn__form__credentials__btn'>
                                         <button id='pagarCuotaSocioBtn' className='partnersContainerIsLoggedIn__form__credentials__btn__prop' onClick={handlePartnerPay}>Registrarse</button>
@@ -183,23 +228,23 @@ const Partners = () => {
                                 <form>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Nombre:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Nombre' value={inputFirstNamePa} onChange={(e) => {handleInputFirstNamePa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Nombre' value={inputFirstNamePa} onChange={handleInputFirstNamePa}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Apellido:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Apellido' value={inputLastNamePa} onChange={(e) => {handleInputLastNamePa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Apellido' value={inputLastNamePa} onChange={handleInputLastNamePa}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Dni:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Dni' value={inputDniPa} onChange={(e) => {handleInputDniPa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Dni' value={inputDniPa} onChange={handleInputDniPa}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Teléfono:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Teléfono' value={inputPhonePa} onChange={(e) => {handleInputPhonePa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Teléfono' value={inputPhonePa} onChange={handleInputPhonePa}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__label-input'>
                                         <h2 className='partnersContainer__form__credentials__label-input__label'>Email:</h2>
-                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='email' placeholder='Email' value={inputEmailPa} onChange={(e) => {handleInputEmailPa(e.target.value)}}/>
+                                        <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='email' placeholder='Email' value={inputEmailPa} onChange={handleInputEmailPa}/>
                                     </div>
                                     <div className='partnersContainer__form__credentials__btn'>
                                         <button id='pagarCuotaSocioBtn' className='partnersContainer__form__credentials__btn__prop' onClick={handlePartnerPay}>Registrarse</button>

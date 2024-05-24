@@ -11,7 +11,7 @@ export const ParentPrComponent = ({children}) => {
 
   const handleInputBusinessNamePr = (e) => {
     const inputValue = e.target.value;
-    if (/^[a-zA-Z0-9]+$/.test(inputValue)) {
+    if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
       setInputBusinessNamePr(inputValue);
     }
   };

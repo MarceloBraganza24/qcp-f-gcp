@@ -4,14 +4,14 @@ import Footer from './Footer'
 import LogOut from './LogOut';
 import { toast } from "react-toastify";
 import {IsLoggedContext} from '../context/IsLoggedContext';
-import {InputDataPaContext} from '../context/InputDataPaContext';
+import {InputDataPaLContext} from '../context/InputDataPaLContext';
 import HMenu from './HMenu';
 import ItemPartner from './ItemPartner';
 import { Link } from 'react-router-dom';
 import {OpenModalContext} from '../context/OpenModalContext'; 
 
 const PartnersList = () => {
-    const { inputFirstNamePa, handleInputFirstNamePa, inputLastNamePa, handleInputLastNamePa, inputDniPa, handleInputDniPa, inputPhonePa, handleInputPhonePa, inputEmailPa, handleInputEmailPa } = useContext(InputDataPaContext);
+    const { inputFirstNamePaL, handleInputFirstNamePaL, inputLastNamePaL, handleInputLastNamePaL, inputDniPaL, handleInputDniPaL, inputPhonePaL, handleInputPhonePaL, inputEmailPaL, handleInputEmailPaL } = useContext(InputDataPaLContext);
     const {isLoggedIn, login, logout} = useContext(IsLoggedContext);
     const [role, setRole] = useState('');
     const [inputFilteredPartners, setInputFilteredPartners] = useState('');
@@ -88,7 +88,7 @@ const PartnersList = () => {
     };
 
     const handleBtnCreatePartner = async() => {
-        if(!inputFirstNamePa || !inputLastNamePa || !inputDniPa || !inputPhonePa || !inputEmailPa) {
+        if(!inputFirstNamePaL || !inputLastNamePaL || !inputDniPaL || !inputPhonePaL || !inputEmailPaL) {
             toast('Debes completar todos los campos!', {
                 position: "top-right",
                 autoClose: 3000,
@@ -99,7 +99,7 @@ const PartnersList = () => {
                 progress: undefined,
                 theme: "dark",
             });
-        } else if (!validateEmail(inputEmailPa)) {
+        } else if (!validateEmail(inputEmailPaL)) {
             toast('El email no es válido!', {
                 position: "top-right",
                 autoClose: 3000,
@@ -112,11 +112,11 @@ const PartnersList = () => {
             });
         } else {
             const partnerToCreate = {
-                first_name: inputFirstNamePa,
-                last_name: inputLastNamePa,
-                dni: inputDniPa,
-                phone: inputPhonePa,
-                email: inputEmailPa
+                first_name: inputFirstNamePaL,
+                last_name: inputLastNamePaL,
+                dni: inputDniPaL,
+                phone: inputPhonePaL,
+                email: inputEmailPaL
             }
             const response = await fetch(`http://localhost:8081/api/partners/register`, {
                 method: 'POST',         
@@ -212,19 +212,19 @@ const PartnersList = () => {
                         </div>
                         <div className='itemCreatePartner'>
                             <div className='itemCreatePartner__input'>
-                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputFirstNamePa} onChange={handleInputFirstNamePa}/>
+                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputFirstNamePaL} onChange={handleInputFirstNamePaL}/>
                             </div>
                             <div className='itemCreatePartner__input'>
-                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputLastNamePa} onChange={handleInputLastNamePa}/>
+                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputLastNamePaL} onChange={handleInputLastNamePaL}/>
                             </div>
                             <div className='itemCreatePartner__input'>
-                                <input className='itemCreatePartner__input__prop' placeholder='-' value={inputDniPa} onChange={handleInputDniPa}/>
+                                <input className='itemCreatePartner__input__prop' placeholder='-' value={inputDniPaL} onChange={handleInputDniPaL}/>
                             </div>
                             <div className='itemCreatePartner__input'>
-                                <input className='itemCreatePartner__input__prop' placeholder='-' value={inputPhonePa} onChange={handleInputPhonePa}/>
+                                <input className='itemCreatePartner__input__prop' placeholder='-' value={inputPhonePaL} onChange={handleInputPhonePaL}/>
                             </div>
                             <div className='itemCreatePartner__input'>
-                                <input type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPa} onChange={handleInputEmailPa}/>
+                                <input type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPaL} onChange={handleInputEmailPaL}/>
                             </div>
                             {
                                 !isOpen?

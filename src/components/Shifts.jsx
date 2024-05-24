@@ -62,6 +62,7 @@ const Shifts = () => {
     }, []);
 
     const pagarTurno = async () => {
+        
         try {
             const order = {
                 title: inputOptionSh,
@@ -84,31 +85,51 @@ const Shifts = () => {
                     theme: "dark",
                 });
             } else {
-                pagarTurnoBtn.style.display = 'none';
-                const preference = await fetch('http://localhost:8081/api/payments/create-preference-shift', {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(order)
-                })
-                const response = await preference.json();
-                if(response.id) {
-                    const id = response.id;
-                    return id;
-                } else {
-                    toast('Ha ocurrido un error al intentar pagar el turno, intente nuevamente', {
+                const year = inputDateSh.getFullYear();
+                const month = String(inputDateSh.getMonth() + 1).padStart(2, '0');
+                const day = String(inputDateSh.getDate()).padStart(2, '0');
+                const formattedDate = `${year}-${month}-${day}`;
+                const response = await fetch('http://localhost:8081/api/shifts')
+                const res = await response.json();
+                const shifts = res.data;
+                const partnerByDateScheduleExists = shifts.find(item => item.date === formattedDate && item.schedule === inputScheduleSh)
+                if(partnerByDateScheduleExists) {
+                    toast('Ya existe un turno con esa fecha y horario!', {
                         position: "top-right",
-                        autoClose: 2000,
+                        autoClose: 3000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
                         theme: "dark",
-                    });                    
+                    });
+                } else {
+                    pagarTurnoBtn.style.display = 'none';
+                    const preference = await fetch('http://localhost:8081/api/payments/create-preference-shift', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(order)
+                    })
+                    const response = await preference.json();
+                    if(response.id) {
+                        const id = response.id;
+                        return id;
+                    } else {
+                        toast('Ha ocurrido un error al intentar pagar el turno, intente nuevamente', {
+                            position: "top-right",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                        });                    
+                    }
                 }
-                
             }
         } catch (error) {
             console.log(error)

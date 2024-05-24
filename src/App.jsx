@@ -19,6 +19,7 @@ import PartnersList from './components/PartnersList';
 import ProductsList from './components/ProductsList';
 import ProvidersList from './components/ProvidersList';
 import { OpenModalContextComponent } from './context/OpenModalContext';
+import { ParentPaLComponent } from './context/InputDataPaLContext';
 
 function App() {
 
@@ -29,6 +30,9 @@ function App() {
       <IsLoggedInContext>
 
         <ParentPaComponent>
+
+        <ParentPaLComponent>
+
 
         <ParentPrComponent>
 
@@ -67,6 +71,8 @@ function App() {
         </ParentProdComponent>
         
         </ParentPrComponent>
+        
+        </ParentPaLComponent>
 
         </ParentPaComponent>
 

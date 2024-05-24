@@ -64,6 +64,14 @@ const ProductsList = () => {
           }
     }, []);
 
+    function convertirAFecha(cadenaFecha) {
+        const [fecha, hora] = cadenaFecha.split(', ');
+        const [dia, mes, año] = fecha.split('/');
+        const [horas, minutos, segundos] = hora.split(':');
+        return new Date(`${mes}/${dia}/${año} ${horas}:${minutos}:${segundos}`);
+    }
+    products.sort((a, b) => convertirAFecha(b.product_datetime) - convertirAFecha(a.product_datetime));
+
     function filtrarPorTitulo(valorIngresado) {
         const valorMinusculas = valorIngresado.toLowerCase();
         const objetosFiltrados = products.filter(objeto => {
@@ -101,6 +109,7 @@ const ProductsList = () => {
                 },
                 body: JSON.stringify(productToCreate)
             })
+            const data = await response.json();
             if(response.ok) {
                 toast('Has registrado un producto correctamente!', {
                     position: "top-right",
@@ -115,6 +124,18 @@ const ProductsList = () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
+            }
+            if(data.error === 'There is already a product with that title') {
+                toast('Ya existe un producto con ese título!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             }
         }
     };
@@ -152,10 +173,10 @@ const ProductsList = () => {
                         </div>
                         <div className='itemCreateProduct'>
                             <div className='itemCreateProduct__input'>
-                                <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputTitleProd} onChange={(e) => {handleInputTitleProd(e.target.value)}}/>
+                                <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputTitleProd} onChange={handleInputTitleProd}/>
                             </div>
                             <div className='itemCreateProduct__input'>
-                                <input className='itemCreateProduct__input__prop' placeholder='-' value={inputDescriptionProd} onChange={(e) => {handleInputDescriptionProd(e.target.value)}}/>
+                                <input className='itemCreateProduct__input__prop' placeholder='-' value={inputDescriptionProd} onChange={handleInputDescriptionProd}/>
                             </div>
                             <div className='itemCreateProduct__input'>
                                 <input className='itemCreateProduct__input__prop' placeholder='-' value={inputPriceProd} onChange={handleInputPriceProd}/>
@@ -164,7 +185,7 @@ const ProductsList = () => {
                                 <input className='itemCreateProduct__input__prop' placeholder='-' value={inputStockProd} onChange={handleInputStockProd}/>
                             </div>
                             <div className='itemCreateProduct__input'>
-                                <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputCategoryProd} onChange={(e) => {handleInputCategoryProd(e.target.value)}}/>
+                                <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputCategoryProd} onChange={handleInputCategoryProd}/>
                             </div>
                             {
                                 !isOpen?

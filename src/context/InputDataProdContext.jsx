@@ -11,11 +11,17 @@ export const ParentProdComponent = ({children}) => {
   const [inputCategoryProd, setInputCategoryProd] = useState('');
 
   const handleInputTitleProd = (e) => {
-    setInputTitleProd(e);
+    const inputValue = e.target.value;
+    if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
+      setInputTitleProd(inputValue);
+    }
   };
 
   const handleInputDescriptionProd = (e) => {
-    setInputDescriptionProd(e);
+    const inputValue = e.target.value;
+    if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
+      setInputDescriptionProd(inputValue);
+    }
   };
 
   const handleInputPriceProd = (e) => {
@@ -35,7 +41,10 @@ export const ParentProdComponent = ({children}) => {
   };
 
   const handleInputCategoryProd = (e) => {
-    setInputCategoryProd(e);
+    const inputValue = e.target.value;
+    if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
+      setInputCategoryProd(inputValue);
+    }
   };
 
   return (

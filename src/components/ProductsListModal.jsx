@@ -10,16 +10,22 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
     const [inputStockIProd, setInputStockIProd] = useState('');
     const [inputCategoryIProd, setInputCategoryIProd] = useState('');
 
+    const [confirmationDeleteModal, setConfirmationDeleteModal] = useState(false);
+
     const handleInputTitleIProd = (e) => {
-        const texto = e.target.value;
-        setInputTitleIProd(texto);
-        setInputChanges(true);
+        const inputValue = e.target.value;
+        if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
+            setInputTitleIProd(inputValue);
+            setInputChanges(true); 
+        }
     };
 
     const handleInputDescriptionIProd = (e) => {
-        const texto = e.target.value;
-        setinputDescriptionIProd(texto);
-        setInputChanges(true);
+        const inputValue = e.target.value;
+        if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
+            setinputDescriptionIProd(inputValue);
+            setInputChanges(true);
+        }
     };
 
     const handleInputPriceIProd = (e) => {
@@ -39,33 +45,15 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
     };
 
     const handleInputCategoryIProd = (e) => {
-        const texto = e.target.value;
-        setInputCategoryIProd(texto);
-        setInputChanges(true);
+        const inputValue = e.target.value;
+        if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
+            setInputCategoryIProd(inputValue);
+            setInputChanges(true);
+        }
     };
 
     const handleBtnDelProduct = async() => {
-        const response = await fetch(`http://localhost:8081/api/products/${id}`, {
-            method: 'DELETE',         
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        if(response.ok) {
-            toast('Has eliminado el producto correctamente!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
-        }
+        setConfirmationDeleteModal(true)
     };
 
     const handleBtnUpdProduct = async() => {
@@ -98,6 +86,7 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
                 },
                 body: JSON.stringify(productToUpdate)
             })
+            const data = await response.json();
             if(response.ok) {
                 toast('Has actualizado el producto correctamente!', {
                     position: "top-right",
@@ -113,8 +102,86 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
                     window.location.reload();
                 }, 1500);
             }
+            if(data.error === 'There is already a product with that title') {
+                toast('Ya existe un producto con ese título!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }  else if(data.error === 'There is already a product with that data') {
+                toast('No tienes cambios para actualizar!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setInputChanges(false);
+            }
         }
     };
+
+    const ConfirmationDeleteModal = () => {
+
+        const handleBtnDelProduct = async() => {
+            const response = await fetch(`http://localhost:8081/api/products/${id}`, {
+                method: 'DELETE',         
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            if(response.ok) {
+                toast('Has eliminado el producto correctamente!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else {
+                toast('Has ocurrido un error al querer eliminar el producto!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+        };
+
+        const handleBtnConfirmationDeleteBtnNo = () => {
+            setConfirmationDeleteModal(false)
+        }
+
+        return (
+            <>
+                <div className='confirmationDeleteBtnModalContainer'>
+                    <div className='confirmationDeleteBtnModalContainer__ask'>¿Estás seguro que deseas borrar el producto?</div>
+                    <div className='confirmationDeleteBtnModalContainer__btns'>
+                        <button onClick={handleBtnDelProduct} className='confirmationDeleteBtnModalContainer__btns__prop'>Si</button>
+                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnModalContainer__btns__prop'>No</button>
+                    </div>
+                </div>
+            </>
+        )
+    }
 
     return (
     <>
@@ -155,6 +222,9 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
                     <button className='productsModalContainer__itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
                 </div>
             </div>
+            {
+                confirmationDeleteModal&&<ConfirmationDeleteModal/>
+            }
         </div>
     </>
     )

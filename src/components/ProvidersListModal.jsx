@@ -9,6 +9,8 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
     const [inputPhoneIPr, setInputPhoneIPr] = useState('');
     const [inputEmailIPr, setInputEmailIPr] = useState('');
 
+    const [confirmationDeleteModal, setConfirmationDeleteModal] = useState(false);
+
     const handleInputBusinessNameIPr = (e) => {
         const texto = e.target.value;
         if (/^[a-zA-Z0-9]+$/.test(texto)) {
@@ -40,27 +42,7 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
     };
 
     const handleBtnDelProvider = async() => {
-        const response = await fetch(`http://localhost:8081/api/providers/${id}`, {
-            method: 'DELETE',         
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        if(response.ok) {
-            toast('Has eliminado el proveedor correctamente!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
-        }
+        setConfirmationDeleteModal(true)
     };
 
     const validateEmail = (email) => {
@@ -80,60 +62,127 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
                 progress: undefined,
                 theme: "dark",
             });
-        }
-        const providerToUpdate = {
-            business_name: inputBusinessNameIPr?inputBusinessNameIPr:businessName,
-            cuit_cuil: inputCuitCuilIPr?inputCuitCuilIPr:cuitCuil,
-            phone: inputPhoneIPr?inputPhoneIPr:phone,
-            email: inputEmailIPr?inputEmailIPr:email
-        }
-        const response = await fetch(`http://localhost:8081/api/providers/${id}`, {
-            method: 'PUT',         
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(providerToUpdate)
-        })
-        const data = await response.json();
-        if(response.ok) {
-            toast('Has actualizado el proveedor correctamente!', {
-                position: "top-right",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            setTimeout(() => {
-                window.location.reload();
-            }, 1500);
-        }
-        if(data.error === '') {
-            toast('Ya existe un proveedor con ese CUIT-CUIL!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        } else if(data.error === '') {
-            toast('Ya existe un proveedor con ese email!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+        } else {
+            const providerToUpdate = {
+                business_name: inputBusinessNameIPr?inputBusinessNameIPr:businessName,
+                cuit_cuil: inputCuitCuilIPr?inputCuitCuilIPr:cuitCuil,
+                phone: inputPhoneIPr?inputPhoneIPr:phone,
+                email: inputEmailIPr?inputEmailIPr:email
+            }
+            const response = await fetch(`http://localhost:8081/api/providers/${id}`, {
+                method: 'PUT',         
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(providerToUpdate)
+            })
+            const data = await response.json();
+            if(response.ok) {
+                toast('Has actualizado el proveedor correctamente!', {
+                    position: "top-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            }
+            if(data.error === 'There is already a provider with that CUIT-CUIL') {
+                toast('Ya existe un proveedor con ese CUIT-CUIL!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a provider with that email') {
+                toast('Ya existe un proveedor con ese email!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }  else if(data.error === 'There is already a provider with that data') {
+                toast('No tienes cambios para actualizar!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setInputChanges(false);
+            }
         }
     };
+
+    const ConfirmationDeleteModal = () => {
+
+        const handleBtnDelProvider = async() => {
+            const response = await fetch(`http://localhost:8081/api/providers/${id}`, {
+                method: 'DELETE',         
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            if(response.ok) {
+                toast('Has eliminado el proveedor correctamente!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else {
+                toast('Has ocurrido un error al querer eliminar el proveeedor!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+        };
+
+        const handleBtnConfirmationDeleteBtnNo = () => {
+            setConfirmationDeleteModal(false)
+        }
+
+        return (
+            <>
+                <div className='confirmationDeleteBtnModalContainer'>
+                    <div className='confirmationDeleteBtnModalContainer__ask'>¿Estás seguro que deseas borrar el proveedor?</div>
+                    <div className='confirmationDeleteBtnModalContainer__btns'>
+                        <button onClick={handleBtnDelProvider} className='confirmationDeleteBtnModalContainer__btns__prop'>Si</button>
+                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnModalContainer__btns__prop'>No</button>
+                    </div>
+                </div>
+            </>
+        )
+    }
 
     return (
     <>
@@ -170,6 +219,9 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
                     <button className='providersModalContainer__itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
                 </div>
             </div>
+            {
+                confirmationDeleteModal&&<ConfirmationDeleteModal/>
+            }
         </div>
     </>
     )
