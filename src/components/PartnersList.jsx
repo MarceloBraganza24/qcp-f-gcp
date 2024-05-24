@@ -82,9 +82,25 @@ const PartnersList = () => {
     }
     const objetosFiltrados = filtrarPorApellido(inputFilteredPartners); 
 
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
     const handleBtnCreatePartner = async() => {
         if(!inputFirstNamePa || !inputLastNamePa || !inputDniPa || !inputPhonePa || !inputEmailPa) {
             toast('Debes completar todos los campos!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } else if (!validateEmail(inputEmailPa)) {
+            toast('El email no es válido!', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -196,10 +212,10 @@ const PartnersList = () => {
                         </div>
                         <div className='itemCreatePartner'>
                             <div className='itemCreatePartner__input'>
-                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputFirstNamePa} onChange={(e) => {handleInputFirstNamePa(e.target.value)}}/>
+                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputFirstNamePa} onChange={handleInputFirstNamePa}/>
                             </div>
                             <div className='itemCreatePartner__input'>
-                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputLastNamePa} onChange={(e) => {handleInputLastNamePa(e.target.value)}}/>
+                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputLastNamePa} onChange={handleInputLastNamePa}/>
                             </div>
                             <div className='itemCreatePartner__input'>
                                 <input className='itemCreatePartner__input__prop' placeholder='-' value={inputDniPa} onChange={handleInputDniPa}/>
@@ -208,7 +224,7 @@ const PartnersList = () => {
                                 <input className='itemCreatePartner__input__prop' placeholder='-' value={inputPhonePa} onChange={handleInputPhonePa}/>
                             </div>
                             <div className='itemCreatePartner__input'>
-                                <input type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPa} onChange={(e) => {handleInputEmailPa(e.target.value)}}/>
+                                <input type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPa} onChange={handleInputEmailPa}/>
                             </div>
                             {
                                 !isOpen?

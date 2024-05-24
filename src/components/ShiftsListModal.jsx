@@ -34,20 +34,20 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
     const handleInputFirstNameISh = (e) => {
         const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
         setInputFirstNameISh(texto);
-        setInputChanges(true);
+        texto!==first_name?setInputChanges(true):setInputChanges(false);
     };
 
     const handleInputLastNameISh = (e) => {
         const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
         setInputLastNameISh(texto);
-        setInputChanges(true);
+        texto!==last_name?setInputChanges(true):setInputChanges(false);
     };
 
     const handleInputScheduleH = (event) => {
         const inputValue = event.target.value;
         if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 23) {
             handleInputScheduleHISh(inputValue);
-            setInputChanges(true);
+            inputValue!==scheduleH?setInputChanges(true):setInputChanges(false);
         }
     };
 
@@ -55,7 +55,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
         const inputValue = event.target.value;
         if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 59) {
             handleInputScheduleMISh(inputValue);
-            setInputChanges(true);
+            inputValue!==scheduleM?setInputChanges(true):setInputChanges(false);
         }
     };
 
@@ -74,8 +74,12 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
     };
     
     const handleDateChange = date => {
-        handleInputDateISh(date);
-        setInputChanges(true);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const formattedDate = `${year}/${month}/${day}`;
+        handleInputDateISh(formattedDate);
+        formattedDate!==dateFormated?setInputChanges(true):setInputChanges(false);
     };
 
     const handleBtnDelShift = async() => {
@@ -83,12 +87,12 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
     };
 
     const handleBtnUpdShift = async() => {
-        if(inputScheduleHISh !== '' && inputScheduleMISh === '') {
-            const scheduleConcat = inputScheduleHISh + ':' + scheduleM;
+        if(inputFirstNameISh !== first_name || inputLastNameISh !== last_name || inputDateISh !== dateFormated || inputScheduleHISh !== scheduleH || inputScheduleMISh !== scheduleM) {
+            const scheduleConcat = (inputScheduleHISh?inputScheduleHISh:scheduleH) + ':' + (inputScheduleMISh?inputScheduleMISh:scheduleM)
             const shiftToUpdate = {
                 first_name: inputFirstNameISh?inputFirstNameISh:first_name,
                 last_name: inputLastNameISh?inputLastNameISh:last_name,
-                date: inputDateISh?inputDateISh:date,
+                date: inputDateISh?inputDateISh:dateFormated,
                 schedule: scheduleConcat
             }
             const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
@@ -125,125 +129,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                     progress: undefined,
                     theme: "dark",
                 });
-            }
-        } else if (inputScheduleHISh !== '' && inputScheduleMISh !== '') {
-            const scheduleConcat = inputScheduleHISh + ':' + inputScheduleMISh;
-            const shiftToUpdate = {
-                first_name: inputFirstNameISh?inputFirstNameISh:first_name,
-                last_name: inputLastNameISh?inputLastNameISh:last_name,
-                date: inputDateISh?inputDateISh:date,
-                schedule: scheduleConcat
-            }
-            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
-                method: 'PUT',         
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(shiftToUpdate)
-            })
-            const data = await response.json();
-            if(response.ok) {
-                toast('Has actualizado el turno correctamente!', {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                setTimeout(() => {
-                    window.location.href = '/shiftsList';
-                }, 1500);
-            }
-            if(data.error === 'There is already a shift with that date and time') {
-                toast('Ya existe un turno con esa fecha y horario!', {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-            }
-        } else if (inputScheduleHISh === '' && inputScheduleMISh !== '') {
-            const scheduleConcat = scheduleH + ':' + inputScheduleMISh;
-            const shiftToUpdate = {
-                first_name: inputFirstNameISh?inputFirstNameISh:first_name,
-                last_name: inputLastNameISh?inputLastNameISh:last_name,
-                date: inputDateISh?inputDateISh:date,
-                schedule: scheduleConcat
-            }
-            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
-                method: 'PUT',         
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(shiftToUpdate)
-            })
-            const data = await response.json();
-            if(response.ok) {
-                toast('Has actualizado el turno correctamente!', {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                setTimeout(() => {
-                    window.location.href = '/shiftsList';
-                }, 1500);
-            }
-            if(data.error === 'There is already a shift with that date and time') {
-                toast('Ya existe un turno con esa fecha y horario!', {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-            }
-        } else {
-            const scheduleConcat = inputScheduleHISh?inputScheduleHISh:scheduleH + ':' + inputScheduleMISh?inputScheduleMISh:scheduleM;
-            const shiftToUpdate = {
-                first_name: inputFirstNameISh?inputFirstNameISh:first_name,
-                last_name: inputLastNameISh?inputLastNameISh:last_name,
-                date: inputDateISh?inputDateISh:date,
-                schedule: scheduleConcat?scheduleConcat:schedule
-            }
-            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
-                method: 'PUT',         
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(shiftToUpdate)
-            })
-            const data = await response.json();
-            if(response.ok) {
-                toast('Has actualizado el turno correctamente!', {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                setTimeout(() => {
-                    window.location.href = '/shiftsList';
-                }, 1500);
-            }
-            if(data.error === 'There is already a shift with that data') {
+            } else if(data.error === 'There is already a shift with that data') {
                 toast('No tienes cambios para actualizar!', {
                     position: "top-right",
                     autoClose: 1500,
@@ -254,23 +140,14 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                     progress: undefined,
                     theme: "dark",
                 });
-            } else if(data.error === 'There is already a shift with that date and time') {
-                toast('Ya existe un turno con esa fecha y horario!', {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-            }
+            }   
         }
     };
 
     const handleOnBlurInputScheduleH = () => {
         inputScheduleHISh===''&&setScheduleHData(scheduleH)
+        inputScheduleHISh===''&&setInputChanges(false);
+        inputScheduleMISh!==''&&setInputChanges(true);
         if(inputScheduleHISh.length===1 && inputScheduleHISh<10) {
             handleInputScheduleHISh("0"+inputScheduleHISh)
         } else if(inputScheduleHISh==='00') {
@@ -279,7 +156,9 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
     }
 
     const handleOnBlurInputScheduleM = () => {
-        inputScheduleMISh===''&&setScheduleMData(scheduleM)
+        inputScheduleMISh===''&&setScheduleMData(scheduleM);
+        inputScheduleMISh===''&&setInputChanges(false);
+        inputScheduleHISh!==''&&setInputChanges(true);
         if(inputScheduleMISh.length===1 && inputScheduleMISh<10) {
             handleInputScheduleMISh("0"+inputScheduleMISh)
         } else if(inputScheduleMISh==='00') {

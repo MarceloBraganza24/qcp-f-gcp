@@ -50,50 +50,16 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
         setConfirmationDeleteModal(true)
     };
 
-    /* const handleBtnDelPartner = async() => {
-        const response = await fetch(`http://localhost:8081/api/partners/${id}`, {
-            method: 'DELETE',         
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        if(response.ok) {
-            toast('Has eliminado el socio correctamente!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
-        }
-    }; */
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
 
     const handleBtnUpdPartner = async() => {
-        const partnerToUpdate = {
-            first_name: inputFirstNameIPa?inputFirstNameIPa:first_name,
-            last_name: inputLastNameIPa?inputLastNameIPa:last_name,
-            dni: inputDniIPa?inputDniIPa:dni,
-            phone: inputPhoneIPa?inputPhoneIPa:phone,
-            email: inputEmailIPa?inputEmailIPa:email
-        }
-        const response = await fetch(`http://localhost:8081/api/partners/${id}`, {
-            method: 'PUT',         
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(partnerToUpdate)
-        })
-        const data = await response.json();
-        if(response.ok) {
-            toast('Has actualizado el socio correctamente!', {
+        if (!validateEmail(inputEmailIPa?inputEmailIPa:email)) {
+            toast('El email no es válido!', {
                 position: "top-right",
-                autoClose: 1000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -101,54 +67,83 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                 progress: undefined,
                 theme: "dark",
             });
-            setTimeout(() => {
-                window.location.reload();
-            }, 1500);
-        }
-        if(data.error === 'There is already a partner with that DNI and email') {
-            toast('Ya existe un socio con ese dni y email!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        } else if(data.error === 'There is already a partner with that DNI') {
-            toast('Ya existe un socio con ese DNI!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        } else if(data.error === 'There is already a partner with that email') {
-            toast('Ya existe un socio con ese email!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        } else if(data.error === 'There is already a partner with that data') {
-            toast('No tienes cambios para actualizar!', {
-                position: "top-right",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+        } else if(inputFirstNameIPa !== first_name || inputLastNameIPa !== last_name || inputDniIPa !== dni || inputPhoneIPa !== phone || inputEmailIPa !== email) {
+            const partnerToUpdate = {
+                first_name: inputFirstNameIPa?inputFirstNameIPa:first_name,
+                last_name: inputLastNameIPa?inputLastNameIPa:last_name,
+                dni: inputDniIPa?inputDniIPa:dni,
+                phone: inputPhoneIPa?inputPhoneIPa:phone,
+                email: inputEmailIPa?inputEmailIPa:email
+            }
+            const response = await fetch(`http://localhost:8081/api/partners/${id}`, {
+                method: 'PUT',         
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(partnerToUpdate)
+            })
+            const data = await response.json();
+            if(response.ok) {
+                toast('Has actualizado el turno correctamente!', {
+                    position: "top-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setTimeout(() => {
+                    window.location.href = '/partnersList';
+                }, 1500);
+            }
+            if(data.error === 'There is already a partner with that DNI and email') {
+                toast('Ya existe un socio con ese dni y email!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a partner with that DNI') {
+                toast('Ya existe un socio con ese DNI!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a partner with that email') {
+                toast('Ya existe un socio con ese email!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a partner with that data') {
+                toast('No tienes cambios para actualizar!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setInputChanges(false);
+            }
         }
     };
 
@@ -239,7 +234,7 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                     <input className='partnersModalContainer__itemPartner__input__prop' value={!inputPhoneIPa?phone:inputPhoneIPa} onChange={handleInputPhoneIPa}/>
                 </div>
                 <div className='partnersModalContainer__itemPartner__input'>
-                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputEmailIPa?email:inputEmailIPa} onChange={handleInputEmailIPa}/>
+                    <input type='email' className='partnersModalContainer__itemPartner__input__prop' value={!inputEmailIPa?email:inputEmailIPa} onChange={handleInputEmailIPa}/>
                 </div>
                 <div className='partnersModalContainer__itemPartner__btns'>
                     <button className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>

@@ -11,11 +11,13 @@ export const ParentPaComponent = ({children}) => {
   const [inputEmailPa, setInputEmailPa] = useState('');
 
   const handleInputFirstNamePa = (e) => {
-    setInputFirstNamePa(e);
+    const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
+    setInputFirstNamePa(texto);
   };
 
   const handleInputLastNamePa = (e) => {
-    setInputLastNamePa(e);
+    const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
+    setInputLastNamePa(texto);
   };
 
   const handleInputDniPa = (e) => {
@@ -33,7 +35,8 @@ export const ParentPaComponent = ({children}) => {
   };
 
   const handleInputEmailPa = (e) => {
-    setInputEmailPa(e);
+    const inputValue = e.target.value;
+    setInputEmailPa(inputValue);
   };
 
   return (

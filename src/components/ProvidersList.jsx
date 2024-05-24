@@ -82,9 +82,25 @@ const ProvidersList = () => {
     }
     const objetosFiltrados = filtrarPorRazonSocial(inputFilteredProviders);    
 
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
     const handleBtnCreateProvider = async() => {
         if(!inputBusinessNamePr || !inputCuitCuilPr || !inputPhonePr || !inputEmailPr) {
             toast('Debes completar todos los campos!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } else if (!validateEmail(inputEmailPr?inputEmailPr:email)) {
+            toast('El email no es válido!', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -109,18 +125,6 @@ const ProvidersList = () => {
                 body: JSON.stringify(providerToCreate)
             })
             const data = await response.json();
-            if(data.error === 'No recipients defined') {
-                toast('El formato del campo email ingresado no es valido!', {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-            }
             if(response.ok) {
                 toast('Has registrado un proveedor correctamente!', {
                     position: "top-right",
@@ -135,6 +139,29 @@ const ProvidersList = () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
+            }
+            if(data.error === 'There is already a provider with that CUIT-CUIL') {
+                toast('Ya existe un proveedor con ese CUIT-CUIL!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a provider with that email') {
+                toast('Ya existe un proveedor con ese email!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             }
         }
     };
@@ -171,7 +198,7 @@ const ProvidersList = () => {
                         </div>
                         <div className='itemCreateProvider'>
                             <div className='itemCreateProvider__input'>
-                                <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputBusinessNamePr} onChange={(e) => {handleInputBusinessNamePr(e.target.value)}}/>
+                                <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputBusinessNamePr} onChange={handleInputBusinessNamePr}/>
                             </div>
                             <div className='itemCreateProvider__input'>
                                 <input className='itemCreateProvider__input__prop' placeholder='-' value={inputCuitCuilPr} onChange={handleInputCuitCuilPr}/>
@@ -180,7 +207,7 @@ const ProvidersList = () => {
                                 <input className='itemCreateProvider__input__prop' placeholder='-' value={inputPhonePr} onChange={handleInputPhonePr}/>
                             </div>
                             <div className='itemCreateProvider__input'>
-                                <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputEmailPr} onChange={(e) => {handleInputEmailPr(e.target.value)}}/>
+                                <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputEmailPr} onChange={handleInputEmailPr}/>
                             </div>
                             {
                                 !isOpen?

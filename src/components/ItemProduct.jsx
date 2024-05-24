@@ -21,19 +21,19 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
     <>
         <div className='itemProduct'>
             <div className='itemProduct__input'>
-                <div className='itemShift__input__prop'>{title}</div>
+                <div className='itemProduct__input__prop'>{title}</div>
             </div>
             <div className='itemProduct__input'>
-                <div className='itemShift__input__prop'>{description}</div>
+                <div className='itemProduct__input__prop'>{description}</div>
             </div>
             <div className='itemProduct__input'>
-                <div className='itemShift__input__prop'>{price}</div>
+                <div className='itemProduct__input__prop'>{price}</div>
             </div>
             <div className='itemProduct__input'>
-                <div className='itemShift__input__prop'>{stock}</div>
+                <div className='itemProduct__input__prop'>{stock}</div>
             </div>
             <div className='itemProduct__input'>
-                <div className='itemShift__input__prop'>{category}</div>
+                <div className='itemProduct__input__prop'>{category}</div>
             </div>
             {
                 !modalOpen&&!isOpen?

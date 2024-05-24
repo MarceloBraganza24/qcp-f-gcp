@@ -22,16 +22,16 @@ const ItemProvider = ({id,businessName,cuitCuil,phone,email}) => {
     
         <div className='itemProvider'>
             <div className='itemProvider__input'>
-                <div className='itemShift__input__prop'>{businessName}</div>
+                <div className='itemProvider__input__prop'>{businessName}</div>
             </div>
             <div className='itemProvider__input'>
-                <div className='itemShift__input__prop'>{cuitCuil}</div>
+                <div className='itemProvider__input__prop'>{cuitCuil}</div>
             </div>
             <div className='itemProvider__input'>
-                <div className='itemShift__input__prop'>{phone}</div>
+                <div className='itemProvider__input__prop'>{phone}</div>
             </div>
             <div className='itemProvider__input'>
-                <div className='itemShift__input__prop'>{email}</div>
+                <div className='itemProvider__input__prop'>{email}</div>
             </div>
             {
                 !modalOpen&&!isOpen?

@@ -21,28 +21,28 @@ const ItemPartner = ({id, first_name,last_name,dni,phone,email}) => {
     <>
         <div className='itemPartner'>
             <div className='itemPartner__input'>
-                <div className='itemShift__input__prop'>{first_name}</div>
+                <div className='itemPartner__input__prop'>{first_name}</div>
             </div>
             <div className='itemPartner__input'>
-                <div className='itemShift__input__prop'>{last_name}</div>
+                <div className='itemPartner__input__prop'>{last_name}</div>
             </div>
             <div className='itemPartner__input'>
-                <div className='itemShift__input__prop'>{dni}</div>
+                <div className='itemPartner__input__prop'>{dni}</div>
             </div>
             <div className='itemPartner__input'>
-                <div className='itemShift__input__prop'>{phone}</div>
+                <div className='itemPartner__input__prop'>{phone}</div>
             </div>
             <div className='itemPartner__input'>
-                <div className='itemShift__input__prop'>{email}</div>
+                <div className='itemPartner__input__prop'>{email}</div>
             </div>
             {
                 !modalOpen&&!isOpen?
-                <div className='itemShift__btns'>
-                    <button className='itemShift__btns__btn' onClick={handleBtnUpdPartner}>Editar</button>
+                <div className='itemPartner__btns'>
+                    <button className='itemPartner__btns__btn' onClick={handleBtnUpdPartner}>Editar</button>
                 </div>
                 :
-                <div className='itemShift__btns'>
-                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn' onClick={handleBtnUpdPartner}>Editar</button>
+                <div className='itemPartner__btns'>
+                    <button disabled style={buttonDisabledStyle} className='itemPartner__btns__btn' onClick={handleBtnUpdPartner}>Editar</button>
                 </div>
             }
         </div>

@@ -14,7 +14,7 @@ import {OpenModalContext} from '../context/OpenModalContext';
 
 const ShiftsList = () => {
     const currentDate = new Date();
-    const { inputFirstNameShL, handleInputFirstNameShL, inputLastNameShL, handleInputLastNameShL, inputDateShL, handleInputDateShL, inputScheduleHShL, inputScheduleMShL, handleInputScheduleHShL, handleInputScheduleMShL } = useContext(InputDataShLContext);
+    const { inputFirstNameShL, handleInputFirstNameShL, inputLastNameShL, handleInputLastNameShL, inputDateShL, handleInputDateShL, inputScheduleHShL, inputScheduleMShL, handleInputScheduleHShL, handleInputScheduleMShL, handleOnBlurInputScheduleHShL, handleOnBlurInputScheduleMShL } = useContext(InputDataShLContext);
     const {isLoggedIn, login, logout} = useContext(IsLoggedContext);
     const [role, setRole] = useState('');
     const [shifts, setShifts] = useState([]);
@@ -28,9 +28,6 @@ const ShiftsList = () => {
     
     const currentDay = currentDate.getDate();
     const [selectedDayValue, setSelectedDayValue] = useState(`${currentDay}`);
-    
-    //const [inputScheduleHISh, handleInputScheduleHISh] = useState('');
-    //const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
     
     function compararFechas(objeto1, objeto2) {
         var fechaHora1 = new Date(objeto1.date + " " + objeto1.schedule);
@@ -46,33 +43,6 @@ const ShiftsList = () => {
     const dateDesired = selectedYearValue + '-' + (selectedMonthValue==='1'?'01':selectedMonthValue==='2'?'02':selectedMonthValue==='3'?'03':selectedMonthValue==='4'?'04':selectedMonthValue==='5'?'05':selectedMonthValue==='6'?'06':selectedMonthValue==='7'?'07':selectedMonthValue==='8'?'08':selectedMonthValue==='9'?'09':selectedMonthValue==='10'?'10':selectedMonthValue==='11'?'11':selectedMonthValue==='12'?'12':selectedMonthValue==='') + '-' + (selectedDayValue==='1'?'01':selectedDayValue==='2'?'02':selectedDayValue==='3'?'03':selectedDayValue==='4'?'04':selectedDayValue==='5'?'05':selectedDayValue==='6'?'06':selectedDayValue==='7'?'07':selectedDayValue==='8'?'08':selectedDayValue==='9'?'09':selectedDayValue)
     const fechaDeseada = dateDesired;
     const objetosFiltrados = filtrarPorFecha(shiftsOrganized, fechaDeseada);
-
-    /* const handleInputScheduleH = (event) => {
-        const inputValue = event.target.value;
-        if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 23) {
-            handleInputScheduleHISh(inputValue);
-        }
-    };
-
-    const handleInputScheduleM = (event) => {
-        const inputValue = event.target.value;
-        if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 59) {
-            handleInputScheduleMISh(inputValue);
-        }
-    }; */
-
-    /* const handleKeyDownH = (event) => {
-        if (event.keyCode === 8) {
-            handleInputScheduleHShL('');
-        }
-    };
-
-    const handleKeyDownM = (event) => {
-        if (event.keyCode === 8) {
-            handleInputScheduleMShL('');
-        }
-    }; */
-    
 
     useEffect(() => {
         async function fetchData() {
@@ -193,34 +163,20 @@ const ShiftsList = () => {
             }
         }
     };
-
-    const handleOnBlurInputScheduleH = () => {
-        if(inputScheduleHShL.length===1 && inputScheduleHShL<10) {
-            handleInputScheduleHShL("0"+inputScheduleHShL)
-        } else if(inputScheduleHShL==='00') {
-            handleInputScheduleHShL(inputScheduleHShL)
-        } 
+    
+    const handleOnBlurInputScheduleH = (event) => {
+        const inputValue = event.target.value;
+        if (inputValue >= 0 && inputValue < 10) {
+            handleOnBlurInputScheduleHShL(inputValue);
+        }
     }
 
-    const handleOnBlurInputScheduleM = () => {
-        if(inputScheduleMShL.length===1 && inputScheduleMShL<10) {
-            handleInputScheduleMShL("0"+inputScheduleMShL)
-        } else if(inputScheduleMShL==='00') {
-            handleInputScheduleMShL(inputScheduleMShL)
-        } 
+    const handleOnBlurInputScheduleM = (event) => {
+        const inputValue = event.target.value;
+        if (inputValue >= 0 && inputValue < 10) {
+            handleOnBlurInputScheduleMShL(inputValue);
+        }
     }
-
-    /* const handleKeyDownH = (event) => {
-        if (event.keyCode === 8) {
-            handleInputScheduleHShL('');
-        }
-    };
-
-    const handleKeyDownM = (event) => {
-        if (event.keyCode === 8) {
-            handleInputScheduleMShL('');
-        }
-    }; */
 
     const buttonDisabledStyle = {
         color: 'black',

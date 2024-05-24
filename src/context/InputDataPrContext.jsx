@@ -10,7 +10,10 @@ export const ParentPrComponent = ({children}) => {
   const [inputEmailPr, setInputEmailPr] = useState('');
 
   const handleInputBusinessNamePr = (e) => {
-    setInputBusinessNamePr(e);
+    const inputValue = e.target.value;
+    if (/^[a-zA-Z0-9]+$/.test(inputValue)) {
+      setInputBusinessNamePr(inputValue);
+    }
   };
 
   const handleInputCuitCuilPr = (e) => {
@@ -28,7 +31,8 @@ export const ParentPrComponent = ({children}) => {
   };
 
   const handleInputEmailPr = (e) => {
-    setInputEmailPr(e);
+    const inputValue = e.target.value;
+    setInputEmailPr(inputValue);
   };
 
   return (

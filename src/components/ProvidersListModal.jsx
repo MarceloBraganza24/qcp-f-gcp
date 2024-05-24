@@ -11,8 +11,10 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
 
     const handleInputBusinessNameIPr = (e) => {
         const texto = e.target.value;
-        setInputBusinessNameIPr(texto);
-        setInputChanges(true);
+        if (/^[a-zA-Z0-9]+$/.test(texto)) {
+            setInputBusinessNameIPr(texto);
+            setInputChanges(true);
+          }
     };
 
     const handleInputCuitCuilIIPr = (e) => {
@@ -32,8 +34,8 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
     };
 
     const handleInputEmailIPr = (e) => {
-        const texto = e.target.value;
-        setInputEmailIPr(texto);
+        const inputValue = e.target.value;
+        setInputEmailIPr(inputValue);
         setInputChanges(true);
     };
 
@@ -61,7 +63,24 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
         }
     };
 
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
     const handleBtnUpdProvider = async() => {
+        if (!validateEmail(inputEmailIPr?inputEmailIPr:email)) {
+            toast('El email no es válido!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
         const providerToUpdate = {
             business_name: inputBusinessNameIPr?inputBusinessNameIPr:businessName,
             cuit_cuil: inputCuitCuilIPr?inputCuitCuilIPr:cuitCuil,
@@ -75,6 +94,7 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
             },
             body: JSON.stringify(providerToUpdate)
         })
+        const data = await response.json();
         if(response.ok) {
             toast('Has actualizado el proveedor correctamente!', {
                 position: "top-right",
@@ -89,6 +109,29 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
             setTimeout(() => {
                 window.location.reload();
             }, 1500);
+        }
+        if(data.error === '') {
+            toast('Ya existe un proveedor con ese CUIT-CUIL!', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } else if(data.error === '') {
+            toast('Ya existe un proveedor con ese email!', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
     };
 

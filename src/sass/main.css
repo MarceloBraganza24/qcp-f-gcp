@@ -1065,6 +1065,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .itemPartner__input ::-moz-placeholder {
   color: white;

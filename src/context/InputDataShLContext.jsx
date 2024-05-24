@@ -24,6 +24,16 @@ export const ParentShLComponent = ({children}) => {
     setInputDateShL(e);
   };
 
+  const handleOnBlurInputScheduleHShL = (inputValue) => {
+    inputValue.length===1&&setInputScheduleHShL(`0${inputValue}`);
+    inputValue===0&&setInputScheduleHShL(`0${inputValue}`);
+  };
+
+  const handleOnBlurInputScheduleMShL = (inputValue) => {
+    inputValue.length===1&&setInputScheduleMShL(`0${inputValue}`);
+    inputValue===0&&setInputScheduleMShL(`0${inputValue}`);
+  };
+
   const handleInputScheduleHShL = (event) => {
     const inputValue = event.target.value;
     if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 23 || inputValue==='') {
@@ -39,7 +49,7 @@ export const ParentShLComponent = ({children}) => {
   };
 
   return (
-    <InputDataShLContext.Provider value={{ inputFirstNameShL, inputLastNameShL, inputDateShL, inputScheduleHShL, inputScheduleMShL, handleInputFirstNameShL, handleInputLastNameShL, handleInputDateShL, handleInputScheduleHShL, handleInputScheduleMShL }}>
+    <InputDataShLContext.Provider value={{ inputFirstNameShL, inputLastNameShL, inputDateShL, inputScheduleHShL, inputScheduleMShL, handleInputFirstNameShL, handleInputLastNameShL, handleInputDateShL, handleInputScheduleHShL, handleInputScheduleMShL, handleOnBlurInputScheduleHShL, handleOnBlurInputScheduleMShL }}>
       {children}
     </InputDataShLContext.Provider>
   );

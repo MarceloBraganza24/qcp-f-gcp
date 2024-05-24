@@ -50,6 +50,7 @@
         width: 100%;
         height: auto;
         @include disFC();
+        overflow: hidden;
         ::placeholder {
             color: white;
         }
