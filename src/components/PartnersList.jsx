@@ -111,6 +111,8 @@ const PartnersList = () => {
                 theme: "dark",
             });
         } else {
+            document.getElementById('btnCreatePartner').style.display = 'none';
+            document.getElementById('spinnerBtnCreatePartner').style.display = 'block';
             const partnerToCreate = {
                 first_name: inputFirstNamePaL,
                 last_name: inputLastNamePaL,
@@ -139,6 +141,17 @@ const PartnersList = () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
+            } else if (response.status === 409) {
+                toast('Ya existe un socio con ese email!', {
+                    position: "top-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             }
             const data = await response.json();
             if(data.error === 'There is already a partner with that DNI and email') {
@@ -229,7 +242,8 @@ const PartnersList = () => {
                             {
                                 !isOpen?
                                 <div className='itemCreatePartner__btns'>
-                                    <button className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
+                                    <button id='btnCreatePartner' className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
+                                    <div id='spinnerBtnCreatePartner' className='spinner'></div>
                                 </div>
                                 :
                                 <div className='itemCreatePartner__btns'>

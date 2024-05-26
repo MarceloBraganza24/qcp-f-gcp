@@ -14,18 +14,14 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
 
     const handleInputTitleIProd = (e) => {
         const inputValue = e.target.value;
-        if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
-            setInputTitleIProd(inputValue);
-            setInputChanges(true); 
-        }
+        setInputTitleIProd(inputValue);
+        setInputChanges(true);
     };
 
     const handleInputDescriptionIProd = (e) => {
         const inputValue = e.target.value;
-        if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
-            setinputDescriptionIProd(inputValue);
-            setInputChanges(true);
-        }
+        setinputDescriptionIProd(inputValue);
+        setInputChanges(true);
     };
 
     const handleInputPriceIProd = (e) => {
@@ -46,10 +42,8 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
 
     const handleInputCategoryIProd = (e) => {
         const inputValue = e.target.value;
-        if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
-            setInputCategoryIProd(inputValue);
-            setInputChanges(true);
-        }
+        setInputCategoryIProd(inputValue);
+        setInputChanges(true);
     };
 
     const handleBtnDelProduct = async() => {
@@ -57,10 +51,27 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
     };
 
     const handleBtnUpdProduct = async() => {
-        if(inputTitleIProd === '' && inputDescriptionIProd === '' && inputPriceIProd === '' && inputStockIProd === '' && inputCategoryIProd === '') {
-            toast('No tienes cambios para actualizar!', {
+        const productToUpdate = {
+            title: inputTitleIProd?inputTitleIProd:title,
+            description: inputDescriptionIProd?inputDescriptionIProd:description,
+            price: inputPriceIProd?inputPriceIProd:price,
+            stock: inputStockIProd?inputStockIProd:stock,
+            category: inputCategoryIProd?inputCategoryIProd:category
+        }
+        const response = await fetch(`http://localhost:8081/api/products/${id}`, {
+            method: 'PUT',         
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(productToUpdate)
+        })
+        const data = await response.json();
+        if(response.ok) {
+            document.getElementById('btnCreateProduct').style.display = 'none';
+            document.getElementById('spinnerBtnCreateProduct').style.display = 'block';
+            toast('Has actualizado el producto correctamente!', {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -70,62 +81,31 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
             });
             setTimeout(() => {
                 window.location.reload();
-            }, 2000);
-        } else {
-            const productToUpdate = {
-                title: inputTitleIProd?inputTitleIProd:title,
-                description: inputDescriptionIProd?inputDescriptionIProd:description,
-                price: inputPriceIProd?inputPriceIProd:price,
-                stock: inputStockIProd?inputStockIProd:stock,
-                category: inputCategoryIProd?inputCategoryIProd:category
-            }
-            const response = await fetch(`http://localhost:8081/api/products/${id}`, {
-                method: 'PUT',         
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(productToUpdate)
-            })
-            const data = await response.json();
-            if(response.ok) {
-                toast('Has actualizado el producto correctamente!', {
-                    position: "top-right",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
-            }
-            if(data.error === 'There is already a product with that title') {
-                toast('Ya existe un producto con ese título!', {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-            }  else if(data.error === 'There is already a product with that data') {
-                toast('No tienes cambios para actualizar!', {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                setInputChanges(false);
-            }
+            }, 1500);
+        }
+        if(data.error === 'There is already a product with that title') {
+            toast('Ya existe un producto con ese título!', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }  else if(data.error === 'There is already a product with that data') {
+            toast('No tienes cambios para actualizar!', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,        
+                theme: "dark",
+            });
+            setInputChanges(false);
         }
     };
 
@@ -219,7 +199,8 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
                 </div>
                 <div className='productsModalContainer__itemProduct__btns'>
                     <button className='productsModalContainer__itemProduct__btns__btn' onClick={handleBtnDelProduct}>Borrar</button>
-                    <button className='productsModalContainer__itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
+                    <button id='btnCreateProduct' className='productsModalContainer__itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
+                    <div id='spinnerBtnCreateProduct' className='spinner'></div>
                 </div>
             </div>
             {

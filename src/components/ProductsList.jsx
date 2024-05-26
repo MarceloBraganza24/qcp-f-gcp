@@ -95,6 +95,8 @@ const ProductsList = () => {
                 theme: "dark",
             });
         } else {
+            document.getElementById('btnCreateProduct').style.display = 'none';
+            document.getElementById('spinnerBtnCreateProduct').style.display = 'block';
             const productToCreate = {
                 title: inputTitleProd,
                 description: inputDescriptionProd,
@@ -190,7 +192,8 @@ const ProductsList = () => {
                             {
                                 !isOpen?
                                 <div className='itemCreateProduct__btns'>
-                                    <button className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
+                                    <button id='btnCreateProduct' className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
+                                    <div id='spinnerBtnCreateProduct' className='spinner'></div>
                                 </div>
                                 :
                                 <div className='itemCreateProduct__btns'>

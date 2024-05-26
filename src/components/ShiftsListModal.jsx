@@ -104,6 +104,8 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
             })
             const data = await response.json();
             if(response.ok) {
+                document.getElementById('btnUpdateShift').style.display = 'none';
+                document.getElementById('spinnerBtnUpdateShift').style.display = 'block';
                 toast('Has actualizado el turno correctamente!', {
                     position: "top-right",
                     autoClose: 1000,
@@ -140,6 +142,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                     progress: undefined,
                     theme: "dark",
                 });
+                setInputChanges(false)
             }   
         }
     };
@@ -259,7 +262,8 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 </div>
                 <div className='shiftModalContainer__itemShift__btns'>
                     <button className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
-                    <button className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
+                    <button id='btnUpdateShift' className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
+                    <div id='spinnerBtnUpdateShift' className='spinner'></div>
                 </div>
             </div>
             {

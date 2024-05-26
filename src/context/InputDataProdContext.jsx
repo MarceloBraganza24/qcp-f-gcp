@@ -12,16 +12,12 @@ export const ParentProdComponent = ({children}) => {
 
   const handleInputTitleProd = (e) => {
     const inputValue = e.target.value;
-    if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
-      setInputTitleProd(inputValue);
-    }
+    setInputTitleProd(inputValue);
   };
 
   const handleInputDescriptionProd = (e) => {
     const inputValue = e.target.value;
-    if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
-      setInputDescriptionProd(inputValue);
-    }
+    setInputDescriptionProd(inputValue);
   };
 
   const handleInputPriceProd = (e) => {
@@ -42,9 +38,7 @@ export const ParentProdComponent = ({children}) => {
 
   const handleInputCategoryProd = (e) => {
     const inputValue = e.target.value;
-    if (/^[a-zA-Z0-9 ]+$/.test(inputValue)) {
-      setInputCategoryProd(inputValue);
-    }
+    setInputCategoryProd(inputValue);
   };
 
   return (

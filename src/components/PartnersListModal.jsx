@@ -84,6 +84,8 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
             })
             const data = await response.json();
             if(response.ok) {
+                document.getElementById('btnCreatePartner').style.display = 'none';
+                document.getElementById('spinnerBtnCreatePartner').style.display = 'block';
                 toast('Has actualizado el turno correctamente!', {
                     position: "top-right",
                     autoClose: 1000,
@@ -97,6 +99,17 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                 setTimeout(() => {
                     window.location.href = '/partnersList';
                 }, 1500);
+            } else if (response.status === 409) {
+                toast('Ya existe un socio con ese email!', {
+                    position: "top-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             }
             if(data.error === 'There is already a partner with that DNI and email') {
                 toast('Ya existe un socio con ese dni y email!', {
@@ -238,7 +251,8 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                 </div>
                 <div className='partnersModalContainer__itemPartner__btns'>
                     <button className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>
-                    <button className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
+                    <button id='btnCreatePartner' className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
+                    <div id='spinnerBtnCreatePartner' className='spinner'></div>
                 </div>
             </div>
             {

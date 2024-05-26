@@ -119,6 +119,8 @@ const ShiftsList = () => {
                 theme: "dark",
             });
         } else {
+            document.getElementById('btnCreateShift').style.display = 'none';
+            document.getElementById('spinnerBtnCreateShift').style.display = 'block';
             const schedule = inputScheduleHShL + ':' + inputScheduleMShL
             const shiftToCreate = {
                 first_name: inputFirstNameShL,
@@ -148,7 +150,7 @@ const ShiftsList = () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
-            }
+            } 
             if(data.error === 'There is already a shift with that date and time') {
                 toast('Ya existe un turno con esa fecha y horario!', {
                     position: "top-right",
@@ -357,7 +359,8 @@ const ShiftsList = () => {
                             {
                                 !isOpen?
                                 <div className='itemCreateShift__btns'>
-                                    <button className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
+                                    <button id='btnCreateShift' className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
+                                    <div id='spinnerBtnCreateShift' className='spinner'></div>
                                 </div>
                                 :
                                 <div className='itemCreateShift__btns'>

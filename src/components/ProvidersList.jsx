@@ -111,6 +111,8 @@ const ProvidersList = () => {
                 theme: "dark",
             });
         } else {
+            document.getElementById('btnCreateProvider').style.display = 'none';
+            document.getElementById('spinnerBtnCreateProvider').style.display = 'block';
             const providerToCreate = {
                 business_name: inputBusinessNamePr,
                 cuit_cuil: inputCuitCuilPr,
@@ -139,6 +141,17 @@ const ProvidersList = () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
+            } else if (response.status === 409) {
+                toast('Ya existe un proveedor con ese email!', {
+                    position: "top-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             }
             if(data.error === 'There is already a provider with that CUIT-CUIL') {
                 toast('Ya existe un proveedor con ese CUIT-CUIL!', {
@@ -153,6 +166,17 @@ const ProvidersList = () => {
                 });
             } else if(data.error === 'There is already a provider with that email') {
                 toast('Ya existe un proveedor con ese email!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a provider with that business name') {
+                toast('Ya existe un proveedor con esa razón social!', {
                     position: "top-right",
                     autoClose: 1500,
                     hideProgressBar: false,
@@ -212,7 +236,8 @@ const ProvidersList = () => {
                             {
                                 !isOpen?
                                 <div className='itemCreateProvider__btns'>
-                                    <button className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
+                                    <button id='btnCreateProvider' className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
+                                    <div id='spinnerBtnCreateProvider' className='spinner'></div>
                                 </div>
                                 :
                                 <div className='itemCreateProvider__btns'>

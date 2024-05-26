@@ -13,10 +13,8 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
 
     const handleInputBusinessNameIPr = (e) => {
         const texto = e.target.value;
-        if (/^[a-zA-Z0-9]+$/.test(texto)) {
             setInputBusinessNameIPr(texto);
             setInputChanges(true);
-          }
     };
 
     const handleInputCuitCuilIIPr = (e) => {
@@ -78,6 +76,8 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
             })
             const data = await response.json();
             if(response.ok) {
+                document.getElementById('btnCreateProvider').style.display = 'none';
+                document.getElementById('spinnerBtnCreateProvider').style.display = 'block';
                 toast('Has actualizado el proveedor correctamente!', {
                     position: "top-right",
                     autoClose: 1000,
@@ -91,6 +91,17 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 1500);
+            } else if (response.status === 409) {
+                toast('Ya existe un proveedor con ese email!', {
+                    position: "top-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             }
             if(data.error === 'There is already a provider with that CUIT-CUIL') {
                 toast('Ya existe un proveedor con ese CUIT-CUIL!', {
@@ -114,7 +125,18 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
                     progress: undefined,
                     theme: "dark",
                 });
-            }  else if(data.error === 'There is already a provider with that data') {
+            } else if(data.error === 'There is already a provider with that business name') {
+                toast('Ya existe un proveedor con esa razón social!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else if(data.error === 'There is already a provider with that data') {
                 toast('No tienes cambios para actualizar!', {
                     position: "top-right",
                     autoClose: 1500,
@@ -216,7 +238,8 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
                 </div>
                 <div className='providersModalContainer__itemProvider__btns'>
                     <button className='providersModalContainer__itemProvider__btns__btn' onClick={handleBtnDelProvider}>Borrar</button>
-                    <button className='providersModalContainer__itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
+                    <button id='btnCreateProvider' className='providersModalContainer__itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
+                    <div id='spinnerBtnCreateProvider' className='spinner'></div>
                 </div>
             </div>
             {
