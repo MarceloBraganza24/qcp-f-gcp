@@ -1,3 +1,10 @@
+.logOutMobile {
+    color: white;
+    font-size: 10px;
+    text-decoration: underline;
+    //background-color: black;
+}
+
 .logOut {
     position: absolute;
     top: 14.5vh; 
@@ -5,4 +12,10 @@
     color: white;
     text-decoration: underline;
     background-color: black;
+}
+
+@media (min-width: 425px) {
+.logOut {
+    display: none;
+}
 }

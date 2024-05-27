@@ -56,3 +56,68 @@
         }
     }
 }
+
+@media (max-width: 480px) {
+.footerContainer {
+    background-color: black;
+    width: 100%;
+    height: 15vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 0.5vh solid yellow;
+    &__social-networks {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        &__logo-link {
+            width: 100%;
+            height: auto;
+            @include disFC();
+            gap: 1vh;
+            &__logo {
+                width: 25%;
+            }
+            &__link {
+                text-decoration: none;
+                color: white;
+                font-size: 15px;
+                &:hover {
+                    color: yellow;
+                }
+            }
+        }
+    }
+    &__title-copyrigth {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 1fr;
+        &__title {
+            width: 100%;
+            height: auto;
+            @include disFC();
+            font-size: 15px;
+            &__prop {
+                width: 100%;
+                height: auto;
+                @include disFC();
+                flex-direction: column;
+                color: white;
+                &__spacing {
+                    letter-spacing: 0.5vh;
+                }
+            }
+        }
+        &__copyrigth {
+            width: 100%;
+            height: auto;
+            @include disFC();
+            &__prop {
+                font-size: 8px;
+                color: white;
+            }
+        }
+    }
+}
+}

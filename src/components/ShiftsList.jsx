@@ -224,7 +224,7 @@ const ShiftsList = () => {
                             <div className='shiftsListContainer__selects__labelSelect__label'>Mes:</div>
                             {       
                                 !isOpen?
-                                <select value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectMonths}>
+                                <select value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectMonths}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -239,7 +239,7 @@ const ShiftsList = () => {
                                     <option value="12">12</option>
                                 </select>
                                 :
-                                <select disabled style={buttonDisabledStyle} value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectMonths}>
+                                <select disabled style={buttonDisabledStyle} value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectMonths}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -331,10 +331,10 @@ const ShiftsList = () => {
                     </div>
                     <div className='shiftsListContainer__shiftsList'>
                         <div className='shiftsListContainer__shiftsList__header'>
-                            <div>- Nombre -</div>
-                            <div>- Apellido -</div>
-                            <div>- Fecha -</div>
-                            <div>- Horario -</div>
+                            <div className='shiftsListContainer__shiftsList__header__label'>- Nombre -</div>
+                            <div className='shiftsListContainer__shiftsList__header__label'>- Apellido -</div>
+                            <div className='shiftsListContainer__shiftsList__header__label'>- Fecha -</div>
+                            <div className='shiftsListContainer__shiftsList__header__label'>- Horario -</div>
                         </div>
                         <div className='itemCreateShift'>
                             <div className='itemCreateShift__input'>

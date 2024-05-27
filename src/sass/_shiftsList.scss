@@ -110,3 +110,93 @@
         }
     }
 }
+
+@media (max-width: 480px) {
+.shiftsListContainer {
+    background-color: black;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    //padding: 5vh 0vh 5vh 0vh;
+    &__title {
+        text-align: center;
+        font-size: 40px;
+        color: white;
+    }
+    &__selects {
+        background-color: black;
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        border-top: 0.3vh solid white;
+        padding: 2vh 0vh;
+        &__labelSelect {
+            width: 100%;
+            height: auto;
+            @include disFC();
+            gap: 0.5vh;
+            &__label {
+                font-size: 18px;
+                color: white;
+            }
+            &__select {
+                width: 60%;
+                font-size: 25px;
+                border-radius: 1vh;
+                text-align: center;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            &__selectDays {
+                width: 40%;
+                font-size: 25px;
+                border-radius: 1vh;
+                text-align: center;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    &__shiftsList {
+        background-color: black;
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        border-top: 0.3vh solid white;
+        border-bottom: 0.3vh solid white;
+        padding: 2vh 0vh;
+        overflow: auto;
+        &__header {
+            width: 100%;
+            height: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            text-align: center;
+            color: white;
+            padding: 1vh 0vh;
+            &__label {
+                width: 20vh;
+                @include disFC();
+                font-size: 20px;
+            }
+        }
+    }
+}
+.datePikerCreateShift {
+    background-color: black;
+    width: 100%;
+    height: auto;
+    font-size: 1.2em;
+    text-align: center;
+    color: white;
+    border: none;
+    border-top: 0.3vh solid white;
+    padding-top: 1.5vh;
+}
+}

@@ -236,10 +236,10 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 }
             </div> 
             <div className='shiftModalContainer__header'>
-                <div>- Nombre -</div>
-                <div>- Apellido -</div>
-                <div>- Fecha -</div>
-                <div>- Horario -</div>
+                <div className='shiftModalContainer__header__label'>- Nombre -</div>
+                <div className='shiftModalContainer__header__label'>- Apellido -</div>
+                <div className='shiftModalContainer__header__label'>- Fecha -</div>
+                <div className='shiftModalContainer__header__label'>- Horario -</div>
             </div>
             <div className='shiftModalContainer__itemShift'>
                 <div className='shiftModalContainer__itemShift__input'>

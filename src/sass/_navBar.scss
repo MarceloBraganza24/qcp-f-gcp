@@ -1,3 +1,37 @@
+.navBarMobileContainer {
+    background-color: black;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    border-bottom: 0.5vh solid yellow;
+    &__hMenuMobileContainer {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        padding-left: 2vh;
+    }
+    &__title {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        text-decoration: none;
+        color: white;
+        font-size: 40px;
+        color: white;
+        padding: 2vh 0vh;
+    }
+    &__logOutMobileContainer {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        padding-right: 2vh;
+    }
+}
+
 .navBarContainer {
     background-color: black;
     width: 100%;
@@ -77,4 +111,16 @@
             }
         }
     }
+}
+
+@media (max-width: 480px) {
+.navBarContainer {
+    display: none;
+}
+}
+
+@media (min-width: 1080px) {
+.navBarMobileContainer {
+    display: none;
+}
 }

@@ -18,6 +18,24 @@ h2 {
     align-items: center;
 }
 
+.warningLogin {
+    background-color: black;
+    width: 100%;
+    height: auto;
+    @include disFC();
+    padding: 1vh;
+    &__prop {
+        color: white;
+    }
+    &__link {
+        text-decoration: none;
+        color: white;
+        &:hover {
+            color: yellow;
+        }
+    }
+}
+
 @import "singUp";
 @import "logIn";
 @import "navBar";
@@ -38,6 +56,13 @@ h2 {
 @import "itemProduct";
 @import "hMenu";
 @import "modal";
+
+@media (max-width: 480px) {
+.warningLogin {
+    padding-top: 1vh;
+    font-size: 15px;
+}
+}
 
 @media (min-width: 1540px) {
 .aboutContainer {

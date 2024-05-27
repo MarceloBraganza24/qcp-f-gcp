@@ -202,7 +202,10 @@ const Shifts = () => {
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__label-input'>
                                     <h2 className='shiftsContainerIsLoggedIn__form__credentials__label-input__label'>Precio:</h2>
-                                    <input id='priceShift' className='shiftsContainerIsLoggedIn__form__credentials__label-input__input__precio' disabled value={inputPriceSh}/>
+                                    <div id='priceShift' className='shiftsContainerIsLoggedIn__form__credentials__label-input__precio'>
+                                        <div className='shiftsContainerIsLoggedIn__form__credentials__label-input__precio__prop'>{inputPriceSh}</div>
+                                    </div>
+                                    {/* <input id='priceShift' className='shiftsContainerIsLoggedIn__form__credentials__label-input__input__precio' disabled value={inputPriceSh}/> */}
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__btn'>
                                     <button id='pagarTurnoBtn' className='shiftsContainerIsLoggedIn__form__credentials__btn__prop' onClick={handleBuy}>Pagar</button>
@@ -252,7 +255,10 @@ const Shifts = () => {
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__label-input'>
                                     <h2 className='shiftsContainerIsLoggedIn__form__credentials__label-input__label'>Precio:</h2>
-                                    <input id='priceShift' className='shiftsContainerIsLoggedIn__form__credentials__label-input__input__precio' disabled value={inputPriceSh}/>
+                                    <div id='priceShift' className='shiftsContainerIsLoggedIn__form__credentials__label-input__precio'>
+                                        <div className='shiftsContainerIsLoggedIn__form__credentials__label-input__precio__prop'>{inputPriceSh}</div>
+                                    </div>
+                                    {/* <input id='priceShift' className='shiftsContainerIsLoggedIn__form__credentials__label-input__input__precio' disabled value={inputPriceSh}/> */}
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__btn'>
                                     <button id='pagarTurnoBtn' className='shiftsContainerIsLoggedIn__form__credentials__btn__prop' onClick={handleBuy}>Pagar</button>

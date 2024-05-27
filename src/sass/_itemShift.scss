@@ -108,3 +108,128 @@
         }
     }
 }
+
+@media (max-width: 480px) {
+.itemCreateShift {
+    width: 100%; 
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    text-align: center;
+    color: white;
+    border-top: none;
+    padding: 1vh 0vh;
+    &__input {
+        width: 20vh;
+        height: auto;
+        @include disFC();
+        &__prop {
+            width: 100%;
+            height: auto;
+            text-align: center;
+            font-size: 1.2em;
+            background: none;
+            border: none;
+            color: white;
+            border-top: 0.3vh solid white;
+            padding-top: 1.5vh;
+        }
+    }
+    &__inputSchedule {
+        width: 20vh;
+        height: auto;
+        @include disFC();
+        border-top: 0.3vh solid white;
+        padding-top: 1.5vh;
+        ::placeholder {
+            color: white;
+        }
+        &__prop {
+            width: 20%;
+            height: auto;
+            text-align: center;
+            font-size: 1.2em;
+            background: none;
+            border: none;
+            color: white;
+        }
+    }
+    &__btns {
+        //background-color: green;
+        width: 25vh;
+        height: auto;
+        @include disFC();
+        gap: 1vh;
+        border-top: 0.3vh solid white;
+        padding-top: 1.5vh;
+        &__btn {
+            background-color: white;
+            width: 70%;
+            height: auto;
+            border-radius: 1vh;
+        }
+    }
+}
+
+.itemShift {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    text-align: center;
+    color: white;
+    border-top: none;
+    padding: 1vh 0vh;
+    &__input {
+        width: 20vh;
+        height: auto;
+        @include disFC();
+        ::placeholder {
+            color: white;
+        }
+        &__prop {
+            width: 100%;
+            height: auto;
+            text-align: center;
+            font-size: 1.2em;
+            background: none;
+            border: none;
+            color: white;
+            border-top: 0.3vh solid white;
+            padding-top: 1.5vh;
+        }
+    }
+    &__inputSchedule {
+        width: 20vh;
+        height: auto;
+        @include disFC();
+        gap: 0.5vh;
+        border-top: 0.3vh solid white;
+        padding-top: 1.5vh;
+        &__prop {
+            font-size: 1.2em;
+        }
+    }
+    /* &__label {
+        width: 20vh;
+        height: auto;
+        text-align: center;
+        font-size: 10px;
+    } */
+    &__btns {
+        //background-color: green;
+        width: 25vh;
+        height: auto;
+        @include disFC();
+        gap: 1vh;
+        border-top: 0.3vh solid white;
+        padding-top: 1.5vh;
+        &__btn {
+            background-color: white;
+            width: 70%;
+            height: auto;
+            border-radius: 1vh;
+        }
+    }
+}
+}
