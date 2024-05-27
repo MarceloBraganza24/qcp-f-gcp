@@ -24,7 +24,7 @@ const Login = () => {
                     theme: "dark",
                 });
             } else {
-                const response = await fetch('http://localhost:8081/api/sessions/login', {
+                const response = await fetch('https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/login', {
                     method: 'POST',         
                     headers: {
                         'Content-Type': 'application/json',

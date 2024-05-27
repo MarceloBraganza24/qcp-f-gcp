@@ -24,7 +24,7 @@ const SingUp = () => {
                     theme: "dark",
                 });
             } else {
-                const response = await fetch('http://localhost:8081/api/sessions/singUp', {
+                const response = await fetch('https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/singUp', {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json'

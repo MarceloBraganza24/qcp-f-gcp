@@ -95,7 +95,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 date: inputDateISh?inputDateISh:dateFormated,
                 schedule: scheduleConcat
             }
-            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/shifts/${id}`, {
                 method: 'PUT',         
                 headers: {
                     'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
     const ConfirmationDeleteModal = () => {
 
         const handleBtnDelShift = async() => {
-            const response = await fetch(`http://localhost:8081/api/shifts/${id}`, {
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/shifts/${id}`, {
                 method: 'DELETE',         
                 headers: {
                     'Content-Type': 'application/json',

@@ -29,7 +29,7 @@ const Cuts = () => {
         const cookieValue = getCookie('TokenJWT');
         const fetchData = async () => {
           try {
-            const response = await fetch(`http://localhost:8081/api/sessions/current?cookie=${cookieValue}`)
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/current?cookie=${cookieValue}`)
             const data = await response.json();
             if(data.error === 'jwt expired') {
               logout()

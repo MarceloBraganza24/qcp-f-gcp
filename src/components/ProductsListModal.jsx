@@ -58,7 +58,7 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
             stock: inputStockIProd?inputStockIProd:stock,
             category: inputCategoryIProd?inputCategoryIProd:category
         }
-        const response = await fetch(`http://localhost:8081/api/products/${id}`, {
+        const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/products/${id}`, {
             method: 'PUT',         
             headers: {
                 'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
     const ConfirmationDeleteModal = () => {
 
         const handleBtnDelProduct = async() => {
-            const response = await fetch(`http://localhost:8081/api/products/${id}`, {
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/products/${id}`, {
                 method: 'DELETE',         
                 headers: {
                     'Content-Type': 'application/json',

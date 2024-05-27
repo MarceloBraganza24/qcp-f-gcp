@@ -20,7 +20,7 @@ const ProductsList = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(`http://localhost:8081/api/products`)
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/products`)
             const productsAll = await response.json();
             setProducts(productsAll.data)
         }
@@ -44,7 +44,7 @@ const ProductsList = () => {
         const cookieValue = getCookie('TokenJWT');
         const fetchUser = async () => {
             try {
-              const response = await fetch(`http://localhost:8081/api/sessions/current?cookie=${cookieValue}`)
+              const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/current?cookie=${cookieValue}`)
               const data = await response.json();
               if(data.error === 'jwt expired') {
                 logout()
@@ -104,7 +104,7 @@ const ProductsList = () => {
                 stock: inputStockProd,
                 category: inputCategoryProd
             }
-            const response = await fetch(`http://localhost:8081/api/products/register`, {
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/products/register`, {
                 method: 'POST',         
                 headers: {
                     'Content-Type': 'application/json',

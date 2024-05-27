@@ -41,7 +41,7 @@ const Shifts = () => {
         const cookieValue = getCookie('TokenJWT');
         const fetchData = async () => {
             try {
-              const response = await fetch(`http://localhost:8081/api/sessions/current?cookie=${cookieValue}`)
+              const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/current?cookie=${cookieValue}`)
               const data = await response.json();
               if(data.error === 'jwt expired') {
                 logout()
@@ -89,7 +89,7 @@ const Shifts = () => {
                 const month = String(inputDateSh.getMonth() + 1).padStart(2, '0');
                 const day = String(inputDateSh.getDate()).padStart(2, '0');
                 const formattedDate = `${year}-${month}-${day}`;
-                const response = await fetch('http://localhost:8081/api/shifts')
+                const response = await fetch('https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/shifts')
                 const res = await response.json();
                 const shifts = res.data;
                 const partnerByDateScheduleExists = shifts.find(item => item.date === formattedDate && item.schedule === inputScheduleSh)
@@ -106,7 +106,7 @@ const Shifts = () => {
                     });
                 } else {
                     pagarTurnoBtn.style.display = 'none';
-                    const preference = await fetch('http://localhost:8081/api/payments/create-preference-shift', {
+                    const preference = await fetch('https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/payments/create-preference-shift', {
                         method: 'POST',
                         headers: {
                         'Content-Type': 'application/json'

@@ -20,7 +20,7 @@ const ProvidersList = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(`http://localhost:8081/api/providers`)
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/providers`)
             const providersAll = await response.json();
             setProviders(providersAll.data)
         }
@@ -44,7 +44,7 @@ const ProvidersList = () => {
         const cookieValue = getCookie('TokenJWT');
         const fetchUser = async () => {
             try {
-              const response = await fetch(`http://localhost:8081/api/sessions/current?cookie=${cookieValue}`)
+              const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/current?cookie=${cookieValue}`)
               const data = await response.json();
               if(data.error === 'jwt expired') {
                 logout()
@@ -119,7 +119,7 @@ const ProvidersList = () => {
                 phone: inputPhonePr,
                 email: inputEmailPr
             }
-            const response = await fetch(`http://localhost:8081/api/providers/register`, {
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/providers/register`, {
                 method: 'POST',         
                 headers: {
                     'Content-Type': 'application/json',

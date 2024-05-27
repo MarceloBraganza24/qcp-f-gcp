@@ -28,7 +28,7 @@ const LogOut = () => {
   
         const cookieValue = getCookie('TokenJWT');
 
-        const response = await fetch(`http://localhost:8081/api/sessions/logout?cookie=${cookieValue}`, {
+        const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/logout?cookie=${cookieValue}`, {
           method: 'POST'
         })
         if(response.ok) {

@@ -46,7 +46,7 @@ const ShiftsList = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(`http://localhost:8081/api/shifts`)
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/shifts`)
             const shiftsAll = await response.json();
             setShifts(shiftsAll.data)
         }
@@ -70,7 +70,7 @@ const ShiftsList = () => {
         const cookieValue = getCookie('TokenJWT');
         const fetchUser = async () => {
             try {
-              const response = await fetch(`http://localhost:8081/api/sessions/current?cookie=${cookieValue}`)
+              const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/current?cookie=${cookieValue}`)
               const data = await response.json();
               if(data.error === 'jwt expired') {
                 logout()
@@ -128,7 +128,7 @@ const ShiftsList = () => {
                 date: inputDateShL,
                 schedule: schedule,
             }
-            const response = await fetch(`http://localhost:8081/api/shifts/register`, {
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/shifts/register`, {
                 method: 'POST',         
                 headers: {
                     'Content-Type': 'application/json',

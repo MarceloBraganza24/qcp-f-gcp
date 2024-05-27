@@ -38,7 +38,7 @@ const Partners = () => {
         const cookieValue = getCookie('TokenJWT');
         const fetchData = async () => {
             try {
-              const response = await fetch(`http://localhost:8081/api/sessions/current?cookie=${cookieValue}`)
+              const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/current?cookie=${cookieValue}`)
               const data = await response.json();
               if(data.error === 'jwt expired') {
                 logout()
@@ -98,7 +98,7 @@ const Partners = () => {
                     theme: "dark",
                 });
             } else {
-                const response = await fetch('http://localhost:8081/api/partners')
+                const response = await fetch('https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/partners')
                 const res = await response.json();
                 const partners = res.data;
                 const partnerByDniExists = partners.find(item => item.dni === Number(inputDniPa))
@@ -127,7 +127,7 @@ const Partners = () => {
                     });
                 } else {  
                     pagarCuotaSocioBtn.style.display = 'none';
-                    const preference = await fetch('http://localhost:8081/api/payments/create-preference-partner', {
+                    const preference = await fetch('https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/payments/create-preference-partner', {
                         method: 'POST',
                         headers: {
                         'Content-Type': 'application/json'

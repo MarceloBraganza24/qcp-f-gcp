@@ -67,7 +67,7 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
                 phone: inputPhoneIPr?inputPhoneIPr:phone,
                 email: inputEmailIPr?inputEmailIPr:email
             }
-            const response = await fetch(`http://localhost:8081/api/providers/${id}`, {
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/providers/${id}`, {
                 method: 'PUT',         
                 headers: {
                     'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
     const ConfirmationDeleteModal = () => {
 
         const handleBtnDelProvider = async() => {
-            const response = await fetch(`http://localhost:8081/api/providers/${id}`, {
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/providers/${id}`, {
                 method: 'DELETE',         
                 headers: {
                     'Content-Type': 'application/json',
