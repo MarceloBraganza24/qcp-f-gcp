@@ -215,10 +215,10 @@ const ProvidersList = () => {
                     </div>
                     <div className='providersListContainer__providersList'>
                         <div className='providersListContainer__providersList__header'>
-                            <div>Razon social</div>
-                            <div>CUIT-CUIL</div>
-                            <div>Teléfono</div>
-                            <div>Email</div>
+                            <div className='providersListContainer__providersList__header__label'>Razon social</div>
+                            <div className='providersListContainer__providersList__header__label'>CUIT-CUIL</div>
+                            <div className='providersListContainer__providersList__header__label'>Teléfono</div>
+                            <div className='providersListContainer__providersList__header__label'>Email</div>
                         </div>
                         <div className='itemCreateProvider'>
                             <div className='itemCreateProvider__input'>

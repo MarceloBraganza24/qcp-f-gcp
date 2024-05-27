@@ -230,9 +230,13 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
             <div className='shiftModalContainer__btnCloseModal'>
                 {
                     !inputChanges?
-                    <a className='shiftModalContainer__btnCloseModal__prop' href="/shiftsList">cerrar</a>
-                    :
-                    <div className='shiftModalContainer__btnCloseModal__prop'>cerrar</div>
+                    <>
+                        <a className='shiftModalContainer__btnCloseModal__prop' href="/shiftsList">cerrar</a>
+                    </>
+                        :
+                    <>
+                        <div className='shiftModalContainer__btnCloseModal__prop'>cerrar</div>
+                    </>
                 }
             </div> 
             <div className='shiftModalContainer__header'>

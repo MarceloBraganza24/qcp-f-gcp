@@ -124,10 +124,8 @@
         height: auto;
         @include disFC();
         flex-direction: column;
-        //padding: 2vh 0vh 6vh 0vh;
         &__phrase {
             color: white;
-            //padding-bottom: 2vh;
         }
         &__credentials {
             width: 100%;
@@ -138,8 +136,6 @@
                 height: auto;
                 display: grid;
                 grid-template-columns: 20% 60%;
-                // gap: 10vh;
-                // padding: 2vh 0vh;
                 &__label {
                     font-size: 25px;
                     color: white;
@@ -181,10 +177,8 @@
         height: auto;
         @include disFC();
         flex-direction: column;
-        //padding: 6vh 0vh 8vh 0vh;
         &__phrase {
             color: white;
-            //padding-bottom: 2vh;
         }
         &__credentials {
             width: 100%;
@@ -195,8 +189,6 @@
                 height: auto;
                 display: grid;
                 grid-template-columns: 20% 60%;
-                // gap: 10vh;
-                // padding: 2vh 0vh;
                 &__label {
                     font-size: 25px;
                     color: white;

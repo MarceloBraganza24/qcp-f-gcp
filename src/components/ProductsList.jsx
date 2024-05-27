@@ -167,11 +167,11 @@ const ProductsList = () => {
                     </div>
                     <div className='productsListContainer__productsList'>
                         <div className='productsListContainer__productsList__header'>
-                            <div>Título</div>
-                            <div>Descripción</div>
-                            <div>Precio</div>
-                            <div>Stock</div>
-                            <div>Categoría</div>
+                            <div className='productsListContainer__productsList__header__label'>Título</div>
+                            <div className='productsListContainer__productsList__header__label'>Descripción</div>
+                            <div className='productsListContainer__productsList__header__label'>Precio</div>
+                            <div className='productsListContainer__productsList__header__label'>Stock</div>
+                            <div className='productsListContainer__productsList__header__label'>Categoría</div>
                         </div>
                         <div className='itemCreateProduct'>
                             <div className='itemCreateProduct__input'>

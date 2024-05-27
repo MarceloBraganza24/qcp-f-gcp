@@ -227,11 +227,11 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                 }
             </div>
             <div className='partnersModalContainer__header'>
-                <div>Nombre</div>
-                <div>Apellido</div>
-                <div>Dni</div>
-                <div>Teléfono</div>
-                <div>Email</div>
+                <div className='partnersModalContainer__header__label'>Nombre</div>
+                <div className='partnersModalContainer__header__label'>Apellido</div>
+                <div className='partnersModalContainer__header__label'>Dni</div>
+                <div className='partnersModalContainer__header__label'>Teléfono</div>
+                <div className='partnersModalContainer__header__label'>Email</div>
             </div>
             <div className='partnersModalContainer__itemPartner'>
                 <div className='partnersModalContainer__itemPartner__input'>

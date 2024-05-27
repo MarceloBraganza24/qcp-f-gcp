@@ -175,11 +175,11 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
                 }
             </div>
             <div className='productsModalContainer__header'>
-                <div>Titulo</div>
-                <div>Descripción</div>
-                <div>Precio</div>
-                <div>Stock</div>
-                <div>Categoría</div>
+                <div className='productsModalContainer__header__label'>Titulo</div>
+                <div className='productsModalContainer__header__label'>Descripción</div>
+                <div className='productsModalContainer__header__label'>Precio</div>
+                <div className='productsModalContainer__header__label'>Stock</div>
+                <div className='productsModalContainer__header__label'>Categoría</div>
             </div>
             <div className='productsModalContainer__itemProduct'>
                 <div className='productsModalContainer__itemProduct__input'>

@@ -150,10 +150,8 @@
         height: auto;
         @include disFC();
         flex-direction: column;
-        //padding: 0vh 0vh 3vh 0vh;
         &__phrase {
             color: white;
-            //padding-bottom: 2vh;
         }
         &__credentials {
             width: 100%;
@@ -164,8 +162,6 @@
                 height: auto;
                 display: grid;
                 grid-template-columns: 20% 60%;
-                //gap: 10vh;
-                //padding: 2vh 0vh;
                 &__label {
                     width: 100%;
                     font-size: 25px;
@@ -186,7 +182,6 @@
                 width: 100%;
                 height: auto;
                 @include disFC();
-                //padding-top: 2vh;
                 &__prop {
                     background-color: black;
                     width: 70%;
@@ -215,10 +210,8 @@
         height: auto;
         @include disFC();
         flex-direction: column;
-        //padding: 5vh 0vh 5vh 0vh;
         &__phrase {
             color: white;
-            //padding-bottom: 2vh;
         }
         &__credentials {
             width: 100%;

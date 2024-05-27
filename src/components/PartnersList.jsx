@@ -217,11 +217,11 @@ const PartnersList = () => {
                     </div>
                     <div className='partnersListContainer__partnersList'>
                         <div className='partnersListContainer__partnersList__header'>
-                            <div>Nombre</div>
-                            <div>Apellido</div>
-                            <div>Dni</div>
-                            <div>Teléfono</div>
-                            <div>Email</div>
+                            <div className='partnersListContainer__partnersList__header__label'>Nombre</div>
+                            <div className='partnersListContainer__partnersList__header__label'>Apellido</div>
+                            <div className='partnersListContainer__partnersList__header__label'>Dni</div>
+                            <div className='partnersListContainer__partnersList__header__label'>Teléfono</div>
+                            <div className='partnersListContainer__partnersList__header__label'>Email</div>
                         </div>
                         <div className='itemCreatePartner'>
                             <div className='itemCreatePartner__input'>

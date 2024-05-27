@@ -218,10 +218,10 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
                 }
             </div>
             <div className='providersModalContainer__header'>
-                <div>Razón social</div>
-                <div>CUIT-CUIL</div>
-                <div>Teléfono</div>
-                <div>Email</div>
+                <div className='providersModalContainer__header__label'>Razón social</div>
+                <div className='providersModalContainer__header__label'>CUIT-CUIL</div>
+                <div className='providersModalContainer__header__label'>Teléfono</div>
+                <div className='providersModalContainer__header__label'>Email</div>
             </div>
             <div className='providersModalContainer__itemProvider'>
                 <div className='providersModalContainer__itemProvider__input'>

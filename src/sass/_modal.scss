@@ -76,7 +76,6 @@
             }
         }
         &__btns {
-            //background-color: green;
             width: 100%;
             height: auto;
             @include disFC();
@@ -365,11 +364,15 @@
     z-index: 1;
     overflow: auto;
     &__btnCloseModal {
-        width: 100%;
+        width: 192vh;
         height: auto;
         display: flex;
-        justify-content: end;
+        justify-items: start;
         &__prop {
+            width: 22vh;
+            height: auto;
+            display: flex;
+            justify-content: end;
             color: white;
         }
     }
@@ -383,22 +386,22 @@
         font-size: 20px;
         padding-bottom: 1vh;
         &__label {
-            width: 20vh;
+            width: 22vh;
         }
     }
     &__itemShift {
-        background-color: whitesmoke;
+        background: none;
         width: 100%;
         height: auto;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         text-align: center;
         color: black;
-        border-top: 0.3vh solid white;
-        padding: 1vh;
-        border-radius: 2vh;
+        border: 0vh solid white;
+        padding: 0vh;
         &__input {
-            width: 100%;
+            background-color: whitesmoke;
+            width: 22vh;
             height: auto;
             @include disFC();
             &__prop {
@@ -413,7 +416,8 @@
             }
         }
         &__inputSchedule {
-            width: 100%;
+            background-color: whitesmoke;
+            width: 22vh;
             height: auto;
             @include disFC();
             ::placeholder {
@@ -431,15 +435,271 @@
             }
         }
         &__btns {
-            //background-color: green;
+            background-color: whitesmoke;
             width: 100%;
             height: auto;
             @include disFC();
             gap: 1vh;
+            padding-right: 1vh;
             &__btn {
                 background-color: black;
                 color: white;
-                width: 60%;
+                width: 15vh;
+                height: auto;
+                border-radius: 1vh;
+            }
+        }
+    }
+}
+.partnersModalContainer {
+    background-color: black;
+    width: 80%;
+    height: auto;
+    @include disFC();
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 3vh 2vh;
+    z-index: 1;
+    overflow: auto;
+    &__btnCloseModal {
+        width: 279vh;
+        height: auto;
+        display: flex;
+        justify-items: start;
+        &__prop {
+            width: 20vh;
+            height: auto;
+            display: flex;
+            justify-content: end;
+            color: white;
+        }
+    }
+    &__header {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        padding-bottom: 1vh;
+        &__label {
+            width: 25vh;
+        }
+    }
+    &__itemPartner {
+        background: none;
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        text-align: center;
+        color: black;
+        border: 0vh solid white;
+        padding: 0vh 1vh 0vh 0vh;
+        &__input {
+            background-color: whitesmoke;
+            width: 25vh;
+            height: auto;
+            @include disFC();
+            padding-right: 1vh;
+            &__prop {
+                width: 100%;
+                height: auto;
+                text-align: center;
+                font-size: 20px;
+                background: none;
+                border: none;
+                color: black;
+                font-weight: bold;
+            }
+        }
+        &__btns {
+            background-color: whitesmoke;
+            width: 100%;
+            height: auto;
+            @include disFC();
+            gap: 1vh;
+            padding-right: 1vh;
+            &__btn {
+                background-color: black;
+                color: white;
+                width: 18vh;
+                height: auto;
+                border-radius: 1vh;
+            }
+        }
+    }
+}
+.providersModalContainer {
+    background-color: black;
+    width: 80%;
+    height: auto;
+    @include disFC();
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 3vh 3vh 2vh;
+    z-index: 1;
+    overflow: auto;
+    &__btnCloseModal {
+        width: 229vh;
+        height: auto;
+        display: flex;
+        justify-items: start;
+        &__prop {
+            width: 22vh;
+            height: auto;
+            display: flex;
+            justify-content: end;
+            color: white;
+        }
+    }
+    &__header {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        padding-bottom: 1vh;
+        &__label {
+            width: 25vh;
+        }
+    }
+    &__itemProvider {
+        background: none;
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        text-align: center;
+        color: black;
+        border: 0vh solid white;
+        padding: 0vh 1vh 0vh 0vh;
+        &__input {
+            background-color: whitesmoke;
+            width: 25vh;
+            height: auto;
+            @include disFC();
+            padding-right: 1vh;
+            &__prop {
+                width: 100%;
+                height: auto;
+                text-align: center;
+                font-size: 20px;
+                background: none;
+                border: none;
+                color: black;
+                font-weight: bold;
+            }
+        }
+        &__btns {
+            background-color: whitesmoke;
+            width: 100%;
+            height: auto;
+            @include disFC();
+            gap: 1vh;
+            padding-right: 1vh;
+            &__btn {
+                background-color: black;
+                color: white;
+                width: 18vh;
+                height: auto;
+                border-radius: 1vh;
+            }
+        }
+    }
+}
+.productsModalContainer {
+    background-color: black;
+    width: 80%;
+    height: auto;
+    @include disFC();
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 3vh 2vh;
+    z-index: 1;
+    overflow: auto;
+    &__btnCloseModal {
+        width: 278vh;
+        height: auto;
+        display: flex;
+        justify-items: start;
+        &__prop {
+            width: 22vh;
+            height: auto;
+            display: flex;
+            justify-content: end;
+            color: white;
+        }
+    }
+    &__header {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        padding-bottom: 1vh;
+        &__label {
+            width: 25vh;
+        }
+    }
+    &__itemProduct {
+        background: none;
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        text-align: center;
+        color: black;
+        border: 0vh solid white;
+        padding: 0vh 1vh 0vh 0vh;
+        &__input {
+            background-color: whitesmoke;
+            width: 25vh;
+            height: auto;
+            @include disFC();
+            padding-right: 1vh;
+            &__prop {
+                width: 100%;
+                height: auto;
+                text-align: center;
+                font-size: 20px;
+                background: none;
+                border: none;
+                color: black;
+                font-weight: bold;
+            }
+        }
+        &__btns {
+            background-color: whitesmoke;
+            width: 100%;
+            height: auto;
+            @include disFC();
+            gap: 1vh;
+            padding-right: 1vh;
+            &__btn {
+                background-color: black;
+                color: white;
+                width: 18vh;
                 height: auto;
                 border-radius: 1vh;
             }

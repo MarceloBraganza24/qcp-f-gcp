@@ -39,7 +39,6 @@
         }
     }
     &__btns {
-        //background-color: green;
         width: 100%;
         height: auto;
         @include disFC();
@@ -95,7 +94,6 @@
         font-size: 20px;
     }
     &__btns {
-        //background-color: green;
         width: 100%;
         height: auto;
         @include disFC();
@@ -155,7 +153,6 @@
         }
     }
     &__btns {
-        //background-color: green;
         width: 25vh;
         height: auto;
         @include disFC();
@@ -210,14 +207,7 @@
             font-size: 1.2em;
         }
     }
-    /* &__label {
-        width: 20vh;
-        height: auto;
-        text-align: center;
-        font-size: 10px;
-    } */
     &__btns {
-        //background-color: green;
         width: 25vh;
         height: auto;
         @include disFC();
