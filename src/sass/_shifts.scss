@@ -231,6 +231,31 @@
                 &__input {
                     width: 100%;
                     height: 5vh;
+                    display: none;
+                    &__precio {
+                        background-color: black;
+                        border: none;
+                        font-size: 10px;
+                        color: white;
+                    }
+                }
+                &__schedule {
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    gap: 1vh;
+                    &__input {
+                        width: 25%;
+                        text-align: center;
+                    }
+                    &__mid {
+                        font-size: 20px;
+                        color: white;
+                    }
+                }
+                &__inputSchedule {
+                    width: 100%;
+                    height: 5vh;
                     &__precio {
                         background-color: black;
                         border: none;

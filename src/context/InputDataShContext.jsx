@@ -7,7 +7,8 @@ export const ParentComponent = ({children}) => {
   const [inputFirstNameSh, setInputFirstNameSh] = useState('');
   const [inputLastNameSh, setInputLastNameSh] = useState('');
   const [inputDateSh, setInputDateSh] = useState('');
-  const [inputScheduleSh, setInputScheduleSh] = useState('');
+  const [inputScheduleHSh, setInputScheduleHSh] = useState('');
+  const [inputScheduleMSh, setInputScheduleMSh] = useState('');
   const [inputOptionSh, setInputOptionSh] = useState('');
   const [inputPriceSh, setInputPriceSh] = useState('');
 
@@ -23,8 +24,28 @@ export const ParentComponent = ({children}) => {
     setInputDateSh(e);
   };
 
-  const handleInputScheduleSh = (e) => {
-    setInputScheduleSh(e);
+  const handleOnBlurInputScheduleHSh = (inputValue) => {
+    inputValue.length===1&&setInputScheduleHSh(`0${inputValue}`);
+    inputValue===0&&setInputScheduleHSh(`0${inputValue}`);
+  };
+
+  const handleOnBlurInputScheduleMSh = (inputValue) => {
+    inputValue.length===1&&setInputScheduleMSh(`0${inputValue}`);
+    inputValue===0&&setInputScheduleMSh(`0${inputValue}`);
+  };
+
+  const handleInputScheduleHSh = (event) => {
+    const inputValue = event.target.value;
+    if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 23 || inputValue==='') {
+      setInputScheduleHSh(inputValue);
+    }
+  };
+
+  const handleInputScheduleMSh = (event) => {
+    const inputValue = event.target.value;
+    if (!isNaN(inputValue) && parseInt(inputValue) >= 0 && parseInt(inputValue) <= 59 || inputValue==='') {
+      setInputScheduleMSh(inputValue);
+    }
   };
 
   const handleInputOptionSh = (e) => {
@@ -45,7 +66,7 @@ export const ParentComponent = ({children}) => {
   };
 
   return (
-    <InputDataShContext.Provider value={{ inputFirstNameSh, inputLastNameSh, inputDateSh, inputScheduleSh, inputOptionSh, inputPriceSh, handleInputFirstNameSh, handleInputLastNameSh, handleInputDateSh, handleInputScheduleSh, handleInputOptionSh }}>
+    <InputDataShContext.Provider value={{ inputFirstNameSh, inputLastNameSh, inputDateSh, inputScheduleHSh, inputScheduleMSh, inputOptionSh, inputPriceSh, handleInputFirstNameSh, handleInputLastNameSh, handleInputDateSh, handleInputScheduleHSh, handleInputScheduleMSh, handleInputOptionSh, handleOnBlurInputScheduleHSh, handleOnBlurInputScheduleMSh }}>
       {children}
     </InputDataShContext.Provider>
   );

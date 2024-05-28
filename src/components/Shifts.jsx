@@ -13,7 +13,7 @@ import HMenu from './HMenu';
 
 const Shifts = () => {
     const [preferenceId, setPreferenceId] = useState(null);
-    const { inputFirstNameSh, handleInputFirstNameSh, inputLastNameSh, handleInputLastNameSh, inputDateSh, handleInputDateSh, inputScheduleSh, handleInputScheduleSh, inputOptionSh, handleInputOptionSh, inputPriceSh } = useContext(InputDataShContext);
+    const { inputFirstNameSh, handleInputFirstNameSh, inputLastNameSh, handleInputLastNameSh, inputDateSh, handleInputDateSh, inputScheduleHSh, inputScheduleMSh, handleInputScheduleHSh, handleInputScheduleMSh, inputOptionSh, handleInputOptionSh, inputPriceSh, handleOnBlurInputScheduleHSh, handleOnBlurInputScheduleMSh } = useContext(InputDataShContext);
     const options = ["Elije tu turno","Caballeros", "Damas", "Niños"];
     initMercadoPago('APP_USR-c6a80bf1-6064-4d38-85c2-873ae24113ef', {
         locale: 'es-AR'
@@ -64,6 +64,7 @@ const Shifts = () => {
     const pagarTurno = async () => {
         
         try {
+            const scheduleConcat = inputScheduleHSh + ':' + inputScheduleMSh
             const order = {
                 title: inputOptionSh,
                 quantity: 1,
@@ -71,9 +72,9 @@ const Shifts = () => {
                 first_name: inputFirstNameSh,
                 last_name: inputLastNameSh,
                 date: inputDateSh,
-                schedule: inputScheduleSh
+                schedule: scheduleConcat
             }
-            if(!inputFirstNameSh || !inputLastNameSh || !inputDateSh || !inputScheduleSh || !inputPriceSh) {
+            if(!inputFirstNameSh || !inputLastNameSh || !inputDateSh || !inputScheduleHSh || !inputScheduleMSh || !inputPriceSh) {
                 toast('Debes completar todos los campos', {
                     position: "top-right",
                     autoClose: 2000,
@@ -92,7 +93,7 @@ const Shifts = () => {
                 const response = await fetch('https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/shifts')
                 const res = await response.json();
                 const shifts = res.data;
-                const partnerByDateScheduleExists = shifts.find(item => item.date === formattedDate && item.schedule === inputScheduleSh)
+                const partnerByDateScheduleExists = shifts.find(item => item.date === formattedDate && item.schedule === scheduleConcat)
                 if(partnerByDateScheduleExists) {
                     toast('Ya existe un turno con esa fecha y horario!', {
                         position: "top-right",
@@ -145,6 +146,20 @@ const Shifts = () => {
     const handleDateChange = date => {
         handleInputDateSh(date);
     };
+
+    const handleOnBlurInputScheduleH = (event) => {
+        const inputValue = event.target.value;
+        if (inputValue >= 0 && inputValue < 10) {
+            handleOnBlurInputScheduleHSh(inputValue);
+        }
+    }
+
+    const handleOnBlurInputScheduleM = (event) => {
+        const inputValue = event.target.value;
+        if (inputValue >= 0 && inputValue < 10) {
+            handleOnBlurInputScheduleMSh(inputValue);
+        }
+    }
     
     const loginToast = async (evt) => {
         evt.preventDefault();
@@ -177,7 +192,7 @@ const Shifts = () => {
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__label-input'>
                                     <h2 className='shiftsContainerIsLoggedIn__form__credentials__label-input__label'>Apellido:</h2>
-                                    <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Apellido' value={inputLastNameSh} onChange={(e) => {handleInputLastNameSh(e.target.value)}}/>
+                                    <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__inputSchedule' placeholder='Apellido' value={inputLastNameSh} onChange={(e) => {handleInputLastNameSh(e.target.value)}}/>
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__label-input'>
                                     <h2 className='shiftsContainerIsLoggedIn__form__credentials__label-input__label'>Fecha:</h2>
@@ -190,7 +205,12 @@ const Shifts = () => {
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__label-input'>
                                     <h2 className='shiftsContainerIsLoggedIn__form__credentials__label-input__label'>Horario:</h2>
-                                    <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__input' type='time' value={inputScheduleSh} placeholder='Horario' onChange={(e) => {handleInputScheduleSh(e.target.value)}}/>
+                                    {/* <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__input' type='time' value={inputScheduleSh} placeholder='Horario' onChange={(e) => {handleInputScheduleSh(e.target.value)}}/> */}
+                                    <div className='shiftsContainerIsLoggedIn__form__credentials__label-input__schedule'>
+                                        <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__input' value={inputScheduleHSh} onBlur={handleOnBlurInputScheduleH} onChange={handleInputScheduleHSh}/>
+                                        <div className='shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__mid'>:</div>
+                                        <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__input' value={inputScheduleMSh} onBlur={handleOnBlurInputScheduleM} onChange={handleInputScheduleMSh}/>
+                                    </div>
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__label-input'>
                                     <h2 className='shiftsContainerIsLoggedIn__form__credentials__label-input__label'>Turno:</h2>
@@ -243,7 +263,12 @@ const Shifts = () => {
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__label-input'>
                                     <h2 className='shiftsContainerIsLoggedIn__form__credentials__label-input__label'>Horario:</h2>
-                                    <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__input' type='time' value={inputScheduleSh} placeholder='Horario' onChange={(e) => {handleInputScheduleSh(e.target.value)}}/>
+                                    {/* <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__input' type='time' value={inputScheduleSh} placeholder='Horario' onChange={(e) => {handleInputScheduleSh(e.target.value)}}/> */}
+                                    <div className='shiftsContainerIsLoggedIn__form__credentials__label-input__schedule'>
+                                        <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__input' value={inputScheduleHSh} onBlur={handleOnBlurInputScheduleH} onChange={handleInputScheduleHSh}/>
+                                        <div className='shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__mid'>:</div>
+                                        <input className='shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__input' value={inputScheduleMSh} onBlur={handleOnBlurInputScheduleM} onChange={handleInputScheduleMSh}/>
+                                    </div>
                                 </div>
                                 <div className='shiftsContainerIsLoggedIn__form__credentials__label-input'>
                                     <h2 className='shiftsContainerIsLoggedIn__form__credentials__label-input__label'>Turno:</h2>

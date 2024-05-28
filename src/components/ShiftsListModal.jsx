@@ -212,11 +212,15 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
 
         return (
             <>
-                <div className='confirmationDeleteBtnModalContainer'>
-                    <div className='confirmationDeleteBtnModalContainer__ask'>¿Estás seguro que deseas borrar el turno?</div>
-                    <div className='confirmationDeleteBtnModalContainer__btns'>
-                        <button onClick={handleBtnDelShift} className='confirmationDeleteBtnModalContainer__btns__prop'>Si</button>
-                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnModalContainer__btns__prop'>No</button>
+                <div className='confirmationDeleteBtnShiftListModalContainer'>
+                    <div className='confirmationDeleteBtnShiftListModalContainer__ask'>¿Estás seguro que deseas borrar el turno?</div>
+                    <div className='confirmationDeleteBtnShiftListModalContainer__askMobile'>
+                        <div className='confirmationDeleteBtnShiftListModalContainer__askMobile__ask'>¿Estás seguro que deseas</div>
+                        <div className='confirmationDeleteBtnShiftListModalContainer__askMobile__ask'>borrar el turno?</div>
+                    </div>
+                    <div className='confirmationDeleteBtnShiftListModalContainer__btns'>
+                        <button onClick={handleBtnDelShift} className='confirmationDeleteBtnShiftListModalContainer__btns__prop'>Si</button>
+                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnShiftListModalContainer__btns__prop'>No</button>
                     </div>
                 </div>
             </>
@@ -231,7 +235,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 {
                     !inputChanges?
                     <>
-                        <a className='shiftModalContainer__btnCloseModal__prop' href="/shiftsList">cerrar</a>
+                        <a className='shiftModalContainer__btnCloseModal__prop' href="https://que-corte-peluquerias-frontend-mkxktyjzsa-rj.a.run.app/shiftsList">cerrar</a>
                     </>
                         :
                     <>

@@ -302,8 +302,8 @@ h2 {
   width: 100%;
   height: auto;
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding-left: 2vh;
 }
 .navBarMobileContainer__title {
   width: 100%;
@@ -321,9 +321,14 @@ h2 {
   width: 100%;
   height: auto;
   display: flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: end;
-  padding-right: 2vh;
+}
+.navBarMobileContainer__logOutMobileContainer__logOutLabel {
+  color: white;
+  font-size: 10px;
+  text-decoration: underline;
 }
 
 .navBarContainer {
@@ -865,8 +870,33 @@ h2 {
   .shiftsContainerIsLoggedIn__form__credentials__label-input__input {
     width: 100%;
     height: 5vh;
+    display: none;
   }
   .shiftsContainerIsLoggedIn__form__credentials__label-input__input__precio {
+    background-color: black;
+    border: none;
+    font-size: 10px;
+    color: white;
+  }
+  .shiftsContainerIsLoggedIn__form__credentials__label-input__schedule {
+    width: 100%;
+    height: auto;
+    display: flex;
+    gap: 1vh;
+  }
+  .shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__input {
+    width: 25%;
+    text-align: center;
+  }
+  .shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__mid {
+    font-size: 20px;
+    color: white;
+  }
+  .shiftsContainerIsLoggedIn__form__credentials__label-input__inputSchedule {
+    width: 100%;
+    height: 5vh;
+  }
+  .shiftsContainerIsLoggedIn__form__credentials__label-input__inputSchedule__precio {
     background-color: black;
     border: none;
     font-size: 10px;
@@ -1305,12 +1335,12 @@ h2 {
     gap: 0.5vh;
   }
   .shiftsListContainer__selects__labelSelect__label {
-    font-size: 18px;
+    font-size: 15px;
     color: white;
   }
   .shiftsListContainer__selects__labelSelect__select {
     width: 60%;
-    font-size: 25px;
+    font-size: 15px;
     border-radius: 1vh;
     text-align: center;
   }
@@ -1319,7 +1349,7 @@ h2 {
   }
   .shiftsListContainer__selects__labelSelect__selectDays {
     width: 40%;
-    font-size: 25px;
+    font-size: 15px;
     border-radius: 1vh;
     text-align: center;
   }
@@ -1352,7 +1382,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 18px;
   }
   .datePikerCreateShift {
     background-color: black;
@@ -1381,7 +1411,7 @@ h2 {
   background-color: black;
 }
 
-@media (min-width: 425px) {
+@media (max-width: 480px) {
   .logOut {
     display: none;
   }
@@ -2769,8 +2799,8 @@ h2 {
   }
 }
 .hMenuMobile {
-  width: 7vh;
-  height: 7vh;
+  width: 6vh;
+  height: 6vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2992,7 +3022,7 @@ h2 {
   border-radius: 1vh;
 }
 
-.confirmationDeleteBtnModalContainer {
+.confirmationDeleteBtnShiftListModalContainer {
   background-color: black;
   width: 50%;
   height: auto;
@@ -3010,11 +3040,12 @@ h2 {
   z-index: 2;
   gap: 1vh;
 }
-.confirmationDeleteBtnModalContainer__ask {
+.confirmationDeleteBtnShiftListModalContainer__ask {
+  display: block;
   font-size: 25px;
   color: white;
 }
-.confirmationDeleteBtnModalContainer__btns {
+.confirmationDeleteBtnShiftListModalContainer__btns {
   width: 100%;
   height: auto;
   display: flex;
@@ -3022,7 +3053,124 @@ h2 {
   align-items: center;
   gap: 5vh;
 }
-.confirmationDeleteBtnModalContainer__btns__prop {
+.confirmationDeleteBtnShiftListModalContainer__btns__prop {
+  width: 20%;
+  border-radius: 2vh;
+}
+
+.confirmationDeleteBtnPartnersListModalContainer {
+  background-color: black;
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0.5vh solid white;
+  border-radius: 2vh;
+  padding: 1vh 2vh 3vh 2vh;
+  z-index: 2;
+  gap: 1vh;
+}
+.confirmationDeleteBtnPartnersListModalContainer__ask {
+  display: block;
+  font-size: 25px;
+  color: white;
+}
+.confirmationDeleteBtnPartnersListModalContainer__askMobile {
+  display: none;
+}
+.confirmationDeleteBtnPartnersListModalContainer__btns {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vh;
+}
+.confirmationDeleteBtnPartnersListModalContainer__btns__prop {
+  width: 20%;
+  border-radius: 2vh;
+}
+
+.confirmationDeleteBtnProvidersListModalContainer {
+  background-color: black;
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0.5vh solid white;
+  border-radius: 2vh;
+  padding: 1vh 2vh 3vh 2vh;
+  z-index: 2;
+  gap: 1vh;
+}
+.confirmationDeleteBtnProvidersListModalContainer__ask {
+  display: block;
+  font-size: 25px;
+  color: white;
+}
+.confirmationDeleteBtnProvidersListModalContainer__askMobile {
+  display: none;
+}
+.confirmationDeleteBtnProvidersListModalContainer__btns {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vh;
+}
+.confirmationDeleteBtnProvidersListModalContainer__btns__prop {
+  width: 20%;
+  border-radius: 2vh;
+}
+
+.confirmationDeleteBtnProductsListModalContainer {
+  background-color: black;
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0.5vh solid white;
+  border-radius: 2vh;
+  padding: 1vh 2vh 3vh 2vh;
+  z-index: 2;
+  gap: 1vh;
+}
+.confirmationDeleteBtnProductsListModalContainer__ask {
+  display: block;
+  font-size: 25px;
+  color: white;
+}
+.confirmationDeleteBtnProductsListModalContainer__askMobile {
+  display: none;
+}
+.confirmationDeleteBtnProductsListModalContainer__btns {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vh;
+}
+.confirmationDeleteBtnProductsListModalContainer__btns__prop {
   width: 20%;
   border-radius: 2vh;
 }
@@ -3271,6 +3419,149 @@ h2 {
 }
 
 @media (max-width: 480px) {
+  .confirmationDeleteBtnShiftListModalContainer {
+    background-color: black;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    position: absolute;
+    left: 142%;
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 1vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+  }
+  .confirmationDeleteBtnShiftListModalContainer__ask {
+    font-size: 15px;
+    color: white;
+    display: none;
+  }
+  .confirmationDeleteBtnShiftListModalContainer__askMobile {
+    text-align: center;
+    font-size: 15px;
+    color: white;
+  }
+  .confirmationDeleteBtnShiftListModalContainer__btns {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+  }
+  .confirmationDeleteBtnShiftListModalContainer__btns__prop {
+    width: 30%;
+    border-radius: 2vh;
+  }
+  .confirmationDeleteBtnPartnersListModalContainer {
+    background-color: black;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    position: absolute;
+    left: 221%;
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 1vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+  }
+  .confirmationDeleteBtnPartnersListModalContainer__ask {
+    font-size: 15px;
+    color: white;
+    display: none;
+  }
+  .confirmationDeleteBtnPartnersListModalContainer__askMobile {
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+  }
+  .confirmationDeleteBtnPartnersListModalContainer__btns {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+  }
+  .confirmationDeleteBtnPartnersListModalContainer__btns__prop {
+    width: 30%;
+    border-radius: 2vh;
+  }
+  .confirmationDeleteBtnProvidersListModalContainer {
+    background-color: black;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    position: absolute;
+    left: 193%;
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 1vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+  }
+  .confirmationDeleteBtnProvidersListModalContainer__ask {
+    font-size: 15px;
+    color: white;
+    display: none;
+  }
+  .confirmationDeleteBtnProvidersListModalContainer__askMobile {
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+  }
+  .confirmationDeleteBtnProvidersListModalContainer__btns {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+  }
+  .confirmationDeleteBtnProvidersListModalContainer__btns__prop {
+    width: 30%;
+    border-radius: 2vh;
+  }
+  .confirmationDeleteBtnProductsListModalContainer {
+    background-color: black;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    position: absolute;
+    left: 252%;
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 1vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+  }
+  .confirmationDeleteBtnProductsListModalContainer__ask {
+    font-size: 15px;
+    color: white;
+    display: none;
+  }
+  .confirmationDeleteBtnProductsListModalContainer__askMobile {
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+  }
+  .confirmationDeleteBtnProductsListModalContainer__btns {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+  }
+  .confirmationDeleteBtnProductsListModalContainer__btns__prop {
+    width: 30%;
+    border-radius: 2vh;
+  }
   .shiftModalContainer {
     background-color: black;
     width: 80%;
@@ -3290,7 +3581,7 @@ h2 {
     overflow: auto;
   }
   .shiftModalContainer__btnCloseModal {
-    width: 192vh;
+    width: 197vh;
     height: auto;
     display: flex;
     justify-items: start;
@@ -3404,7 +3695,7 @@ h2 {
     overflow: auto;
   }
   .partnersModalContainer__btnCloseModal {
-    width: 279vh;
+    width: 283vh;
     height: auto;
     display: flex;
     justify-items: start;
@@ -3495,7 +3786,7 @@ h2 {
     overflow: auto;
   }
   .providersModalContainer__btnCloseModal {
-    width: 229vh;
+    width: 257vh;
     height: auto;
     display: flex;
     justify-items: start;
@@ -3518,7 +3809,7 @@ h2 {
     padding-bottom: 1vh;
   }
   .providersModalContainer__header__label {
-    width: 25vh;
+    width: 28vh;
   }
   .providersModalContainer__itemProvider {
     background: none;
@@ -3533,7 +3824,7 @@ h2 {
   }
   .providersModalContainer__itemProvider__input {
     background-color: whitesmoke;
-    width: 25vh;
+    width: 28vh;
     height: auto;
     display: flex;
     justify-content: center;
@@ -3581,12 +3872,12 @@ h2 {
     transform: translate(-50%, -50%);
     border: 0.5vh solid white;
     border-radius: 2vh;
-    padding: 1vh 2vh 3vh 2vh;
+    padding: 1vh 3vh 3vh 2vh;
     z-index: 1;
     overflow: auto;
   }
   .productsModalContainer__btnCloseModal {
-    width: 278vh;
+    width: 313vh;
     height: auto;
     display: flex;
     justify-items: start;
@@ -3609,7 +3900,7 @@ h2 {
     padding-bottom: 1vh;
   }
   .productsModalContainer__header__label {
-    width: 25vh;
+    width: 28vh;
   }
   .productsModalContainer__itemProduct {
     background: none;
@@ -3624,7 +3915,7 @@ h2 {
   }
   .productsModalContainer__itemProduct__input {
     background-color: whitesmoke;
-    width: 25vh;
+    width: 28vh;
     height: auto;
     display: flex;
     justify-content: center;

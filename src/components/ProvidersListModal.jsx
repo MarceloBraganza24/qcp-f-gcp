@@ -195,11 +195,15 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
 
         return (
             <>
-                <div className='confirmationDeleteBtnModalContainer'>
-                    <div className='confirmationDeleteBtnModalContainer__ask'>¿Estás seguro que deseas borrar el proveedor?</div>
-                    <div className='confirmationDeleteBtnModalContainer__btns'>
-                        <button onClick={handleBtnDelProvider} className='confirmationDeleteBtnModalContainer__btns__prop'>Si</button>
-                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnModalContainer__btns__prop'>No</button>
+                <div className='confirmationDeleteBtnProvidersListModalContainer'>
+                    <div className='confirmationDeleteBtnProvidersListModalContainer__ask'>¿Estás seguro que deseas borrar el proveedor?</div>
+                    <div className='confirmationDeleteBtnProvidersListModalContainer__askMobile'>
+                        <div className='confirmationDeleteBtnProvidersListModalContainer__askMobile__ask'>¿Estás seguro que deseas</div>
+                        <div className='confirmationDeleteBtnProvidersListModalContainer__askMobile__ask'>borrar el proveedor?</div>
+                    </div>
+                    <div className='confirmationDeleteBtnProvidersListModalContainer__btns'>
+                        <button onClick={handleBtnDelProvider} className='confirmationDeleteBtnProvidersListModalContainer__btns__prop'>Si</button>
+                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnProvidersListModalContainer__btns__prop'>No</button>
                     </div>
                 </div>
             </>
@@ -212,7 +216,7 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
             <div className='providersModalContainer__btnCloseModal'>
                 {
                     !inputChanges?
-                    <a className='providersModalContainer__btnCloseModal__prop' href="/providersList">cerrar</a>
+                    <a className='providersModalContainer__btnCloseModal__prop' href="https://que-corte-peluquerias-frontend-mkxktyjzsa-rj.a.run.app/providersList">cerrar</a>
                     :
                     <div className='providersModalContainer__btnCloseModal__prop'>cerrar</div>
                 }

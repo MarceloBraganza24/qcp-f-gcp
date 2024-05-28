@@ -152,11 +152,15 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
 
         return (
             <>
-                <div className='confirmationDeleteBtnModalContainer'>
-                    <div className='confirmationDeleteBtnModalContainer__ask'>¿Estás seguro que deseas borrar el producto?</div>
-                    <div className='confirmationDeleteBtnModalContainer__btns'>
-                        <button onClick={handleBtnDelProduct} className='confirmationDeleteBtnModalContainer__btns__prop'>Si</button>
-                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnModalContainer__btns__prop'>No</button>
+                <div className='confirmationDeleteBtnProductsListModalContainer'>
+                    <div className='confirmationDeleteBtnProductsListModalContainer__ask'>¿Estás seguro que deseas borrar el producto?</div>
+                    <div className='confirmationDeleteBtnProductsListModalContainer__askMobile'>
+                        <div className='confirmationDeleteBtnProductsListModalContainer__askMobile__ask'>¿Estás seguro que deseas</div>
+                        <div className='confirmationDeleteBtnProductsListModalContainer__askMobile__ask'>borrar el producto?</div>
+                    </div>
+                    <div className='confirmationDeleteBtnProductsListModalContainer__btns'>
+                        <button onClick={handleBtnDelProduct} className='confirmationDeleteBtnProductsListModalContainer__btns__prop'>Si</button>
+                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnProductsListModalContainer__btns__prop'>No</button>
                     </div>
                 </div>
             </>
@@ -169,7 +173,7 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
             <div className='productsModalContainer__btnCloseModal'>
                 {
                     !inputChanges?
-                    <a className='productsModalContainer__btnCloseModal__prop' href="/productsList">cerrar</a>
+                    <a className='productsModalContainer__btnCloseModal__prop' href="https://que-corte-peluquerias-frontend-mkxktyjzsa-rj.a.run.app/productsList">cerrar</a>
                     :
                     <div className='productsModalContainer__btnCloseModal__prop'>cerrar</div>
                 }

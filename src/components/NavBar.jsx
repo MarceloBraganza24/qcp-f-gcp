@@ -13,12 +13,25 @@ const NavBar = () => {
             <div className='navBarMobileContainer__hMenuMobileContainer'>
                 <HMenuMobile/>
             </div>
-            <Link to={"/"} className='navBarMobileContainer__title'>
-                Que Corte
-            </Link>
-            <div className='navBarMobileContainer__logOutMobileContainer'>
-                <LogOutMobile/>
-            </div>
+            {
+                !isOpen?
+                <Link to={"/"} className='navBarMobileContainer__title'>
+                    Que Corte
+                </Link>
+                :
+                <div className='navBarMobileContainer__title'>Que Corte</div>
+            }
+            {
+                !isOpen?
+                <div className='navBarMobileContainer__logOutMobileContainer'>
+                    <LogOutMobile/>
+                </div>
+                :
+                <div className='navBarMobileContainer__logOutMobileContainer'>
+                    <div className='navBarMobileContainer__logOutMobileContainer__logOutLabel'>Cerrar sesión</div>
+                </div>
+            }
+            
         </div>
         <div className='navBarContainer'>
             <div className='navBarContainer__logo-title'>

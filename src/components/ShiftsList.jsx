@@ -331,10 +331,10 @@ const ShiftsList = () => {
                     </div>
                     <div className='shiftsListContainer__shiftsList'>
                         <div className='shiftsListContainer__shiftsList__header'>
-                            <div className='shiftsListContainer__shiftsList__header__label'>- Nombre -</div>
-                            <div className='shiftsListContainer__shiftsList__header__label'>- Apellido -</div>
-                            <div className='shiftsListContainer__shiftsList__header__label'>- Fecha -</div>
-                            <div className='shiftsListContainer__shiftsList__header__label'>- Horario -</div>
+                            <div className='shiftsListContainer__shiftsList__header__label'>Nombre</div>
+                            <div className='shiftsListContainer__shiftsList__header__label'>Apellido</div>
+                            <div className='shiftsListContainer__shiftsList__header__label'>Fecha</div>
+                            <div className='shiftsListContainer__shiftsList__header__label'>Horario</div>
                         </div>
                         <div className='itemCreateShift'>
                             <div className='itemCreateShift__input'>

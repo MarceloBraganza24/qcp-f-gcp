@@ -12,9 +12,18 @@ const HMenuMobile = () => {
   return (
     <>
       {
-        !isOpen&&
+        !isOpen?
         <>
           <div onClick={openW} className='hMenuMobile'>
+            <div className='hMenuMobile__line'></div>
+            <div className='hMenuMobile__line'></div>
+            <div className='hMenuMobile__line'></div>
+          </div>
+          <MenuOptions/>
+        </>
+        :
+        <>
+          <div className='hMenuMobile'>
             <div className='hMenuMobile__line'></div>
             <div className='hMenuMobile__line'></div>
             <div className='hMenuMobile__line'></div>

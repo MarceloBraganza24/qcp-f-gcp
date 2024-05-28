@@ -20,7 +20,7 @@ const PartnersList = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(`http://localhost:8081/api/partners`)
+            const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/partners`)
             const partnersAll = await response.json();
             setPartners(partnersAll.data)
         }

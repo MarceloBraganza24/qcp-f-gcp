@@ -91,7 +91,7 @@
     }
 }
 
-.confirmationDeleteBtnModalContainer {
+.confirmationDeleteBtnShiftListModalContainer {
     background-color: black;
     width: 50%;
     height: auto;
@@ -107,8 +107,113 @@
     z-index: 2;
     gap: 1vh;
     &__ask {
+        display: block;
         font-size: 25px;
         color: white;
+    }
+    &__btns {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 5vh;
+        &__prop {
+            width: 20%;
+            border-radius: 2vh;
+        }
+    }
+}
+.confirmationDeleteBtnPartnersListModalContainer {
+    background-color: black;
+    width: 50%;
+    height: auto;
+    @include disFC();
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 3vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+    &__ask {
+        display: block;
+        font-size: 25px;
+        color: white;
+    }
+    &__askMobile {
+        display: none;
+    }
+    &__btns {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 5vh;
+        &__prop {
+            width: 20%;
+            border-radius: 2vh;
+        }
+    }
+}
+
+.confirmationDeleteBtnProvidersListModalContainer {
+    background-color: black;
+    width: 50%;
+    height: auto;
+    @include disFC();
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 3vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+    &__ask {
+        display: block;
+        font-size: 25px;
+        color: white;
+    }
+    &__askMobile {
+        display: none;
+    }
+    &__btns {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 5vh;
+        &__prop {
+            width: 20%;
+            border-radius: 2vh;
+        }
+    }
+}
+
+.confirmationDeleteBtnProductsListModalContainer {
+    background-color: black;
+    width: 50%;
+    height: auto;
+    @include disFC();
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 3vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+    &__ask {
+        display: block;
+        font-size: 25px;
+        color: white;
+    }
+    &__askMobile {
+        display: none;
     }
     &__btns {
         width: 100%;
@@ -348,6 +453,141 @@
 }
 
 @media (max-width: 480px) {
+.confirmationDeleteBtnShiftListModalContainer {
+    background-color: black;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    position: absolute;
+    left: 142%;
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 1vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+    &__ask {
+        font-size: 15px;
+        color: white;
+        display: none;
+    }
+    &__askMobile {
+        text-align: center;
+        font-size: 15px;
+        color: white;
+    }
+    &__btns {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 5vh;
+        &__prop {
+            width: 30%;
+            border-radius: 2vh;
+        }
+    }
+}
+.confirmationDeleteBtnPartnersListModalContainer {
+    background-color: black;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    position: absolute;
+    left: 221%;
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 1vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+    &__ask {
+        font-size: 15px;
+        color: white;
+        display: none;
+    }
+    &__askMobile {
+        display: block;
+        text-align: center;
+        font-size: 15px;
+        color: white;
+    }
+    &__btns {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 5vh;
+        &__prop {
+            width: 30%;
+            border-radius: 2vh;
+        }
+    }
+}
+.confirmationDeleteBtnProvidersListModalContainer {
+    background-color: black;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    position: absolute;
+    left: 193%;
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 1vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+    &__ask {
+        font-size: 15px;
+        color: white;
+        display: none;
+    }
+    &__askMobile {
+        display: block;
+        text-align: center;
+        font-size: 15px;
+        color: white;
+    }
+    &__btns {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 5vh;
+        &__prop {
+            width: 30%;
+            border-radius: 2vh;
+        }
+    }
+}
+.confirmationDeleteBtnProductsListModalContainer {
+    background-color: black;
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    position: absolute;
+    left: 252%;
+    border: 0.5vh solid white;
+    border-radius: 2vh;
+    padding: 1vh 2vh 1vh 2vh;
+    z-index: 2;
+    gap: 1vh;
+    &__ask {
+        font-size: 15px;
+        color: white;
+        display: none;
+    }
+    &__askMobile {
+        display: block;
+        text-align: center;
+        font-size: 15px;
+        color: white;
+    }
+    &__btns {
+        width: 100%;
+        height: auto;
+        @include disFC();
+        gap: 5vh;
+        &__prop {
+            width: 30%;
+            border-radius: 2vh;
+        }
+    }
+}
 .shiftModalContainer {
     background-color: black;
     width: 80%;
@@ -364,7 +604,7 @@
     z-index: 1;
     overflow: auto;
     &__btnCloseModal {
-        width: 192vh;
+        width: 197vh;
         height: auto;
         display: flex;
         justify-items: start;
@@ -467,7 +707,7 @@
     z-index: 1;
     overflow: auto;
     &__btnCloseModal {
-        width: 279vh;
+        width: 283vh;
         height: auto;
         display: flex;
         justify-items: start;
@@ -552,7 +792,7 @@
     z-index: 1;
     overflow: auto;
     &__btnCloseModal {
-        width: 229vh;
+        width: 257vh;
         height: auto;
         display: flex;
         justify-items: start;
@@ -574,7 +814,7 @@
         font-size: 20px;
         padding-bottom: 1vh;
         &__label {
-            width: 25vh;
+            width: 28vh;
         }
     }
     &__itemProvider {
@@ -589,7 +829,7 @@
         padding: 0vh 1vh 0vh 0vh;
         &__input {
             background-color: whitesmoke;
-            width: 25vh;
+            width: 28vh;
             height: auto;
             @include disFC();
             padding-right: 1vh;
@@ -633,11 +873,11 @@
     transform: translate(-50%, -50%);
     border: 0.5vh solid white;
     border-radius: 2vh;
-    padding: 1vh 2vh 3vh 2vh;
+    padding: 1vh 3vh 3vh 2vh;
     z-index: 1;
     overflow: auto;
     &__btnCloseModal {
-        width: 278vh;
+        width: 313vh;
         height: auto;
         display: flex;
         justify-items: start;
@@ -659,7 +899,7 @@
         font-size: 20px;
         padding-bottom: 1vh;
         &__label {
-            width: 25vh;
+            width: 28vh;
         }
     }
     &__itemProduct {
@@ -674,7 +914,7 @@
         padding: 0vh 1vh 0vh 0vh;
         &__input {
             background-color: whitesmoke;
-            width: 25vh;
+            width: 28vh;
             height: auto;
             @include disFC();
             padding-right: 1vh;

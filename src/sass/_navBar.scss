@@ -8,9 +8,7 @@
     &__hMenuMobileContainer {
         width: 100%;
         height: auto;
-        display: flex;
-        align-items: center;
-        padding-left: 2vh;
+        @include disFC();
     }
     &__title {
         width: 100%;
@@ -26,9 +24,12 @@
         width: 100%;
         height: auto;
         display: flex;
-        align-items: center;
-        justify-content: end;
-        padding-right: 2vh;
+        @include disFC();
+        &__logOutLabel {
+            color: white;
+            font-size: 10px;
+            text-decoration: underline;
+        }
     }
 }
 

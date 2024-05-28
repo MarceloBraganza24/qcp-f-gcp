@@ -203,11 +203,15 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
 
         return (
             <>
-                <div className='confirmationDeleteBtnModalContainer'>
-                    <div className='confirmationDeleteBtnModalContainer__ask'>¿Estás seguro que deseas borrar el turno?</div>
-                    <div className='confirmationDeleteBtnModalContainer__btns'>
-                        <button onClick={handleBtnDelPartner} className='confirmationDeleteBtnModalContainer__btns__prop'>Si</button>
-                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnModalContainer__btns__prop'>No</button>
+                <div className='confirmationDeleteBtnPartnersListModalContainer'>
+                    <div className='confirmationDeleteBtnPartnersListModalContainer__ask'>¿Estás seguro que deseas borrar el socio?</div>
+                    <div className='confirmationDeleteBtnPartnersListModalContainer__askMobile'>
+                        <div className='confirmationDeleteBtnPartnersListModalContainer__askMobile__ask'>¿Estás seguro que deseas</div>
+                        <div className='confirmationDeleteBtnPartnersListModalContainer__askMobile__ask'>borrar el socio?</div>
+                    </div>
+                    <div className='confirmationDeleteBtnPartnersListModalContainer__btns'>
+                        <button onClick={handleBtnDelPartner} className='confirmationDeleteBtnPartnersListModalContainer__btns__prop'>Si</button>
+                        <button onClick={handleBtnConfirmationDeleteBtnNo} className='confirmationDeleteBtnPartnersListModalContainer__btns__prop'>No</button>
                     </div>
                 </div>
             </>
@@ -221,7 +225,7 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
             <div className='partnersModalContainer__btnCloseModal'>
                 {
                     !inputChanges?
-                    <a className='partnersModalContainer__btnCloseModal__prop' href="/partnersList">cerrar</a>
+                    <a className='partnersModalContainer__btnCloseModal__prop' href="https://que-corte-peluquerias-frontend-mkxktyjzsa-rj.a.run.app/partnersList">cerrar</a>
                     :
                     <div className='partnersModalContainer__btnCloseModal__prop'>cerrar</div>
                 }

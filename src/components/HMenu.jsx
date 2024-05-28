@@ -12,7 +12,7 @@ const HMenu = () => {
   return (
     <>
       {
-        !isOpen&&
+        !isOpen?
         <>
           <div onClick={openW} className='hMenu'>
             <div className='hMenu__line'></div>
@@ -21,7 +21,7 @@ const HMenu = () => {
           </div>
           <MenuOptions/>
         </>
-        /* :
+        :
         <>
           <div className='hMenu'>
             <div className='hMenu__line'></div>
@@ -29,7 +29,7 @@ const HMenu = () => {
             <div className='hMenu__line'></div>
           </div>
           <MenuOptions/>
-        </> */
+        </>
       }
       
     </>
