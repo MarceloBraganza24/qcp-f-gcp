@@ -5,7 +5,7 @@ import {OpenModalContext} from '../context/OpenModalContext';
 
 const LogOut = () => {
     const {logout} = useContext(IsLoggedContext);
-    const {isOpen} = useContext(OpenModalContext);
+    const {updateShiftModal,updatePartnerModal,updateProviderModal,updateProductsModal} = useContext(OpenModalContext);
 
     const logOutBtn = async (event) => {
         event.preventDefault();
@@ -47,7 +47,7 @@ const LogOut = () => {
               theme: "dark",
           });
         } else {
-          toast('Ha ocurrido un error al cerrar sesión', {
+          toast('Aún no has iniciado sesión', {
             position: "top-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -62,7 +62,7 @@ const LogOut = () => {
   return (
     <>
       {
-        !isOpen?
+        !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
         <a onClick={logOutBtn} href="" className='logOut'>Cerrar sesión</a>
         :
         <div className='logOut'>Cerrar sesión</div>

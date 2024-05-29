@@ -16,7 +16,7 @@ const ProvidersList = () => {
     const [role, setRole] = useState('');
     const [inputFilteredProviders, setInputFilteredProviders] = useState('');
     const [providers, setProviders] = useState([]);
-    const {isOpen} = useContext(OpenModalContext);
+    const {updateProviderModal} = useContext(OpenModalContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -207,7 +207,7 @@ const ProvidersList = () => {
                     <div className='providersListContainer__title'>- Proveedores -</div>
                     <div className='providersListContainer__inputFilteredProviders'>
                         {
-                            !isOpen?
+                            !updateProviderModal?
                             <input type='text' className='providersListContainer__inputFilteredProviders__prop' placeholder='Ingrese la razón social' value={inputFilteredProviders} onChange={(e) => {setInputFilteredProviders(e.target.value)}}/>
                             :
                             <input disabled style={buttonDisabledStyle} type='text' className='providersListContainer__inputFilteredProviders__prop' placeholder='Ingrese la razón social' value={inputFilteredProviders} onChange={(e) => {setInputFilteredProviders(e.target.value)}}/>
@@ -221,28 +221,45 @@ const ProvidersList = () => {
                             <div className='providersListContainer__providersList__header__label'>Email</div>
                         </div>
                         <div className='itemCreateProvider'>
-                            <div className='itemCreateProvider__input'>
-                                <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputBusinessNamePr} onChange={handleInputBusinessNamePr}/>
-                            </div>
-                            <div className='itemCreateProvider__input'>
-                                <input className='itemCreateProvider__input__prop' placeholder='-' value={inputCuitCuilPr} onChange={handleInputCuitCuilPr}/>
-                            </div>
-                            <div className='itemCreateProvider__input'>
-                                <input className='itemCreateProvider__input__prop' placeholder='-' value={inputPhonePr} onChange={handleInputPhonePr}/>
-                            </div>
-                            <div className='itemCreateProvider__input'>
-                                <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputEmailPr} onChange={handleInputEmailPr}/>
-                            </div>
                             {
-                                !isOpen?
-                                <div className='itemCreateProvider__btns'>
-                                    <button id='btnCreateProvider' className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
-                                    <div id='spinnerBtnCreateProvider' className='spinner'></div>
-                                </div>
+                                !updateProviderModal?
+                                <>
+                                    <div className='itemCreateProvider__input'>
+                                        <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputBusinessNamePr} onChange={handleInputBusinessNamePr}/>
+                                    </div>
+                                    <div className='itemCreateProvider__input'>
+                                        <input className='itemCreateProvider__input__prop' placeholder='-' value={inputCuitCuilPr} onChange={handleInputCuitCuilPr}/>
+                                    </div>
+                                    <div className='itemCreateProvider__input'>
+                                        <input className='itemCreateProvider__input__prop' placeholder='-' value={inputPhonePr} onChange={handleInputPhonePr}/>
+                                    </div>
+                                    <div className='itemCreateProvider__input'>
+                                        <input type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputEmailPr} onChange={handleInputEmailPr}/>
+                                    </div>
+                                    <div className='itemCreateProvider__btns'>
+                                        <button id='btnCreateProvider' className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
+                                        <div id='spinnerBtnCreateProvider' className='spinner'></div>
+                                    </div>
+                                </>
                                 :
-                                <div className='itemCreateProvider__btns'>
-                                    <button disabled style={buttonDisabledStyle} className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
-                                </div>
+                                <>
+                                    <div className='itemCreateProvider__input'>
+                                        <input disabled type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputBusinessNamePr} onChange={handleInputBusinessNamePr}/>
+                                    </div>
+                                    <div className='itemCreateProvider__input'>
+                                        <input disabled className='itemCreateProvider__input__prop' placeholder='-' value={inputCuitCuilPr} onChange={handleInputCuitCuilPr}/>
+                                    </div>
+                                    <div className='itemCreateProvider__input'>
+                                        <input disabled className='itemCreateProvider__input__prop' placeholder='-' value={inputPhonePr} onChange={handleInputPhonePr}/>
+                                    </div>
+                                    <div className='itemCreateProvider__input'>
+                                        <input disabled type='text' className='itemCreateProvider__input__prop' placeholder='-' value={inputEmailPr} onChange={handleInputEmailPr}/>
+                                    </div>
+                                    <div className='itemCreateProvider__btns'>
+                                        <button disabled style={buttonDisabledStyle} id='btnCreateProvider' className='itemCreateProvider__btns__btn' onClick={handleBtnCreateProvider}>Registrar proveedor</button>
+                                        <div id='spinnerBtnCreateProvider' className='spinner'></div>
+                                    </div>
+                                </>
                             }
                         </div>
                         {

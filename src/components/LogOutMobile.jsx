@@ -5,11 +5,10 @@ import {OpenModalContext} from '../context/OpenModalContext';
 
 const LogOutMobile = () => {
     const {logout} = useContext(IsLoggedContext);
-    const {isOpen} = useContext(OpenModalContext);
+    const {updateShiftModal,updatePartnerModal,updateProviderModal,updateProductsModal} = useContext(OpenModalContext);
 
     const logOutBtn = async (event) => {
         event.preventDefault();
-
         const getCookie = (name) => {
           const cookieName = name + "=";
           const decodedCookie = decodeURIComponent(document.cookie);
@@ -25,9 +24,7 @@ const LogOutMobile = () => {
           }
           return "";
         };
-  
         const cookieValue = getCookie('TokenJWT');
-
         const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/sessions/logout?cookie=${cookieValue}`, {
           method: 'POST'
         })
@@ -46,28 +43,15 @@ const LogOutMobile = () => {
               progress: undefined,
               theme: "dark",
           });
-        } else {
-          toast('Ha ocurrido un error al cerrar sesión', {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        });
-      }
+        }
     }
   return (
     <>
       {
-        !isOpen?
-        <a onClick={logOutBtn} href="" className='logOutMobile'>Cerrar sesión</a>
-        :
-        <div className='logOutMobile'>Cerrar sesión</div>
+        !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
+        <a onClick={logOutBtn} href="" className='logOutMobile'>Cerrar sesión</a>:
+        <a href="" className='logOutMobile'>Cerrar sesión</a>
       }
-        
     </>
   )
 }

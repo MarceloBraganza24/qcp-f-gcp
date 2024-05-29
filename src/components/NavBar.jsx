@@ -5,7 +5,7 @@ import HMenuMobile from './HMenuMobile';
 import LogOutMobile from './LogOutMobile';
 
 const NavBar = () => {
-    const {isOpen} = useContext(OpenModalContext);
+    const {updateShiftModal,updatePartnerModal,updateProviderModal,updateProductsModal} = useContext(OpenModalContext);
 
   return (
     <>
@@ -14,7 +14,7 @@ const NavBar = () => {
                 <HMenuMobile/>
             </div>
             {
-                !isOpen?
+                !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                 <Link to={"/"} className='navBarMobileContainer__title'>
                     Que Corte
                 </Link>
@@ -22,7 +22,7 @@ const NavBar = () => {
                 <div className='navBarMobileContainer__title'>Que Corte</div>
             }
             {
-                !isOpen?
+                !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                 <div className='navBarMobileContainer__logOutMobileContainer'>
                     <LogOutMobile/>
                 </div>
@@ -40,7 +40,7 @@ const NavBar = () => {
                 </div>
                 <div className='navBarContainer__logo-title__title'>
                     {       
-                        !isOpen?
+                        !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                         <Link to={"/"} className='navBarContainer__logo-title__title__prop'>
                             Que Corte
                         </Link>
@@ -56,7 +56,7 @@ const NavBar = () => {
                 </div>
                 <div className='navBarContainer__phrase-btns__btns'>
                     {
-                        !isOpen?
+                        !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                         <Link to={"/"} className='navBarContainer__phrase-btns__btns__prop'>
                             Inicio
                         </Link>
@@ -64,7 +64,7 @@ const NavBar = () => {
                         <div className='navBarContainer__phrase-btns__btns__prop'>Inicio</div>
                     }
                     {
-                        !isOpen?
+                        !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                         <Link to={"/shifts"} className='navBarContainer__phrase-btns__btns__prop'>
                             Turnos
                         </Link>
@@ -72,7 +72,7 @@ const NavBar = () => {
                         <div className='navBarContainer__phrase-btns__btns__prop'>Turnos</div>
                     }
                     {
-                        !isOpen?
+                        !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                         <Link to={"/cuts"} className='navBarContainer__phrase-btns__btns__prop'>
                             Cortes
                         </Link>
@@ -80,7 +80,7 @@ const NavBar = () => {
                         <div className='navBarContainer__phrase-btns__btns__prop'>Cortes</div>
                     }
                     {
-                        !isOpen?
+                        !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                         <Link to={"/about"} className='navBarContainer__phrase-btns__btns__prop'>
                             Sobre nosotros
                         </Link>
@@ -88,7 +88,7 @@ const NavBar = () => {
                         <div className='navBarContainer__phrase-btns__btns__prop'>Sobre nosotros</div>
                     }
                     {
-                        !isOpen?
+                        !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                         <Link to={"/partners"} className='navBarContainer__phrase-btns__btns__prop'>
                             Socios
                         </Link>

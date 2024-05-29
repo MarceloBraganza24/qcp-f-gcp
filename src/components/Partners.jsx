@@ -221,33 +221,33 @@ const Partners = () => {
                 </>
                 : isLoggedIn?
                 <>
-                    <div className='partnersContainer'>
-                        <div className='partnersContainer__form'>
-                            <h2 className='partnersContainer__form__phrase'>Registrate aquí mismo</h2>
-                            <div className='partnersContainer__form__credentials'>
+                    <div className='partnersContainerIsLoggedIn'>
+                        <div className='partnersContainerIsLoggedIn__form'>
+                            <h2 className='partnersContainerIsLoggedIn__form__phrase'>Registrate aquí mismo</h2>
+                            <div className='partnersContainerIsLoggedIn__form__credentials'>
                                 <form>
-                                    <div className='partnersContainer__form__credentials__label-input'>
-                                        <h2 className='partnersContainer__form__credentials__label-input__label'>Nombre:</h2>
+                                    <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
+                                        <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Nombre:</h2>
                                         <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Nombre' value={inputFirstNamePa} onChange={handleInputFirstNamePa}/>
                                     </div>
-                                    <div className='partnersContainer__form__credentials__label-input'>
-                                        <h2 className='partnersContainer__form__credentials__label-input__label'>Apellido:</h2>
+                                    <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
+                                        <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Apellido:</h2>
                                         <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' placeholder='Apellido' value={inputLastNamePa} onChange={handleInputLastNamePa}/>
                                     </div>
-                                    <div className='partnersContainer__form__credentials__label-input'>
-                                        <h2 className='partnersContainer__form__credentials__label-input__label'>Dni:</h2>
+                                    <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
+                                        <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Dni:</h2>
                                         <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Dni' value={inputDniPa} onChange={handleInputDniPa}/>
                                     </div>
-                                    <div className='partnersContainer__form__credentials__label-input'>
-                                        <h2 className='partnersContainer__form__credentials__label-input__label'>Teléfono:</h2>
+                                    <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
+                                        <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Teléfono:</h2>
                                         <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='number' placeholder='Teléfono' value={inputPhonePa} onChange={handleInputPhonePa}/>
                                     </div>
-                                    <div className='partnersContainer__form__credentials__label-input'>
-                                        <h2 className='partnersContainer__form__credentials__label-input__label'>Email:</h2>
+                                    <div className='partnersContainerIsLoggedIn__form__credentials__label-input'>
+                                        <h2 className='partnersContainerIsLoggedIn__form__credentials__label-input__label'>Email:</h2>
                                         <input className='partnersContainerIsLoggedIn__form__credentials__label-input__input' type='email' placeholder='Email' value={inputEmailPa} onChange={handleInputEmailPa}/>
                                     </div>
-                                    <div className='partnersContainer__form__credentials__btn'>
-                                        <button id='pagarCuotaSocioBtn' className='partnersContainer__form__credentials__btn__prop' onClick={handlePartnerPay}>Registrarse</button>
+                                    <div className='partnersContainerIsLoggedIn__form__credentials__btn'>
+                                        <button id='pagarCuotaSocioBtn' className='partnersContainerIsLoggedIn__form__credentials__btn__prop' onClick={handlePartnerPay}>Registrarse</button>
                                     </div> 
                                 </form>
                             </div>

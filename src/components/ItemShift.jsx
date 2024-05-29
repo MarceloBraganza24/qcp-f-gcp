@@ -9,11 +9,11 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
     let scheduleM = scheduleArray[1];
 
     const [modalOpen, setModalOpen] = useState(false);
-    const {isOpen, handleModal} = useContext(OpenModalContext);
+    const {updateShiftModal, handleUpdateShiftModal} = useContext(OpenModalContext);
 
     const handleBtnUpdShift = async() => {
         setModalOpen(true);
-        handleModal(true);
+        handleUpdateShiftModal(true);
     };
 
     const buttonDisabledStyle = {
@@ -39,13 +39,13 @@ const ItemShift = ({id, first_name,last_name,date,schedule}) => {
                 <div className='itemShift__inputSchedule__prop'>{scheduleM}</div>
             </div>
             {
-                !modalOpen&&!isOpen?
+                !modalOpen&&!updateShiftModal?
                 <div className='itemShift__btns'>
                     <button className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Editar</button>
                 </div>
                 :
                 <div className='itemShift__btns'>
-                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn' onClick={handleBtnUpdShift}>Editar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemShift__btns__btn'>Editar</button>
                 </div>
             }
         </div>

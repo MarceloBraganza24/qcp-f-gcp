@@ -177,6 +177,7 @@
         height: auto;
         @include disFC();
         flex-direction: column;
+        padding: 4vh 0vh 4vh 0vh;
         &__phrase {
             color: white;
         }

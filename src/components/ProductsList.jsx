@@ -16,7 +16,7 @@ const ProductsList = () => {
     const [role, setRole] = useState('');
     const [inputFilteredProducts, setInputFilteredProducts] = useState('');
     const [products, setProducts] = useState([]);
-    const {isOpen} = useContext(OpenModalContext);
+    const {updateProductsModal} = useContext(OpenModalContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -159,7 +159,7 @@ const ProductsList = () => {
                     <div className='productsListContainer__title'>- Productos -</div>
                     <div className='productsListContainer__inputFilteredProducts'>
                         {
-                            !isOpen?
+                            !updateProductsModal?
                             <input type='text' className='productsListContainer__inputFilteredProducts__prop' placeholder='Ingrese un producto' value={inputFilteredProducts} onChange={(e) => {setInputFilteredProducts(e.target.value)}}/>
                             :
                             <input disabled style={buttonDisabledStyle} type='text' className='productsListContainer__inputFilteredProducts__prop' placeholder='Ingrese un producto' value={inputFilteredProducts} onChange={(e) => {setInputFilteredProducts(e.target.value)}}/>
@@ -174,31 +174,51 @@ const ProductsList = () => {
                             <div className='productsListContainer__productsList__header__label'>Categoría</div>
                         </div>
                         <div className='itemCreateProduct'>
-                            <div className='itemCreateProduct__input'>
-                                <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputTitleProd} onChange={handleInputTitleProd}/>
-                            </div>
-                            <div className='itemCreateProduct__input'>
-                                <input className='itemCreateProduct__input__prop' placeholder='-' value={inputDescriptionProd} onChange={handleInputDescriptionProd}/>
-                            </div>
-                            <div className='itemCreateProduct__input'>
-                                <input className='itemCreateProduct__input__prop' placeholder='-' value={inputPriceProd} onChange={handleInputPriceProd}/>
-                            </div>
-                            <div className='itemCreateProduct__input'>
-                                <input className='itemCreateProduct__input__prop' placeholder='-' value={inputStockProd} onChange={handleInputStockProd}/>
-                            </div>
-                            <div className='itemCreateProduct__input'>
-                                <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputCategoryProd} onChange={handleInputCategoryProd}/>
-                            </div>
                             {
-                                !isOpen?
-                                <div className='itemCreateProduct__btns'>
-                                    <button id='btnCreateProduct' className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
-                                    <div id='spinnerBtnCreateProduct' className='spinner'></div>
-                                </div>
+                                !updateProductsModal?
+                                <>
+                                    <div className='itemCreateProduct__input'>
+                                        <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputTitleProd} onChange={handleInputTitleProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__input'>
+                                        <input className='itemCreateProduct__input__prop' placeholder='-' value={inputDescriptionProd} onChange={handleInputDescriptionProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__input'>
+                                        <input className='itemCreateProduct__input__prop' placeholder='-' value={inputPriceProd} onChange={handleInputPriceProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__input'>
+                                        <input className='itemCreateProduct__input__prop' placeholder='-' value={inputStockProd} onChange={handleInputStockProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__input'>
+                                        <input type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputCategoryProd} onChange={handleInputCategoryProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__btns'>
+                                        <button id='btnCreateProduct' className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
+                                        <div id='spinnerBtnCreateProduct' className='spinner'></div>
+                                    </div>
+                                </>
                                 :
-                                <div className='itemCreateProduct__btns'>
-                                    <button disabled style={buttonDisabledStyle} className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
-                                </div>
+                                <>
+                                    <div className='itemCreateProduct__input'>
+                                        <input disabled type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputTitleProd} onChange={handleInputTitleProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__input'>
+                                        <input disabled className='itemCreateProduct__input__prop' placeholder='-' value={inputDescriptionProd} onChange={handleInputDescriptionProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__input'>
+                                        <input disabled className='itemCreateProduct__input__prop' placeholder='-' value={inputPriceProd} onChange={handleInputPriceProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__input'>
+                                        <input disabled className='itemCreateProduct__input__prop' placeholder='-' value={inputStockProd} onChange={handleInputStockProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__input'>
+                                        <input disabled type='text' className='itemCreateProduct__input__prop' placeholder='-' value={inputCategoryProd} onChange={handleInputCategoryProd}/>
+                                    </div>
+                                    <div className='itemCreateProduct__btns'>
+                                        <button disabled id='btnCreateProduct' style={buttonDisabledStyle} className='itemCreateProduct__btns__btn' onClick={handleBtnCreateProduct}>Registrar producto</button>
+                                        <div id='spinnerBtnCreateProduct' className='spinner'></div>
+                                    </div>
+                                </>
                             }
                         </div>
                         {

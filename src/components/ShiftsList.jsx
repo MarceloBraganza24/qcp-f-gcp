@@ -18,7 +18,7 @@ const ShiftsList = () => {
     const {isLoggedIn, login, logout} = useContext(IsLoggedContext);
     const [role, setRole] = useState('');
     const [shifts, setShifts] = useState([]);
-    const {isOpen} = useContext(OpenModalContext);
+    const {updateShiftModal} = useContext(OpenModalContext);
     
     const [selectedYearValue, setSelectedYearsValue] = useState(`${new Date().getFullYear()}`);
     
@@ -198,7 +198,7 @@ const ShiftsList = () => {
                         <div className='shiftsListContainer__selects__labelSelect'>
                             <div className='shiftsListContainer__selects__labelSelect__label'>Año:</div>
                             {       
-                                !isOpen?
+                                !updateShiftModal?
                                 <select value={selectedYearValue} className='shiftsListContainer__selects__labelSelect__select' onChange={handleSelectYears}>
                                     <option value="2024">2024</option>
                                     <option value="2025">2025</option>
@@ -223,7 +223,7 @@ const ShiftsList = () => {
                         <div className='shiftsListContainer__selects__labelSelect'>
                             <div className='shiftsListContainer__selects__labelSelect__label'>Mes:</div>
                             {       
-                                !isOpen?
+                                !updateShiftModal?
                                 <select value={selectedMonthValue} className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectMonths}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -258,7 +258,7 @@ const ShiftsList = () => {
                         <div className='shiftsListContainer__selects__labelSelect'>
                             <div className='shiftsListContainer__selects__labelSelect__label'>Día:</div>
                             {       
-                                !isOpen?
+                                !updateShiftModal?
                                 <select className='shiftsListContainer__selects__labelSelect__selectDays' onChange={handleSelectDay} value={selectedDayValue}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -337,35 +337,60 @@ const ShiftsList = () => {
                             <div className='shiftsListContainer__shiftsList__header__label'>Horario</div>
                         </div>
                         <div className='itemCreateShift'>
-                            <div className='itemCreateShift__input'>
-                                <input type='text' className='itemCreateShift__input__prop' placeholder='-' value={inputFirstNameShL} onChange={handleInputFirstNameShL}/>
-                            </div>
-                            <div className='itemCreateShift__input'>
-                                <input type='text' className='itemCreateShift__input__prop' placeholder='-' value={inputLastNameShL} onChange={handleInputLastNameShL}/>
-                            </div>
-                            <div className='itemCreateShift__input'>
-                                <DatePicker className='datePikerCreateShift'
-                                    selected={inputDateShL}
-                                    onChange={handleDateChange}
-                                    dateFormat="dd/MM/yyyy"
-                                    placeholderText='-'
-                                />
-                            </div>
-                            <div className='itemCreateShift__inputSchedule'>
-                                <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleHShL} onBlur={handleOnBlurInputScheduleH} onChange={handleInputScheduleHShL}/>
-                                <div>:</div>
-                                <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleMShL} onBlur={handleOnBlurInputScheduleM} onChange={handleInputScheduleMShL}/>
-                            </div>
                             {
-                                !isOpen?
-                                <div className='itemCreateShift__btns'>
-                                    <button id='btnCreateShift' className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
-                                    <div id='spinnerBtnCreateShift' className='spinner'></div>
-                                </div>
+                                !updateShiftModal?
+                                <>
+                                    <div className='itemCreateShift__input'>
+                                        <input type='text' className='itemCreateShift__input__prop' placeholder='-' value={inputFirstNameShL} onChange={handleInputFirstNameShL}/>
+                                    </div>
+                                    <div className='itemCreateShift__input'>
+                                        <input type='text' className='itemCreateShift__input__prop' placeholder='-' value={inputLastNameShL} onChange={handleInputLastNameShL}/>
+                                    </div>
+                                    <div className='itemCreateShift__input'>
+                                        <DatePicker className='datePikerCreateShift'
+                                            selected={inputDateShL}
+                                            onChange={handleDateChange}
+                                            dateFormat="dd/MM/yyyy"
+                                            placeholderText='-'
+                                        />
+                                    </div>
+                                    <div className='itemCreateShift__inputSchedule'>
+                                        <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleHShL} onBlur={handleOnBlurInputScheduleH} onChange={handleInputScheduleHShL}/>
+                                        <div>:</div>
+                                        <input className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleMShL} onBlur={handleOnBlurInputScheduleM} onChange={handleInputScheduleMShL}/>
+                                    </div>
+                                    <div className='itemCreateShift__btns'>
+                                        <button id='btnCreateShift' className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
+                                        <div id='spinnerBtnCreateShift' className='spinner'></div>
+                                    </div>
+                                </>
                                 :
-                                <div className='itemCreateShift__btns'>
-                                    <button disabled style={buttonDisabledStyle} className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
-                                </div>
+                                <>
+                                    <div className='itemCreateShift__input'>
+                                        <input disabled type='text' className='itemCreateShift__input__prop' placeholder='-' value={inputFirstNameShL} onChange={handleInputFirstNameShL}/>
+                                    </div>
+                                    <div className='itemCreateShift__input'>
+                                        <input disabled type='text' className='itemCreateShift__input__prop' placeholder='-' value={inputLastNameShL} onChange={handleInputLastNameShL}/>
+                                    </div>
+                                    <div className='itemCreateShift__input'>
+                                        <DatePicker className='datePikerCreateShift'
+                                            selected={inputDateShL}
+                                            onChange={handleDateChange}
+                                            dateFormat="dd/MM/yyyy"
+                                            placeholderText='-'
+                                            disabled
+                                        />
+                                    </div>
+                                    <div className='itemCreateShift__inputSchedule'>
+                                        <input disabled className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleHShL} onBlur={handleOnBlurInputScheduleH} onChange={handleInputScheduleHShL}/>
+                                        <div>:</div>
+                                        <input disabled className='itemCreateShift__inputSchedule__prop' placeholder='-' maxLength={2} value={inputScheduleMShL} onBlur={handleOnBlurInputScheduleM} onChange={handleInputScheduleMShL}/>
+                                    </div>
+                                    <div className='itemCreateShift__btns'>
+                                        <button disabled style={buttonDisabledStyle} id='btnCreateShift' className='itemCreateShift__btns__btn' onClick={handleBtnCreateShift}>Crear turno</button>
+                                        <div id='spinnerBtnCreateShift' className='spinner'></div>
+                                    </div>
+                                </>
                             }
                         </div>
                     {

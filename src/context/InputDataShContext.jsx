@@ -13,11 +13,13 @@ export const ParentComponent = ({children}) => {
   const [inputPriceSh, setInputPriceSh] = useState('');
 
   const handleInputFirstNameSh = (e) => {
-    setInputFirstNameSh(e);
+    const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
+    setInputFirstNameSh(texto);
   };
 
   const handleInputLastNameSh = (e) => {
-    setInputLastNameSh(e);
+    const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
+    setInputLastNameSh(texto);
   };
 
   const handleInputDateSh = (e) => {

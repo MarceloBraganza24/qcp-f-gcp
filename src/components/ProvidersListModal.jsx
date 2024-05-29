@@ -1,15 +1,14 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
 
 const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
-    const [inputChanges, setInputChanges] = useState(false);
-
     const [inputBusinessNameIPr, setInputBusinessNameIPr] = useState('');
     const [inputCuitCuilIPr, setInputCuitCuilIPr] = useState('');
     const [inputPhoneIPr, setInputPhoneIPr] = useState('');
     const [inputEmailIPr, setInputEmailIPr] = useState('');
 
-    const [confirmationDeleteModal, setConfirmationDeleteModal] = useState(false);
+    const [confirmationDelProvidersModal, handleConfirmationDelProvidersModal] = useState(false);
 
     const handleInputBusinessNameIPr = (e) => {
         const texto = e.target.value;
@@ -40,7 +39,8 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
     };
 
     const handleBtnDelProvider = async() => {
-        setConfirmationDeleteModal(true)
+        handleConfirmationDelProvidersModal(true);
+        setInputChanges(true);
     };
 
     const validateEmail = (email) => {
@@ -190,7 +190,7 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
         };
 
         const handleBtnConfirmationDeleteBtnNo = () => {
-            setConfirmationDeleteModal(false)
+            handleConfirmationDelProvidersModal(false);
         }
 
         return (
@@ -210,15 +210,26 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
         )
     }
 
+    const closeM = () => {
+        window.reload();
+    }
+
+    const buttonDisabledStyle = {
+        color: 'white',
+        cursor: 'pointer'
+    };
+
     return (
     <>
         <div className='providersModalContainer'>
             <div className='providersModalContainer__btnCloseModal'>
                 {
-                    !inputChanges?
-                    <a className='providersModalContainer__btnCloseModal__prop' href="https://que-corte-peluquerias-frontend-mkxktyjzsa-rj.a.run.app/providersList">cerrar</a>
+                    !confirmationDelProvidersModal?
+                    <Link onClick={closeM} to={"/providersList"} className='providersModalContainer__btnCloseModal__prop'>
+                        Cerrar
+                    </Link>
                     :
-                    <div className='providersModalContainer__btnCloseModal__prop'>cerrar</div>
+                    <div className='providersModalContainer__btnCloseModal__prop'>Cerrar</div>
                 }
             </div>
             <div className='providersModalContainer__header'>
@@ -228,26 +239,51 @@ const ProvidersListModal = ({id,businessName,cuitCuil,phone,email}) => {
                 <div className='providersModalContainer__header__label'>Email</div>
             </div>
             <div className='providersModalContainer__itemProvider'>
-                <div className='providersModalContainer__itemProvider__input'>
-                    <input className='providersModalContainer__itemProvider__input__prop' value={!inputBusinessNameIPr?businessName:inputBusinessNameIPr} onChange={handleInputBusinessNameIPr}/>
-                </div>
-                <div className='providersModalContainer__itemProvider__input'>
-                    <input className='providersModalContainer__itemProvider__input__prop' value={!inputCuitCuilIPr?cuitCuil:inputCuitCuilIPr} onChange={handleInputCuitCuilIIPr}/>
-                </div>
-                <div className='providersModalContainer__itemProvider__input'>
-                    <input className='providersModalContainer__itemProvider__input__prop' value={!inputPhoneIPr?phone:inputPhoneIPr} onChange={handleInputPhoneIPr}/>
-                </div>
-                <div className='providersModalContainer__itemProvider__input'>
-                    <input className='providersModalContainer__itemProvider__input__prop' value={!inputEmailIPr?email:inputEmailIPr} onChange={handleInputEmailIPr}/>
-                </div>
-                <div className='providersModalContainer__itemProvider__btns'>
-                    <button className='providersModalContainer__itemProvider__btns__btn' onClick={handleBtnDelProvider}>Borrar</button>
-                    <button id='btnCreateProvider' className='providersModalContainer__itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
-                    <div id='spinnerBtnCreateProvider' className='spinner'></div>
-                </div>
+                {
+                    !confirmationDelProvidersModal?
+                    <>
+                        <div className='providersModalContainer__itemProvider__input'>
+                            <input className='providersModalContainer__itemProvider__input__prop' value={!inputBusinessNameIPr?businessName:inputBusinessNameIPr} onChange={handleInputBusinessNameIPr}/>
+                        </div>
+                        <div className='providersModalContainer__itemProvider__input'>
+                            <input className='providersModalContainer__itemProvider__input__prop' value={!inputCuitCuilIPr?cuitCuil:inputCuitCuilIPr} onChange={handleInputCuitCuilIIPr}/>
+                        </div>
+                        <div className='providersModalContainer__itemProvider__input'>
+                            <input className='providersModalContainer__itemProvider__input__prop' value={!inputPhoneIPr?phone:inputPhoneIPr} onChange={handleInputPhoneIPr}/>
+                        </div>
+                        <div className='providersModalContainer__itemProvider__input'>
+                            <input className='providersModalContainer__itemProvider__input__prop' value={!inputEmailIPr?email:inputEmailIPr} onChange={handleInputEmailIPr}/>
+                        </div>
+                        <div className='providersModalContainer__itemProvider__btns'>
+                            <button className='providersModalContainer__itemProvider__btns__btn' onClick={handleBtnDelProvider}>Borrar</button>
+                            <button id='btnCreateProvider' className='providersModalContainer__itemProvider__btns__btn' onClick={handleBtnUpdProvider}>Actualizar</button>
+                            <div id='spinnerBtnCreateProvider' className='spinner'></div>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className='providersModalContainer__itemProvider__input'>
+                            <input disabled className='providersModalContainer__itemProvider__input__prop' value={!inputBusinessNameIPr?businessName:inputBusinessNameIPr} onChange={handleInputBusinessNameIPr}/>
+                        </div>
+                        <div className='providersModalContainer__itemProvider__input'>
+                            <input disabled className='providersModalContainer__itemProvider__input__prop' value={!inputCuitCuilIPr?cuitCuil:inputCuitCuilIPr} onChange={handleInputCuitCuilIIPr}/>
+                        </div>
+                        <div className='providersModalContainer__itemProvider__input'>
+                            <input disabled className='providersModalContainer__itemProvider__input__prop' value={!inputPhoneIPr?phone:inputPhoneIPr} onChange={handleInputPhoneIPr}/>
+                        </div>
+                        <div className='providersModalContainer__itemProvider__input'>
+                            <input disabled className='providersModalContainer__itemProvider__input__prop' value={!inputEmailIPr?email:inputEmailIPr} onChange={handleInputEmailIPr}/>
+                        </div>
+                        <div className='providersModalContainer__itemProvider__btns'>
+                            <button className='providersModalContainer__itemProvider__btns__btn'>Borrar</button>
+                            <button disabled style={buttonDisabledStyle} id='btnCreateProvider' className='providersModalContainer__itemProvider__btns__btn'>Actualizar</button>
+                        </div>
+                    </>
+                }
+                
             </div>
             {
-                confirmationDeleteModal&&<ConfirmationDeleteModal/>
+                confirmationDelProvidersModal&&<ConfirmationDeleteModal/>
             }
         </div>
     </>

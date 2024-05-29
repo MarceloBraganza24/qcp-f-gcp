@@ -16,7 +16,7 @@ const PartnersList = () => {
     const [role, setRole] = useState('');
     const [inputFilteredPartners, setInputFilteredPartners] = useState('');
     const [partners, setPartners] = useState([]);
-    const {isOpen} = useContext(OpenModalContext);
+    const {updatePartnerModal} = useContext(OpenModalContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -209,7 +209,7 @@ const PartnersList = () => {
                     <div className='partnersListContainer__title'>- Socios -</div>
                     <div className='partnersListContainer__inputFilteredPartners'>
                         {
-                            !isOpen?
+                            !updatePartnerModal?
                             <input id='inputFilteredPartners' type='text' className='partnersListContainer__inputFilteredPartners__prop' placeholder='Ingrese un apellido' value={inputFilteredPartners} onChange={(e) => {setInputFilteredPartners(e.target.value)}}/>
                             :
                             <input disabled style={buttonDisabledStyle} id='inputFilteredPartners' type='text' className='partnersListContainer__inputFilteredPartners__prop' placeholder='Ingrese un apellido' value={inputFilteredPartners} onChange={(e) => {setInputFilteredPartners(e.target.value)}}/>
@@ -224,31 +224,51 @@ const PartnersList = () => {
                             <div className='partnersListContainer__partnersList__header__label'>Email</div>
                         </div>
                         <div className='itemCreatePartner'>
-                            <div className='itemCreatePartner__input'>
-                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputFirstNamePaL} onChange={handleInputFirstNamePaL}/>
-                            </div>
-                            <div className='itemCreatePartner__input'>
-                                <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputLastNamePaL} onChange={handleInputLastNamePaL}/>
-                            </div>
-                            <div className='itemCreatePartner__input'>
-                                <input className='itemCreatePartner__input__prop' placeholder='-' value={inputDniPaL} onChange={handleInputDniPaL}/>
-                            </div>
-                            <div className='itemCreatePartner__input'>
-                                <input className='itemCreatePartner__input__prop' placeholder='-' value={inputPhonePaL} onChange={handleInputPhonePaL}/>
-                            </div>
-                            <div className='itemCreatePartner__input'>
-                                <input type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPaL} onChange={handleInputEmailPaL}/>
-                            </div>
                             {
-                                !isOpen?
-                                <div className='itemCreatePartner__btns'>
-                                    <button id='btnCreatePartner' className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
-                                    <div id='spinnerBtnCreatePartner' className='spinner'></div>
-                                </div>
+                                !updatePartnerModal?
+                                <>
+                                    <div className='itemCreatePartner__input'>
+                                        <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputFirstNamePaL} onChange={handleInputFirstNamePaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__input'>
+                                        <input type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputLastNamePaL} onChange={handleInputLastNamePaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__input'>
+                                        <input className='itemCreatePartner__input__prop' placeholder='-' value={inputDniPaL} onChange={handleInputDniPaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__input'>
+                                        <input className='itemCreatePartner__input__prop' placeholder='-' value={inputPhonePaL} onChange={handleInputPhonePaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__input'>
+                                        <input type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPaL} onChange={handleInputEmailPaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__btns'>
+                                        <button id='btnCreatePartner' className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
+                                        <div id='spinnerBtnCreatePartner' className='spinner'></div>
+                                    </div>
+                                </>
                                 :
-                                <div className='itemCreatePartner__btns'>
-                                    <button disabled style={buttonDisabledStyle} className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
-                                </div>
+                                <>
+                                    <div className='itemCreatePartner__input'>
+                                        <input disabled type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputFirstNamePaL} onChange={handleInputFirstNamePaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__input'>
+                                        <input disabled type='text' className='itemCreatePartner__input__prop' placeholder='-' value={inputLastNamePaL} onChange={handleInputLastNamePaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__input'>
+                                        <input disabled className='itemCreatePartner__input__prop' placeholder='-' value={inputDniPaL} onChange={handleInputDniPaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__input'>
+                                        <input disabled className='itemCreatePartner__input__prop' placeholder='-' value={inputPhonePaL} onChange={handleInputPhonePaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__input'>
+                                        <input disabled type='email' className='itemCreatePartner__input__prop' placeholder='-' value={inputEmailPaL} onChange={handleInputEmailPaL}/>
+                                    </div>
+                                    <div className='itemCreatePartner__btns'>
+                                        <button disabled style={buttonDisabledStyle} id='btnCreatePartner' className='itemCreatePartner__btns__btn' onClick={handleBtnCreatePartner}>Registrar socio</button>
+                                        <div id='spinnerBtnCreatePartner' className='spinner'></div>
+                                    </div>
+                                </>
                             }
                         </div>
                         {

@@ -1,5 +1,4 @@
 .hMenuMobile {
-    //background-color: white;
     width: 6vh;
     height: 6vh;
     display: flex;
@@ -21,7 +20,7 @@
     background-color: black;
     width: 35vh;
     height: auto;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: start;
     position: absolute;
@@ -34,7 +33,6 @@
     &__item {
         color: white;
         text-decoration: none;
-        z-index: 2;
         &:hover {
             cursor: pointer;
             text-decoration: underline;
@@ -82,7 +80,7 @@
     background-color: black;
     width: 30vh;
     height: auto;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: start;
     position: absolute;
@@ -119,6 +117,9 @@
 
 @media (max-width: 480px) {
 .hMenu {
+    display: none;
+}
+.menuOptions {
     display: none;
 }
 }

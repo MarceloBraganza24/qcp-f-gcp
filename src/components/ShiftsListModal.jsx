@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast } from "react-toastify";
 import { format } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
+import { Link } from 'react-router-dom';
+//import {OpenModalContext} from '../context/OpenModalContext'; 
 
 const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
-    const [inputChanges, setInputChanges] = useState(false);
+    const [confirmationDelShiftsModal, handleConfirmationDelShiftsModal] = useState(false);
+    //const {confirmationDelShiftsModal, handleConfirmationDelShiftsModal} = useContext(OpenModalContext);
 
     const fechaUTC = toZonedTime(date, 'UTC');
     const dateFormated = format(fechaUTC, "yyyy/MM/dd");
@@ -22,9 +25,6 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
     const [inputScheduleMISh, handleInputScheduleMISh] = useState('');
     const [scheduleHData, setScheduleHData] = useState('');
     const [scheduleMData, setScheduleMData] = useState('');
-
-    const [confirmationDeleteModal, setConfirmationDeleteModal] = useState(false);
-    
 
     useEffect(() => {
         setScheduleHData(scheduleH);
@@ -83,7 +83,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
     };
 
     const handleBtnDelShift = async() => {
-        setConfirmationDeleteModal(true)
+        handleConfirmationDelShiftsModal(true);
     };
 
     const handleBtnUpdShift = async() => {
@@ -207,7 +207,7 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
         };
 
         const handleBtnConfirmationDeleteBtnNo = () => {
-            setConfirmationDeleteModal(false)
+            handleConfirmationDelShiftsModal(false)
         }
 
         return (
@@ -227,19 +227,29 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
         )
     }
 
+    const closeM = () => {
+        window.reload();
+    }
+
+    const buttonDisabledStyle = {
+        color: 'white',
+        cursor: 'pointer'
+    };
 
     return (
     <>
         <div className='shiftModalContainer'>
             <div className='shiftModalContainer__btnCloseModal'>
                 {
-                    !inputChanges?
+                    !confirmationDelShiftsModal?
                     <>
-                        <a className='shiftModalContainer__btnCloseModal__prop' href="https://que-corte-peluquerias-frontend-mkxktyjzsa-rj.a.run.app/shiftsList">cerrar</a>
+                        <Link onClick={closeM} to={"/shiftsList"} className='shiftModalContainer__btnCloseModal__prop'>
+                            Cerrar
+                        </Link>
                     </>
                         :
                     <>
-                        <div className='shiftModalContainer__btnCloseModal__prop'>cerrar</div>
+                        <div className='shiftModalContainer__btnCloseModal__prop'>Cerrar</div>
                     </>
                 }
             </div> 
@@ -250,32 +260,63 @@ const ShiftsListModal = ({id,first_name,last_name,date,schedule}) => {
                 <div className='shiftModalContainer__header__label'>- Horario -</div>
             </div>
             <div className='shiftModalContainer__itemShift'>
-                <div className='shiftModalContainer__itemShift__input'>
-                    <input className='shiftModalContainer__itemShift__input__prop' value={!inputFirstNameISh?first_name:inputFirstNameISh}onChange={handleInputFirstNameISh}/>
-                </div>
-                <div className='shiftModalContainer__itemShift__input'>
-                    <input className='shiftModalContainer__itemShift__input__prop' value={!inputLastNameISh?last_name:inputLastNameISh}onChange={handleInputLastNameISh}/>
-                </div>
-                <div className='shiftModalContainer__itemShift__input'>
-                    <DatePicker className='datePikerShiftsList'
-                        selected={!inputDateISh?dateFormated:inputDateISh}
-                        onChange={handleDateChange}
-                        dateFormat="dd/MM/yyyy"
-                    />
-                </div>
-                <div className='shiftModalContainer__itemShift__inputSchedule'>
-                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' maxLength={2} value={!inputScheduleHISh?scheduleHData:inputScheduleHISh} onChange={handleInputScheduleH} onBlur={handleOnBlurInputScheduleH} onKeyDown={handleKeyDownH}/>
-                    <div>:</div>
-                    <input className='shiftModalContainer__itemShift__inputSchedule__prop' maxLength={2} value={!inputScheduleMISh?scheduleMData:inputScheduleMISh} onChange={handleInputScheduleM} onBlur={handleOnBlurInputScheduleM} onKeyDown={handleKeyDownM}/>
-                </div>
-                <div className='shiftModalContainer__itemShift__btns'>
-                    <button className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
-                    <button id='btnUpdateShift' className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
-                    <div id='spinnerBtnUpdateShift' className='spinner'></div>
-                </div>
+                {
+                    !confirmationDelShiftsModal?
+                    <>
+                        <div className='shiftModalContainer__itemShift__input'>
+                            <input className='shiftModalContainer__itemShift__input__prop' value={!inputFirstNameISh?first_name:inputFirstNameISh}onChange={handleInputFirstNameISh}/>
+                        </div>
+                        <div className='shiftModalContainer__itemShift__input'>
+                            <input className='shiftModalContainer__itemShift__input__prop' value={!inputLastNameISh?last_name:inputLastNameISh}onChange={handleInputLastNameISh}/>
+                        </div>
+                        <div className='shiftModalContainer__itemShift__input'>
+                            <DatePicker className='datePikerShiftsList'
+                                selected={!inputDateISh?dateFormated:inputDateISh}
+                                onChange={handleDateChange}
+                                dateFormat="dd/MM/yyyy"
+                            />
+                        </div>
+                        <div className='shiftModalContainer__itemShift__inputSchedule'>
+                            <input className='shiftModalContainer__itemShift__inputSchedule__prop' maxLength={2} value={!inputScheduleHISh?scheduleHData:inputScheduleHISh} onChange={handleInputScheduleH} onBlur={handleOnBlurInputScheduleH} onKeyDown={handleKeyDownH}/>
+                            <div>:</div>
+                            <input className='shiftModalContainer__itemShift__inputSchedule__prop' maxLength={2} value={!inputScheduleMISh?scheduleMData:inputScheduleMISh} onChange={handleInputScheduleM} onBlur={handleOnBlurInputScheduleM} onKeyDown={handleKeyDownM}/>
+                        </div>
+                        <div className='shiftModalContainer__itemShift__btns'>
+                            <button className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnDelShift}>Borrar</button>
+                            <button id='btnUpdateShift' className='shiftModalContainer__itemShift__btns__btn' onClick={handleBtnUpdShift}>Actualizar</button>
+                            <div id='spinnerBtnUpdateShift' className='spinner'></div>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className='shiftModalContainer__itemShift__input'>
+                            <input disabled className='shiftModalContainer__itemShift__input__prop' value={!inputFirstNameISh?first_name:inputFirstNameISh}onChange={handleInputFirstNameISh}/>
+                        </div>
+                        <div className='shiftModalContainer__itemShift__input'>
+                            <input disabled className='shiftModalContainer__itemShift__input__prop' value={!inputLastNameISh?last_name:inputLastNameISh}onChange={handleInputLastNameISh}/>
+                        </div>
+                        <div className='shiftModalContainer__itemShift__input'>
+                            <DatePicker className='datePikerShiftsList'
+                                selected={!inputDateISh?dateFormated:inputDateISh}
+                                onChange={handleDateChange}
+                                dateFormat="dd/MM/yyyy"
+                                disabled
+                            />
+                        </div>
+                        <div className='shiftModalContainer__itemShift__inputSchedule'>
+                            <input disabled className='shiftModalContainer__itemShift__inputSchedule__prop' maxLength={2} value={!inputScheduleHISh?scheduleHData:inputScheduleHISh} onChange={handleInputScheduleH} onBlur={handleOnBlurInputScheduleH} onKeyDown={handleKeyDownH}/>
+                            <div>:</div>
+                            <input disabled className='shiftModalContainer__itemShift__inputSchedule__prop' maxLength={2} value={!inputScheduleMISh?scheduleMData:inputScheduleMISh} onChange={handleInputScheduleM} onBlur={handleOnBlurInputScheduleM} onKeyDown={handleKeyDownM}/>
+                        </div>
+                        <div className='shiftModalContainer__itemShift__btns'>
+                            <button className='shiftModalContainer__itemShift__btns__btn'>Borrar</button>
+                            <button disabled id='btnUpdateShift' style={buttonDisabledStyle} className='shiftModalContainer__itemShift__btns__btn'>Actualizar</button>
+                        </div>
+                    </>
+                }
             </div>
             {
-                confirmationDeleteModal&&<ConfirmationDeleteModal/>
+                confirmationDelShiftsModal&&<ConfirmationDeleteModal/>
             }
         </div>
     </>

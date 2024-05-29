@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import {OpenModalContext} from '../context/OpenModalContext'; 
 
 const Footer = () => {
-    const {isOpen} = useContext(OpenModalContext);
+    const {updateShiftModal,updatePartnerModal,updateProviderModal,updateProductsModal} = useContext(OpenModalContext);
 
   return (
     <div className='footerContainer'>
@@ -10,7 +10,7 @@ const Footer = () => {
             <div className='footerContainer__social-networks__logo-link'>
                 <img className='footerContainer__social-networks__logo-link__logo' src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj53U5Xgk3kFPa85_nVDnhi_026YYTpOvc2huRoqYwyz3cD3nP4Tu8rxYUlKXmQTFymJDI62D2n47AD8pRtXzOUajRf1z9ayWlqBadpesRe_2geUEMq-TB_ZXCir0jFKv6lwUpqe57nT_lSnX_S7n4jowLc152S_R2Qiuxqb8_YXl5AmKQimxsO2ri4As8/s50/qcp-logo-face.png" alt="logo-face" />
                 {
-                    !isOpen?
+                    !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                     <a href="https://www.facebook.com/Quecort" className='footerContainer__social-networks__logo-link__link'>Que Corte</a>
                     :
                     <a className='footerContainer__social-networks__logo-link__link'>Que Corte</a>
@@ -32,7 +32,7 @@ const Footer = () => {
             <div className='footerContainer__social-networks__logo-link'>
                 <img className='footerContainer__social-networks__logo-link__logo' src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjMjnBxURMsAUtgPWW0aIbooWvkl_OvFFTEv2aSB0AV55ls35auw7bPOnwlcOGeF6IuHP9Gj-u_fHZnyOcrxmUam7z5nSnAcvrKTSgBXzwG_rqUJQAiWOzO8ksMoQd2epp40oQBJ_jqYMdoOk3xWJJ0zs4bv1IA7KfFsgsplEsrA09D-EMDKCoRY8Bz_tU/s50/qcp-logo-insta.png" alt="logo-face" />
                 {
-                    !isOpen?
+                    !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
                     <a href="https://www.instagram.com/quecorte__/" className='footerContainer__social-networks__logo-link__link'>quecorte__</a>
                     :
                     <a className='footerContainer__social-networks__logo-link__link'>quecorte__</a>

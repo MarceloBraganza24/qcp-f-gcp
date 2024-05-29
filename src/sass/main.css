@@ -462,6 +462,7 @@ h2 {
 }
 .footerContainer__social-networks__logo-link__link:hover {
   color: yellow;
+  cursor: pointer;
 }
 .footerContainer__title-copyrigth {
   width: 100%;
@@ -628,6 +629,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .shiftsContainer__form__credentials__label-input {
   width: 100%;
@@ -682,7 +684,7 @@ h2 {
   align-items: center;
 }
 .shiftsContainerIsLoggedIn__form {
-  width: 60%;
+  width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
@@ -695,11 +697,12 @@ h2 {
   padding-bottom: 2vh;
 }
 .shiftsContainerIsLoggedIn__form__credentials {
-  width: 100%;
+  width: 45%;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .shiftsContainerIsLoggedIn__form__credentials__label-input {
   width: 100%;
@@ -719,17 +722,31 @@ h2 {
   display: flex;
 }
 .shiftsContainerIsLoggedIn__form__credentials__label-input__precio__prop {
+  font-size: 25px;
+  color: white;
+}
+.shiftsContainerIsLoggedIn__form__credentials__label-input__schedule {
+  width: 100%;
+  height: auto;
+  display: flex;
+  gap: 1vh;
+}
+.shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__input {
+  width: 15%;
+  text-align: center;
+}
+.shiftsContainerIsLoggedIn__form__credentials__label-input__schedule__mid {
   font-size: 20px;
   color: white;
 }
-.shiftsContainerIsLoggedIn__form__credentials__label-input__input {
+.shiftsContainerIsLoggedIn__form__credentials__label-input__inputSchedule {
   width: 100%;
   height: 5vh;
 }
-.shiftsContainerIsLoggedIn__form__credentials__label-input__input__precio {
+.shiftsContainerIsLoggedIn__form__credentials__label-input__inputSchedule__precio {
   background-color: black;
   border: none;
-  font-size: 25px;
+  font-size: 30px;
   color: white;
 }
 .shiftsContainerIsLoggedIn__form__credentials__btn {
@@ -1410,6 +1427,9 @@ h2 {
   text-decoration: underline;
   background-color: black;
 }
+.logOut:hover {
+  cursor: pointer;
+}
 
 @media (max-width: 480px) {
   .logOut {
@@ -1705,6 +1725,7 @@ h2 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 4vh 0vh 4vh 0vh;
   }
   .partnersContainerIsLoggedIn__form__phrase {
     color: white;
@@ -2820,7 +2841,7 @@ h2 {
   background-color: black;
   width: 35vh;
   height: auto;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: start;
   position: absolute;
@@ -2834,7 +2855,6 @@ h2 {
 .menuOptionsMobile__item {
   color: white;
   text-decoration: none;
-  z-index: 2;
 }
 .menuOptionsMobile__item:hover {
   cursor: pointer;
@@ -2879,7 +2899,7 @@ h2 {
   background-color: black;
   width: 30vh;
   height: auto;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: start;
   position: absolute;
@@ -2915,6 +2935,9 @@ h2 {
 
 @media (max-width: 480px) {
   .hMenu {
+    display: none;
+  }
+  .menuOptions {
     display: none;
   }
 }
@@ -3044,6 +3067,9 @@ h2 {
   display: block;
   font-size: 25px;
   color: white;
+}
+.confirmationDeleteBtnShiftListModalContainer__askMobile {
+  display: none;
 }
 .confirmationDeleteBtnShiftListModalContainer__btns {
   width: 100%;
@@ -3438,6 +3464,7 @@ h2 {
     display: none;
   }
   .confirmationDeleteBtnShiftListModalContainer__askMobile {
+    display: block;
     text-align: center;
     font-size: 15px;
     color: white;

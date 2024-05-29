@@ -3,23 +3,27 @@ import { Link } from 'react-router-dom'
 import {OpenModalContext} from '../context/OpenModalContext';
 
 const HMenu = () => {
-  const {isOpen} = useContext(OpenModalContext);
+  const {updateShiftModal,updatePartnerModal,updateProviderModal,updateProductsModal,menuOptionsModal,handleMenuOptionsModal} = useContext(OpenModalContext);
 
-  const openW = () => {
-    document.getElementById("menuOptions").style.display = "flex"
+  const openCloseW = () => {
+    if(!menuOptionsModal) {
+      handleMenuOptionsModal(true)
+    } else if(menuOptionsModal) {
+      handleMenuOptionsModal(false)
+    }
   }
 
   return (
     <>
       {
-        !isOpen?
+        !updateShiftModal&&!updatePartnerModal&&!updateProviderModal&&!updateProductsModal?
         <>
-          <div onClick={openW} className='hMenu'>
+          <div onClick={openCloseW} className='hMenu'>
             <div className='hMenu__line'></div>
             <div className='hMenu__line'></div>
             <div className='hMenu__line'></div>
           </div>
-          <MenuOptions/>
+          {menuOptionsModal&&<MenuOptions/>}
         </>
         :
         <>
@@ -28,7 +32,6 @@ const HMenu = () => {
             <div className='hMenu__line'></div>
             <div className='hMenu__line'></div>
           </div>
-          <MenuOptions/>
         </>
       }
       
@@ -38,28 +41,25 @@ const HMenu = () => {
 
 const MenuOptions = () => {
   
-  const closeW = () => {
-    document.getElementById("menuOptions").style.display = "none"
+  const reloadPage = () => {
+    window.reload();
   }
 
   return (
     <>
       <div id='menuOptions' className='menuOptions'>
-        <Link to={"/shiftsList"} className='menuOptions__item'>
+        <Link onClick={reloadPage} to={"/shiftsList"} className='menuOptions__item'>
             - Lista de turnos
         </Link>
-        <Link to={"/partnersList"} className='menuOptions__item'>
+        <Link onClick={reloadPage} to={"/partnersList"} className='menuOptions__item'>
           - Lista de socios
         </Link>
-        <Link to={"/providersList"} className='menuOptions__item'>
+        <Link onClick={reloadPage} to={"/providersList"} className='menuOptions__item'>
           - Lista de proveedores
         </Link>
-        <Link to={"/productsList"} className='menuOptions__item'>
+        <Link onClick={reloadPage} to={"/productsList"} className='menuOptions__item'>
           - Lista de productos
         </Link>
-        <div className='menuOptions__closeW'>
-          <div className='menuOptions__closeW__btn' onClick={closeW}>X</div>
-        </div>
       </div>
     </>
   )

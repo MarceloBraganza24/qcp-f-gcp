@@ -111,6 +111,9 @@
         font-size: 25px;
         color: white;
     }
+    &__askMobile {
+        display: none;
+    }
     &__btns {
         width: 100%;
         height: auto;
@@ -471,6 +474,7 @@
         display: none;
     }
     &__askMobile {
+        display: block;
         text-align: center;
         font-size: 15px;
         color: white;

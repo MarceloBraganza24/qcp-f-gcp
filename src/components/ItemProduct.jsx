@@ -5,11 +5,11 @@ import {OpenModalContext} from '../context/OpenModalContext';
 const ItemProduct = ({id,title,description,price,stock,category}) => {
 
     const [modalOpen, setModalOpen] = useState(false);
-    const {isOpen, handleModal} = useContext(OpenModalContext);
+    const {updateProductsModal, handleUpdateProductModal} = useContext(OpenModalContext);
 
     const handleBtnUpdProduct = async() => {
         setModalOpen(true);
-        handleModal(true);
+        handleUpdateProductModal(true);
     };
 
     const buttonDisabledStyle = {
@@ -36,13 +36,13 @@ const ItemProduct = ({id,title,description,price,stock,category}) => {
                 <div className='itemProduct__input__prop'>{category}</div>
             </div>
             {
-                !modalOpen&&!isOpen?
+                !modalOpen&&!updateProductsModal?
                 <div className='itemProduct__btns'>
                     <button className='itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Editar</button>
                 </div>
                 :
                 <div className='itemProduct__btns'>
-                    <button disabled style={buttonDisabledStyle} className='itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Editar</button>
+                    <button disabled style={buttonDisabledStyle} className='itemProduct__btns__btn'>Editar</button>
                 </div>
             }
         </div>

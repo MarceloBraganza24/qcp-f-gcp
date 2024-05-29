@@ -5,11 +5,11 @@ import {OpenModalContext} from '../context/OpenModalContext';
 const ItemPartner = ({id, first_name,last_name,dni,phone,email}) => {
 
     const [modalOpen, setModalOpen] = useState(false);
-    const {isOpen, handleModal} = useContext(OpenModalContext);
+    const {updatePartnerModal, handleUpdatePartnerModal} = useContext(OpenModalContext);
 
     const handleBtnUpdPartner = async() => {
         setModalOpen(true);
-        handleModal(true);
+        handleUpdatePartnerModal(true);
     };
 
     const buttonDisabledStyle = {
@@ -36,7 +36,7 @@ const ItemPartner = ({id, first_name,last_name,dni,phone,email}) => {
                 <div className='itemPartner__input__prop'>{email}</div>
             </div>
             {
-                !modalOpen&&!isOpen?
+                !modalOpen&&!updatePartnerModal?
                 <div className='itemPartner__btns'>
                     <button className='itemPartner__btns__btn' onClick={handleBtnUpdPartner}>Editar</button>
                 </div>

@@ -12,6 +12,9 @@
     color: white;
     text-decoration: underline;
     background-color: black;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 @media (max-width: 480px) {

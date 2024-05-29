@@ -1,16 +1,15 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
 
 const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
-    const [inputChanges, setInputChanges] = useState(false);
-
     const [inputFirstNameIPa, setInputFirstNameIPa] = useState('');
     const [inputLastNameIPa, setInputLastNameIPa] = useState('');
     const [inputDniIPa, setInputDniIPa] = useState('');
     const [inputPhoneIPa, setInputPhoneIPa] = useState('');
     const [inputEmailIPa, setInputEmailIPa] = useState('');
 
-    const [confirmationDeleteModal, setConfirmationDeleteModal] = useState(false);
+    const [confirmationDelPartnersModal, handleConfirmationDelPartnersModal] = useState(false);
 
     const handleInputFirstNameIPa = (e) => {
         const texto = e.target.value.replace(/[^A-Za-z\s]/gi, '');
@@ -47,7 +46,8 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
     };
 
     const handleBtnDelPartner = async() => {
-        setConfirmationDeleteModal(true)
+        handleConfirmationDelPartnersModal(true);
+        setInputChanges(true);
     };
 
     const validateEmail = (email) => {
@@ -161,7 +161,6 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
     };
 
     const ConfirmationDeleteModal = () => {
-
         const handleBtnDelPartner = async() => {
             const response = await fetch(`https://que-corte-peluquerias-backend-mkxktyjzsa-rj.a.run.app/api/partners/${id}`, {
                 method: 'DELETE',         
@@ -198,7 +197,7 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
         };
 
         const handleBtnConfirmationDeleteBtnNo = () => {
-            setConfirmationDeleteModal(false)
+            handleConfirmationDelPartnersModal(false);
         }
 
         return (
@@ -218,16 +217,27 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
         )
     }
 
+    const closeM = () => {
+        window.reload();
+    }
+
+    const buttonDisabledStyle = {
+        color: 'white',
+        cursor: 'pointer'
+    };
+
     return (
     <>
         
         <div className='partnersModalContainer'>
             <div className='partnersModalContainer__btnCloseModal'>
                 {
-                    !inputChanges?
-                    <a className='partnersModalContainer__btnCloseModal__prop' href="https://que-corte-peluquerias-frontend-mkxktyjzsa-rj.a.run.app/partnersList">cerrar</a>
+                    !confirmationDelPartnersModal?
+                    <Link onClick={closeM} to={"/partnersList"} className='partnersModalContainer__btnCloseModal__prop'>
+                        Cerrar
+                    </Link>
                     :
-                    <div className='partnersModalContainer__btnCloseModal__prop'>cerrar</div>
+                    <div className='partnersModalContainer__btnCloseModal__prop'>Cerrar</div>
                 }
             </div>
             <div className='partnersModalContainer__header'>
@@ -238,29 +248,61 @@ const PartnersListModal = ({id,first_name,last_name,dni,phone,email}) => {
                 <div className='partnersModalContainer__header__label'>Email</div>
             </div>
             <div className='partnersModalContainer__itemPartner'>
-                <div className='partnersModalContainer__itemPartner__input'>
-                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputFirstNameIPa?first_name:inputFirstNameIPa} onChange={handleInputFirstNameIPa}/>
-                </div>
-                <div className='partnersModalContainer__itemPartner__input'>
-                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputLastNameIPa?last_name:inputLastNameIPa} onChange={handleInputLastNameIPa}/>
-                </div>
-                <div className='partnersModalContainer__itemPartner__input'>
-                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputDniIPa?dni:inputDniIPa} onChange={handleInputDniIPa}/>
-                </div>
-                <div className='partnersModalContainer__itemPartner__input'>
-                    <input className='partnersModalContainer__itemPartner__input__prop' value={!inputPhoneIPa?phone:inputPhoneIPa} onChange={handleInputPhoneIPa}/>
-                </div>
-                <div className='partnersModalContainer__itemPartner__input'>
-                    <input type='email' className='partnersModalContainer__itemPartner__input__prop' value={!inputEmailIPa?email:inputEmailIPa} onChange={handleInputEmailIPa}/>
-                </div>
-                <div className='partnersModalContainer__itemPartner__btns'>
-                    <button className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>
-                    <button id='btnCreatePartner' className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
-                    <div id='spinnerBtnCreatePartner' className='spinner'></div>
-                </div>
+                {
+                    !confirmationDelPartnersModal?
+                    <>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input className='partnersModalContainer__itemPartner__input__prop' value={!inputFirstNameIPa?first_name:inputFirstNameIPa} onChange={handleInputFirstNameIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input className='partnersModalContainer__itemPartner__input__prop' value={!inputLastNameIPa?last_name:inputLastNameIPa} onChange={handleInputLastNameIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input className='partnersModalContainer__itemPartner__input__prop' value={!inputDniIPa?dni:inputDniIPa} onChange={handleInputDniIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input className='partnersModalContainer__itemPartner__input__prop' value={!inputPhoneIPa?phone:inputPhoneIPa} onChange={handleInputPhoneIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input type='email' className='partnersModalContainer__itemPartner__input__prop' value={!inputEmailIPa?email:inputEmailIPa} onChange={handleInputEmailIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__btns'>
+                            <button className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnDelPartner}>Borrar</button>
+                            {
+                                !confirmationDelPartnersModal?
+                                <button id='btnCreatePartner' className='partnersModalContainer__itemPartner__btns__btn' onClick={handleBtnUpdPartner}>Actualizar</button>
+                                :
+                                <button disabled id='btnUpdateShift' style={buttonDisabledStyle} className='partnersModalContainer__itemPartner__btns__btn'>Actualizar</button>
+                            }
+                            <div id='spinnerBtnCreatePartner' className='spinner'></div>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input disabled className='partnersModalContainer__itemPartner__input__prop' value={!inputFirstNameIPa?first_name:inputFirstNameIPa} onChange={handleInputFirstNameIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input disabled className='partnersModalContainer__itemPartner__input__prop' value={!inputLastNameIPa?last_name:inputLastNameIPa} onChange={handleInputLastNameIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input disabled className='partnersModalContainer__itemPartner__input__prop' value={!inputDniIPa?dni:inputDniIPa} onChange={handleInputDniIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input disabled className='partnersModalContainer__itemPartner__input__prop' value={!inputPhoneIPa?phone:inputPhoneIPa} onChange={handleInputPhoneIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__input'>
+                            <input disabled type='email' className='partnersModalContainer__itemPartner__input__prop' value={!inputEmailIPa?email:inputEmailIPa} onChange={handleInputEmailIPa}/>
+                        </div>
+                        <div className='partnersModalContainer__itemPartner__btns'>
+                            <button className='partnersModalContainer__itemPartner__btns__btn'>Borrar</button>
+                            <button disabled id='btnUpdateShift' style={buttonDisabledStyle} className='partnersModalContainer__itemPartner__btns__btn'>Actualizar</button>
+                        </div>
+                    </>
+                }
             </div>
             {
-                confirmationDeleteModal&&<ConfirmationDeleteModal/>
+                confirmationDelPartnersModal&&<ConfirmationDeleteModal/>
             }
         </div>
     </>

@@ -1,16 +1,15 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
 
 const ProductsListModal = ({id,title,description,price,stock,category}) => {
-    const [inputChanges, setInputChanges] = useState(false);
-
     const [inputTitleIProd, setInputTitleIProd] = useState('');
     const [inputDescriptionIProd, setinputDescriptionIProd] = useState('');
     const [inputPriceIProd, setInputPriceIProd] = useState('');
     const [inputStockIProd, setInputStockIProd] = useState('');
     const [inputCategoryIProd, setInputCategoryIProd] = useState('');
 
-    const [confirmationDeleteModal, setConfirmationDeleteModal] = useState(false);
+    const [confirmationDelProvidersModal, handleConfirmationDelProvidersModal] = useState(false);
 
     const handleInputTitleIProd = (e) => {
         const inputValue = e.target.value;
@@ -47,7 +46,8 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
     };
 
     const handleBtnDelProduct = async() => {
-        setConfirmationDeleteModal(true)
+        handleConfirmationDelProvidersModal(true)
+        setInputChanges(true);
     };
 
     const handleBtnUpdProduct = async() => {
@@ -147,7 +147,8 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
         };
 
         const handleBtnConfirmationDeleteBtnNo = () => {
-            setConfirmationDeleteModal(false)
+            handleConfirmationDelProvidersModal(false);
+            setInputChanges(false);
         }
 
         return (
@@ -167,15 +168,26 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
         )
     }
 
+    const closeM = () => {
+        window.reload();
+    }
+
+    const buttonDisabledStyle = {
+        color: 'white',
+        cursor: 'pointer'
+    };
+
     return (
     <>
         <div className='productsModalContainer'>
             <div className='productsModalContainer__btnCloseModal'>
                 {
-                    !inputChanges?
-                    <a className='productsModalContainer__btnCloseModal__prop' href="https://que-corte-peluquerias-frontend-mkxktyjzsa-rj.a.run.app/productsList">cerrar</a>
+                    !confirmationDelProvidersModal?
+                    <Link onClick={closeM} to={"/productsList"} className='productsModalContainer__btnCloseModal__prop'>
+                        Cerrar
+                    </Link>
                     :
-                    <div className='productsModalContainer__btnCloseModal__prop'>cerrar</div>
+                    <div className='productsModalContainer__btnCloseModal__prop'>Cerrar</div>
                 }
             </div>
             <div className='productsModalContainer__header'>
@@ -186,29 +198,56 @@ const ProductsListModal = ({id,title,description,price,stock,category}) => {
                 <div className='productsModalContainer__header__label'>Categoría</div>
             </div>
             <div className='productsModalContainer__itemProduct'>
-                <div className='productsModalContainer__itemProduct__input'>
-                    <input className='productsModalContainer__itemProduct__input__prop' value={!inputTitleIProd?title:inputTitleIProd} onChange={handleInputTitleIProd}/>
-                </div>
-                <div className='productsModalContainer__itemProduct__input'>
-                    <input className='productsModalContainer__itemProduct__input__prop' value={!inputDescriptionIProd?description:inputDescriptionIProd} onChange={handleInputDescriptionIProd}/>
-                </div>
-                <div className='productsModalContainer__itemProduct__input'>
-                    <input className='productsModalContainer__itemProduct__input__prop' value={!inputPriceIProd?price:inputPriceIProd} onChange={handleInputPriceIProd}/>
-                </div>
-                <div className='productsModalContainer__itemProduct__input'>
-                    <input className='productsModalContainer__itemProduct__input__prop' value={!inputStockIProd?stock:inputStockIProd} onChange={handleInputStockIProd}/>
-                </div>
-                <div className='productsModalContainer__itemProduct__input'>
-                    <input className='productsModalContainer__itemProduct__input__prop' value={!inputCategoryIProd?category:inputCategoryIProd} onChange={handleInputCategoryIProd}/>
-                </div>
-                <div className='productsModalContainer__itemProduct__btns'>
-                    <button className='productsModalContainer__itemProduct__btns__btn' onClick={handleBtnDelProduct}>Borrar</button>
-                    <button id='btnCreateProduct' className='productsModalContainer__itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
-                    <div id='spinnerBtnCreateProduct' className='spinner'></div>
-                </div>
+                {
+                    !confirmationDelProvidersModal?
+                    <>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input className='productsModalContainer__itemProduct__input__prop' value={!inputTitleIProd?title:inputTitleIProd} onChange={handleInputTitleIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input className='productsModalContainer__itemProduct__input__prop' value={!inputDescriptionIProd?description:inputDescriptionIProd} onChange={handleInputDescriptionIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input className='productsModalContainer__itemProduct__input__prop' value={!inputPriceIProd?price:inputPriceIProd} onChange={handleInputPriceIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input className='productsModalContainer__itemProduct__input__prop' value={!inputStockIProd?stock:inputStockIProd} onChange={handleInputStockIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input className='productsModalContainer__itemProduct__input__prop' value={!inputCategoryIProd?category:inputCategoryIProd} onChange={handleInputCategoryIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__btns'>
+                            <button className='productsModalContainer__itemProduct__btns__btn' onClick={handleBtnDelProduct}>Borrar</button>
+                            <button id='btnCreateProduct' className='productsModalContainer__itemProduct__btns__btn' onClick={handleBtnUpdProduct}>Actualizar</button>
+                            <div id='spinnerBtnCreateProduct' className='spinner'></div>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input disabled className='productsModalContainer__itemProduct__input__prop' value={!inputTitleIProd?title:inputTitleIProd} onChange={handleInputTitleIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input disabled className='productsModalContainer__itemProduct__input__prop' value={!inputDescriptionIProd?description:inputDescriptionIProd} onChange={handleInputDescriptionIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input disabled className='productsModalContainer__itemProduct__input__prop' value={!inputPriceIProd?price:inputPriceIProd} onChange={handleInputPriceIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input disabled className='productsModalContainer__itemProduct__input__prop' value={!inputStockIProd?stock:inputStockIProd} onChange={handleInputStockIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__input'>
+                            <input disabled className='productsModalContainer__itemProduct__input__prop' value={!inputCategoryIProd?category:inputCategoryIProd} onChange={handleInputCategoryIProd}/>
+                        </div>
+                        <div className='productsModalContainer__itemProduct__btns'>
+                            <button className='productsModalContainer__itemProduct__btns__btn'>Borrar</button>
+                            <button disabled style={buttonDisabledStyle} id='btnCreateProduct' className='productsModalContainer__itemProduct__btns__btn'>Actualizar</button>
+                        </div>
+                    </>
+                }
             </div>
             {
-                confirmationDeleteModal&&<ConfirmationDeleteModal/>
+                confirmationDelProvidersModal&&<ConfirmationDeleteModal/>
             }
         </div>
     </>
